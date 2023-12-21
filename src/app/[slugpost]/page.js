@@ -9,7 +9,13 @@ const Post = () => {
       <Breadcumber />
       <div className="mt-2">
         <Row>
-          <Col lg={8} md={12} sm={12} xs={12} style={{ padding: 0 }}>
+          <Col
+            lg={8}
+            md={12}
+            sm={12}
+            xs={12}
+            style={{ padding: 0, borderRight: "1px solid #F2F5F8" }}
+          >
             <PostDetail />
           </Col>
           <Col lg={4} md={12} sm={12} xs={12} style={{ padding: 0 }}>

@@ -11,6 +11,7 @@ const PostComponent = () => {
           src={
             "https://i-raovat.vnecdn.net/2023/06/06/capture-1686046398.PNG?w=1280&h=768&q=100&dpr=1&rt=fit&g=no&wmi=&wmg=ce&wmo=50&wms=30&wmx=0&wmy=0&s=U5b2S7MnZjMc2J9D-0S1PA"
           }
+          alt="a"
           width={220}
           height={135}
           style={{

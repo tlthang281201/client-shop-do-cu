@@ -16,6 +16,7 @@ function Slide() {
       <Carousel activeIndex={index} onSelect={handleSelect}>
         <Carousel.Item>
           <Image
+            alt="a"
             src={
               "https://www.shutterstock.com/image-vector/webinar-horizontal-banner-design-template-600nw-2161997983.jpg"
             }
@@ -27,6 +28,7 @@ function Slide() {
         </Carousel.Item>
         <Carousel.Item>
           <Image
+            alt="a"
             src={
               "https://www.shutterstock.com/image-vector/webinar-horizontal-banner-design-template-600nw-2161997983.jpg"
             }
@@ -36,6 +38,7 @@ function Slide() {
         </Carousel.Item>
         <Carousel.Item>
           <Image
+            alt="a"
             src={
               "https://www.shutterstock.com/image-vector/webinar-horizontal-banner-design-template-600nw-2161997983.jpg"
             }

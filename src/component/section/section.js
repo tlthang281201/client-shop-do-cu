@@ -40,12 +40,12 @@ export const SectionMenu = () => {
     >
       <Container>
         <div className="d-flex justify-content-center flex-row">
-          {category?.parent?.map((parent, index) => (
+          {category?.parent?.map((parent, i) => (
             <div
-              style={{ borderLeft: index !== 0 ? "1px solid gray" : "none" }}
-              key={index}
+              style={{ borderLeft: i !== 0 ? "1px solid gray" : "none" }}
+              key={i}
             >
-              <Dropdown key={index} className="drop">
+              <Dropdown key={i} className="drop">
                 <Dropdown.Toggle
                   style={{
                     background: "none",
@@ -53,7 +53,7 @@ export const SectionMenu = () => {
                     borderRadius: "unset",
                     padding: "0 20px 0 20px",
                   }}
-                  value={index}
+                  value={i}
                   className="py-3"
                   id="dropdown-basic"
                   onClick={() => router.push("/danh-muc/1")}
@@ -62,21 +62,27 @@ export const SectionMenu = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu
+                  key={i}
                   show={true}
                   variant="light"
                   className="dropmenu"
-                  style={{ marginTop: "-2px" }}
+                  style={{
+                    marginTop: "-2px",
+                    display: "none",
+                    zIndex: "9999",
+                  }}
                 >
                   {category?.children?.map(
-                    (children) =>
+                    (children, index) =>
                       children.parent === parent.id && (
-                        <Dropdown.Item className="dropitem">
-                          <Link
-                            style={{ textDecoration: "none" }}
-                            href={`/danh-muc/${children.id}`}
-                          >
-                            {children.name}
-                          </Link>
+                        <Dropdown.Item
+                          className="dropitem"
+                          key={index}
+                          onClick={() =>
+                            router.push(`/danh-muc/${children.id}`)
+                          }
+                        >
+                          {children.name}
                         </Dropdown.Item>
                       )
                   )}

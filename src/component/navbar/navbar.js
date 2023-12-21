@@ -5,7 +5,6 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import styles from "./navbar.css";
 import { Button, Form } from "react-bootstrap";
-import Image from "next/image";
 import Link from "next/link";
 const Header = () => {
   return (

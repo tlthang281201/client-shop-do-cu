@@ -2,20 +2,23 @@
   display: none !important;
 }
 
-.dropitem a {
+.dropitem {
   color: black;
 }
-.dropitem a:hover {
+.dropitem:hover {
   color: blue;
 }
 .dropitem:active {
   background-color: white;
   color: blue;
 }
-.dropmenu {
+/* .dropmenu {
   display: none !important;
   transform: translate(0px, 58px) !important;
   z-index: 9999;
+} */
+.dropmenu {
+  transform: translate(0px, 58px) !important;
 }
 .drop:hover {
   background-color: rgba(255, 255, 255, 0.05);
