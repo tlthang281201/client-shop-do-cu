@@ -1,0 +1,27 @@
+.drop .dropdown-toggle::after {
+  display: none !important;
+}
+
+.dropitem a {
+  color: black;
+}
+.dropitem a:hover {
+  color: blue;
+}
+.dropitem:active {
+  background-color: white;
+  color: blue;
+}
+.dropmenu {
+  display: none !important;
+  z-index: 9999;
+}
+.drop:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.drop .btn:hover {
+  color: #40a691;
+}
+.drop:hover .dropmenu {
+  display: block !important;
+}
