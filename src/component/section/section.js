@@ -12,7 +12,7 @@ export const SectionMenu = () => {
   const [category, setCategory] = useState({ parent: [], children: [] });
   const router = useRouter();
   const importnew = async () => {
-    const Fuse = (await import("./styles.css")).default;
+    const Fuse = await import("./styles.css");
   };
 
   const getCategories = async () => {
@@ -29,7 +29,15 @@ export const SectionMenu = () => {
     getCategories();
   }, []);
   return (
-    <section className="d-flex" style={{ backgroundColor: "#092353" }}>
+    <section
+      className="d-flex"
+      style={{
+        backgroundColor: "#092353",
+        position: "sticky",
+        top: 0,
+        zIndex: 9999,
+      }}
+    >
       <Container>
         <div className="d-flex justify-content-center flex-row">
           {category?.parent?.map((parent, index) => (
