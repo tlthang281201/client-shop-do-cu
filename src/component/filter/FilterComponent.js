@@ -1,9 +1,9 @@
+"use client";
 import { useState } from "react";
 import { Col, Dropdown, Row } from "react-bootstrap";
 import style from "./styles.css";
 import { Slider } from "@mui/material";
 import formatter from "@/utils/format";
-import Breadcumber from "../breadcumber/Breadcumber";
 const FilterComponent = () => {
   const [show, setShow] = useState(false);
   const [value, setValue] = useState([0, 1000000]);
@@ -13,7 +13,6 @@ const FilterComponent = () => {
   };
   return (
     <>
-      <Breadcumber />
       <div style={{ backgroundColor: "white" }} className="mt-2">
         <div className="p-3">
           <Row>

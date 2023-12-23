@@ -64,7 +64,6 @@ const FooterComponent = () => {
                 <li>Tiêu chuẩn duyệt tin</li>
                 <li>Ưu đãi</li>
                 <li>Hướng dẫn đăng tin</li>
-                <li>Hướng dẫn đăng tin</li>
               </ul>
             </div>
           </Col>

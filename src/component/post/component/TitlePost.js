@@ -19,7 +19,7 @@ const TitlePost = () => {
           </span>
         </p>
       </div>
-      <div class="info-location">
+      <div className="info-location">
         <span style={{ fontWeight: "bold", color: "black" }}>Địa chỉ: </span>
         Tên Lửa , Quận Bình Tân, TP Hồ Chí Minh
       </div>

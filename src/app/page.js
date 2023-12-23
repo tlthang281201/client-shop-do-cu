@@ -1,4 +1,4 @@
-"use client";
+import CategorySection from "@/component/category_menu";
 import LeftPost from "@/component/listpost/left/LeftPost";
 import RightPost from "@/component/listpost/right/RightPost";
 import Slide from "@/component/slides/slides";
@@ -6,8 +6,12 @@ import { Col, Container, Row } from "react-bootstrap";
 export default function Index() {
   return (
     <>
-      <Slide />
-
+      <div className="d-none d-md-block">
+        <Slide />
+      </div>
+      <div className="mt-2">
+        <CategorySection />
+      </div>
       <Container>
         <div className="mt-2">
           <Row>

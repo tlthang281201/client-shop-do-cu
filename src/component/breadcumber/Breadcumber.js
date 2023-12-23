@@ -15,7 +15,9 @@ const Breadcumber = () => {
             color: index === a.length - 1 ? "black" : "gray",
           }}
         >
-          {"  "}|{"  "}Âm thanh
+          {"  "}
+          {">"}
+          {"  "}Âm thanh
         </span>
       ))}
     </div>

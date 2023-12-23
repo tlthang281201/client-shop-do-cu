@@ -43,13 +43,13 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav" className="py-3">
             <Nav className="me-auto"></Nav>
             <Form
-              className="d-flex w-50 d-md-block d-sm-none d-none"
+              className="d-flex w-50 d-md-block d-sm-none d-none me-lg-5"
               style={{ position: "relative" }}
             >
               <Form.Control
                 type="search"
                 placeholder="Nhập từ khoá để tìm kiếm"
-                className="me-2 rounded-pill"
+                className="rounded-pill"
                 aria-label="Search"
               />
               <button
@@ -74,8 +74,13 @@ const Header = () => {
                 </svg>
               </button>
             </Form>
-            <Nav className="ms-5">
-              <NavDropdown title="Thang" id="basic-nav-dropdown">
+            <Nav>
+              <NavDropdown
+                title="Thang"
+                id="basic-nav-dropdown"
+                className="me-5"
+                style={{ zIndex: "19999" }}
+              >
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
                   Another action
@@ -88,7 +93,7 @@ const Header = () => {
                 </NavDropdown.Item>
               </NavDropdown>
               <Button
-                className="ms-5 d-flex align-items-center"
+                className="d-flex align-items-center"
                 style={{ backgroundColor: "#40A691", border: "none" }}
               >
                 <svg

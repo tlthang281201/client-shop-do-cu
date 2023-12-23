@@ -1,0 +1,37 @@
+const a = [1, 1, 1, 1, 1, 1, 1, 11, 1, 1];
+export const PostDescription = () => {
+  return (
+    <>
+      <div className="general-information">
+        <div className="box-title">
+          <h2 className="title">Thông tin chi tiết</h2>
+        </div>
+        <div className="box-information">
+          <ul className="list-attributes">
+            {a.map((val, i) => (
+              <li key={i} className="item-attribute">
+                <div style={{ color: "black" }}>
+                  <span className="item-attribute-label">Bảo hành:</span>
+                  <span> 12 tháng </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="line-break"></div>
+      <div className="description">
+        <div className="box-title">
+          <h2 className="title">Mô tả chi tiết</h2>
+        </div>
+        <div className="content-product">
+          <div className="information">
+            <div className="content-detail">
+              <p>lorem</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

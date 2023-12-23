@@ -1,0 +1,45 @@
+.menu-container {
+  max-width: 100%;
+  margin-top: 20px; /* Điều chỉnh chiều rộng tối đa của container */
+}
+
+.menu {
+  display: flex;
+  flex-direction: row; /* Sắp xếp từ trái qua phải */
+  flex-wrap: wrap; /* Cho phép các menu xuống dòng khi không còn không gian ngang */
+  justify-content: center;
+  gap: 35px; /* Khoảng cách giữa các menu */
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  max-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  /* Điều chỉnh kích thước và margin để phù hợp với thiết kế của bạn */
+}
+.category-name {
+  display: -webkit-box;
+  overflow: hidden;
+  max-height: 130px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 600px) {
+  /* Thay đổi hiển thị khi độ rộng màn hình nhỏ hơn 600px (giao diện điện thoại) */
+
+  .menu {
+    display: flex;
+    flex-direction: row; /* Sắp xếp từ trái qua phải */
+    justify-content: center;
+    flex-wrap: wrap; /* Cho phép các menu xuống dòng khi không còn không gian ngang */
+    gap: 15px; /* Khoảng cách giữa các menu */
+  }
+}
+/* Các style khác tùy thuộc vào thiết kế bạn muốn áp dụng */

@@ -1,13 +1,23 @@
-"use client";
+import Breadcumber from "@/component/breadcumber/Breadcumber";
+import CategoryChildrenSection from "@/component/category_menu/children_category";
 import FilterComponent from "@/component/filter/FilterComponent";
 import LeftPost from "@/component/listpost/left/LeftPost";
 import RightPost from "@/component/listpost/right/RightPost";
 import Slide from "@/component/slides/slides";
 import { Col, Container, Row } from "react-bootstrap";
 
-const Page = () => {
+const Page = ({ params }) => {
   return (
     <>
+      <div className="d-none d-md-block">
+        <Slide />
+      </div>
+      <Container>
+        <Breadcumber />
+      </Container>
+      <div className="mt-2">
+        <CategoryChildrenSection slug={params.slug} />
+      </div>
       <Container>
         <FilterComponent />
         <div className="mt-2">

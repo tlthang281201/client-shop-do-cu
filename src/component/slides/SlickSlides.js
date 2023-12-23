@@ -96,7 +96,7 @@ const SlickSlide = () => {
   return (
     <div>
       <Row>
-        <Col lg={9} md={9} sm={9} xs={9}>
+        <Col lg={9} md={9} sm={9} xs={12}>
           <Slider
             asNavFor={nav2}
             ref={(slider) => (slider1 = slider)}
@@ -121,9 +121,8 @@ const SlickSlide = () => {
             ))}
           </Slider>
         </Col>
-        <Col lg={3} md={3} sm={3} xs={3}>
+        <Col lg={3} md={3} sm={3} xs={3} className="d-none d-sm-block">
           <Slider
-            centerMode
             asNavFor={nav1}
             ref={(slider) => (slider2 = slider)}
             slidesToShow={3}
