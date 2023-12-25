@@ -3,6 +3,11 @@ import LeftPost from "@/component/listpost/left/LeftPost";
 import RightPost from "@/component/listpost/right/RightPost";
 import Slide from "@/component/slides/slides";
 import { Col, Container, Row } from "react-bootstrap";
+export async function generateMetadata() {
+  return {
+    title: "Website mua bán đồ cũ",
+  };
+}
 export default function Index() {
   return (
     <>

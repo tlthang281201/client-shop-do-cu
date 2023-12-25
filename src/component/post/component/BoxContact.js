@@ -1,3 +1,4 @@
+import { Rating } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -20,22 +21,29 @@ const BoxContact = () => {
             </Link>
           </div>
           <div className="info-supplier">
-            <p className="info-item">
-              <span className="info-label">Người đăng: </span>
-              <Link href="/user/1003765553" title="haibinh153">
-                haibinh153
-              </Link>
-            </p>
+            <div className="info-item d-flex flex-column">
+              <div>
+                <Link href="/user/1003765553" className="fs-6 ms-1">
+                  haibinh153
+                </Link>
+              </div>
+
+              <div className="d-flex flex-row ">
+                <Rating
+                  name="half-rating-read"
+                  defaultValue={4.4}
+                  precision={0.5}
+                  readOnly
+                />
+                <span className="fw-bold ms-2 fs-6">3.6</span>
+                <Link href={"#"} className="ms-2">( 8 đánh giá )</Link>
+              </div>
+            </div>
             <div className="border-line" bis_skin_checked="1"></div>
-            <p className="info-item">
-              <span className="info-label">Người liên hệ: </span>
-              <Link href="/user/1003765553" title="haibinh153">
-                haibinh153
-              </Link>
-            </p>
+
             <p className="info-item">
               <span className="info-label">Bấm để hiện số: </span>
-              <Button>0123123932</Button>
+              <Button variant="success" className="ms-2">0123123932</Button>
             </p>
           </div>
         </div>

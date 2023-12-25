@@ -9,6 +9,16 @@ export const getCategoryParent = async () => {
   return { cateparent };
 };
 
+export const getCategoryParentById = async (id) => {
+  const { data } = await supabase
+    .from("category_parent")
+    .select()
+    .match({ active: true, id: id })
+    .single();
+
+  return { data };
+};
+
 export const getCategoryChildren = async (id) => {
   const catechildren = await supabase
     .from("category_children")

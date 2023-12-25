@@ -112,7 +112,7 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Nav className="d-md-none">
+      <Nav className="d-md-none " style={{ backgroundColor: "white" }}>
         <Container>
           <Form
             className="d-flex w-50 justify-content-center w-100 mb-3"

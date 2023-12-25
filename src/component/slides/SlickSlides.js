@@ -31,13 +31,14 @@ const SlickSlide = () => {
           zIndex: 999,
           width: "40px",
           height: "40px",
+          padding: 5,
           position: "absolute",
           color: "white",
           transform: "translate(0, -50%)",
           cursor: "pointer",
           border: "none",
           outline: "none",
-          background: "transparent",
+          background: "#000",
           opacity: 0.2,
         }}
         onClick={onClick}
@@ -63,18 +64,18 @@ const SlickSlide = () => {
         style={{
           ...style,
           top: "50%",
-          left: 25,
+          left: 0,
           zIndex: 999,
           width: "40px",
           height: "40px",
-          padding: 0,
+          padding: 5,
           position: "absolute",
           color: "white",
           transform: "translate(0, -50%)",
           cursor: "pointer",
           border: "none",
           outline: "none",
-          background: "transparent",
+          background: "#000",
           opacity: 0.2,
         }}
         onClick={onClick}
@@ -96,7 +97,7 @@ const SlickSlide = () => {
   return (
     <div>
       <Row>
-        <Col lg={9} md={9} sm={9} xs={12}>
+        <Col lg={9} md={9} sm={9} xs={12} style={{backgroundColor: "#eee"}}>
           <Slider
             asNavFor={nav2}
             ref={(slider) => (slider1 = slider)}
@@ -104,7 +105,7 @@ const SlickSlide = () => {
             prevArrow={<PrevArrow />}
           >
             {image.map((value, index) => (
-              <div key={index}>
+              <div key={index} >
                 <Image
                   key={index}
                   alt="a"
@@ -112,6 +113,7 @@ const SlickSlide = () => {
                   style={{
                     maxWidth: "100%",
                     maxHeight: "100%",
+                    objectFit: "contain"
                   }}
                   width={1000}
                   quality={80}

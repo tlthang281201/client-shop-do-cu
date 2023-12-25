@@ -21,9 +21,7 @@ const PostDetail = () => {
         <TitlePost />
       </div>
       <BoxContact />
-      <PostDescription />
-      <div className="line-break"></div>
-      <SuggestedPost />
+      <PostDescription />      
     </div>
   );
 };

@@ -107,19 +107,12 @@
 }
 .info-item {
   position: relative;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
   width: 100%;
   margin-bottom: 3px;
   font-size: 14px;
   line-height: 24px;
 }
-.info-label {
-  width: 110px;
-  -webkit-box-flex: 0;
-  flex: none;
-}
+
 .info-supplier a {
   color: #087cce;
   text-decoration: none;
