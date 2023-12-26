@@ -1,3 +1,6 @@
-/* .nav-link::after {
-  display: none !important;
-} */
+.login:hover {
+  color: #40a691 !important;
+}
+.drop:enabled {
+  border: none !important;
+}

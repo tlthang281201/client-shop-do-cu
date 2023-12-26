@@ -1,8 +1,9 @@
 import CategorySection from "@/component/category_menu";
-import LeftPost from "@/component/listpost/left/LeftPost";
-import RightPost from "@/component/listpost/right/RightPost";
+import FeaturedPost from "@/component/listpost/component/FeaturedPosts";
+import NewPost from "@/component/listpost/component/NewPosts";
+
 import Slide from "@/component/slides/slides";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 export async function generateMetadata() {
   return {
     title: "Website mua bán đồ cũ",
@@ -11,14 +12,14 @@ export async function generateMetadata() {
 export default function Index() {
   return (
     <>
-      <div className="d-none d-md-block">
+      <div>
         <Slide />
       </div>
       <div className="mt-2">
         <CategorySection />
       </div>
       <Container>
-        <div className="mt-2">
+        {/* <div className="mt-2">
           <Row>
             <Col lg={8} md={12} sm={12} xs={12}>
               <LeftPost title={"Bất động sản - giá giảm sâu"} />
@@ -27,6 +28,13 @@ export default function Index() {
               <RightPost />
             </Col>
           </Row>
+        </div> */}
+        <div className="mt-2">
+          <FeaturedPost title={"Tin nổi bật"} />
+        </div>
+
+        <div className="mt-2">
+          <NewPost title={"Tin mới đăng"} />
         </div>
       </Container>
     </>

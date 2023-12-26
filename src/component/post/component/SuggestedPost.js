@@ -3,6 +3,7 @@ import PostComponent from "@/component/listpost/right/PostComponent";
 import useWindowDimensions from "@/utils/window-dimension";
 import { Col, Container, Row } from "react-bootstrap";
 import Slider from "react-slick";
+
 const a = [1, 1, 1, 1, 1, 1, 1, 1];
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -80,6 +81,7 @@ const PrevArrow = (props) => {
 
 const SuggestedPost = () => {
   const { width } = useWindowDimensions();
+
   return (
     <section className="suggestions-area bg-white mt-2">
       <div className="box-title ps-3 pt-3">
@@ -91,7 +93,9 @@ const SuggestedPost = () => {
           <Slider
             swipeToSlide={true}
             infinite
-            slidesPerRow={width >= 992 ? 4 : width >= 768 && width <= 992 ? 3 : 2}
+            slidesPerRow={
+              width >= 992 ? 4 : width >= 768 && width <= 992 ? 3 : 2
+            }
             slidesToScroll={1}
             nextArrow={<NextArrow />}
             prevArrow={<PrevArrow />}
