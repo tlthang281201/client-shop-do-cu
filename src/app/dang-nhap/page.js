@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, TextField } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Col, Container, Row } from "react-bootstrap";
@@ -32,8 +33,9 @@ const IconGoogle = () => {
     </svg>
   );
 };
-const LoginPage = () => {
+const LoginPage = ({ session }) => {
   const router = useRouter();
+  console.log(session);
   return (
     <Container>
       <div className="d-flex justify-content-center  bg-white mt-3 p-3">
@@ -42,9 +44,22 @@ const LoginPage = () => {
           style={{
             borderRadius: "5px",
             boxShadow: "0 0 8px rgba(30,40,60,.1)",
+            maxWidth: "500px",
           }}
         >
-          <h4 className="fw-bold">Đăng nhập</h4>
+          <div className="d-flex justify-content-center">
+            <Image
+              alt="a"
+              src="/images/logo.png"
+              width={300}
+              height={100}
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+
+          <h4 className="fw-bold mt-2" style={{ textAlign: "center" }}>
+            Đăng nhập
+          </h4>
           <form>
             <Col lg={12}>
               <TextField

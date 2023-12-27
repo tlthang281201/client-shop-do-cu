@@ -1,3 +1,4 @@
+"use server"
 import { supabase } from "@/utils/supabase-config";
 
 export const getCategoryParent = async () => {

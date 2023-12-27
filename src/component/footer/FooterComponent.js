@@ -17,28 +17,25 @@ const FooterComponent = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  Rao Vặt - Mua bán rao vặt uy tín
+                  Chợ Nhà Việt - Mua nhanh bán nhanh
                 </span>
               </div>
               <p>
-                VnExpress Rao Vặt là nền tảng trực tuyến giúp kết nối người mua
-                và người bán, hình thành cộng đồng mua bán trực tuyến lớn mạnh,
-                uy tín.
+                Chợ Nhà Việt là nền tảng trực tuyến giúp kết nối người mua và
+                người bán, hình thành cộng đồng mua bán trực tuyến lớn mạnh, uy
+                tín.
               </p>
               <p>
-                Đối với người mua, ưu thế của VnExpress Rao Vặt đến từ số lượng
-                danh mục đa dạng, từ bất động sản, ôtô, xe máy, đồ điện tử cho
-                đến, thời trang, làm đẹp, nội thất… Kết hợp giữa tiến bộ về công
-                nghệ và sự thấu hiểu người dùng, mọi nhu cầu mua sắm được đáp
-                ứng chỉ trong vài thao tác trên một môi trường an toàn, minh
-                bạch và dễ sử dụng.
+                Đối với người mua, ưu thế của Chợ Nhà Việt đến từ số lượng danh
+                mục đa dạng xe máy, đồ điện tử cho đến, thời trang, làm đẹp, nội
+                thất… Kết hợp giữa tiến bộ về công nghệ và sự thấu hiểu người
+                dùng, mọi nhu cầu mua sắm được đáp ứng chỉ trong vài thao tác
+                trên một môi trường an toàn, minh bạch và dễ sử dụng.
               </p>
               <p>
-                Đối với người bán, VnExpress Rao Vặt tạo cơ hội tiếp cận đến hơn
-                50 triệu độc giả của VnExpress, Ngôi Sao, iOne. Chuyên trang tối
-                ưu hàng loạt gói rao và đề xuất những vị trí tin rao để người
-                bán tăng hiệu suất bán hàng, nhanh chóng tiếp cận đối tượng
-                người dùng mục tiêu.
+                Đối với người bán, Chợ Nhà Việt tạo ưu đãi hàng loạt gói đăng
+                tin và đề xuất những vị trí đăng tin để người bán tăng hiệu suất
+                bán hàng, nhanh chóng tiếp cận đối tượng người dùng mục tiêu.
               </p>
             </div>
           </Col>
@@ -140,14 +137,7 @@ const FooterComponent = () => {
               style={{ fontSize: "12px", borderTop: "1px solid #F2F5F8" }}
               className="text-center mt-3 pt-3"
             >
-              <p style={{ margin: 0 }}>
-                Công ty Cổ phần Dịch vụ trực tuyến FPT (FPT Online JSC)
-              </p>
-              <p style={{ margin: 0 }}>
-                Địa chỉ: Tầng 6, tòa nhà Exchange Tower - Số 1 Nam Kỳ Khởi
-                Nghĩa, phường Nguyễn Thái Bình, quận 1, tp.HCM
-              </p>
-              <p>Hotline: 1900.633.003 | Email: raovat@vnexpress.net</p>
+              <p style={{ margin: 0 }}>@Copyright</p>
             </div>
           </Col>
         </Row>

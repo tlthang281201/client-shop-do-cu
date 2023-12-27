@@ -97,7 +97,13 @@ const SlickSlide = () => {
   return (
     <div>
       <Row>
-        <Col lg={9} md={9} sm={9} xs={12} style={{backgroundColor: "#eee"}}>
+        <Col
+          lg={9}
+          md={9}
+          sm={9}
+          xs={12}
+          style={{ backgroundColor: "#eee", padding: 0 }}
+        >
           <Slider
             asNavFor={nav2}
             ref={(slider) => (slider1 = slider)}
@@ -105,7 +111,7 @@ const SlickSlide = () => {
             prevArrow={<PrevArrow />}
           >
             {image.map((value, index) => (
-              <div key={index} >
+              <div key={index}>
                 <Image
                   key={index}
                   alt="a"
@@ -113,7 +119,7 @@ const SlickSlide = () => {
                   style={{
                     maxWidth: "100%",
                     maxHeight: "100%",
-                    objectFit: "contain"
+                    objectFit: "contain",
                   }}
                   width={1000}
                   quality={80}
@@ -123,7 +129,7 @@ const SlickSlide = () => {
             ))}
           </Slider>
         </Col>
-        <Col lg={3} md={3} sm={3} xs={3} className="d-none d-sm-block">
+        <Col lg={3} md={3} sm={3} xs={3} className="d-none d-sm-block p-0">
           <Slider
             asNavFor={nav1}
             ref={(slider) => (slider2 = slider)}

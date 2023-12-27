@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, TextField } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -45,10 +46,20 @@ const SignUpPage = () => {
           style={{
             borderRadius: "5px",
             boxShadow: "0 0 8px rgba(30,40,60,.1)",
-            width: "460px",
+            maxWidth: "500px",
           }}
         >
-          <h4 className="fw-bold">Đăng ký tài khoản</h4>
+          <div className="d-flex justify-content-center">
+            <Image
+              src="/images/logo.png"
+              width={300}
+              height={100}
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          <h4 className="fw-bold mt-2" style={{ textAlign: "center" }}>
+            Đăng ký tài khoản
+          </h4>
           <form>
             <Col lg={12}>
               <TextField
