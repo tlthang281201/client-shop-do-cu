@@ -22,7 +22,7 @@ const PostComponent = ({ data }) => {
             <p className="m-0 fs-6" style={{ color: "black" }}>
               Redmi Note 10 Pro 5G Dimen1100 ~775K Antutu
             </p>
-            <p style={{ color: "#40A691", fontWeight: "bold" }}>10000000đ</p>
+            <p style={{ color: "#c30909", fontWeight: "bold" }}>10000000đ</p>
           </div>
           <div className="sub-info">
             <div className="d-flex justify-content-between align-items-center">

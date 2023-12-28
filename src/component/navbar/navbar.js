@@ -14,7 +14,8 @@ const Header = () => {
     <>
       <Navbar
         expand={true}
-        style={{ position: "sticky", backgroundColor: "white" }}
+        style={{ backgroundColor: "#FF5757" }}
+        fixed="top"
         className="p-0"
       >
         <Container>
@@ -23,21 +24,21 @@ const Header = () => {
               <Image
                 alt="a"
                 className="d-none d-lg-block"
-                src="/images/logo.png"
+                src="/images/logo3.png"
                 width={270}
                 height={70}
                 style={{ objectFit: "cover" }}
               />
 
               <Image
-                src="/images/logo.png"
+                src="/images/logo3.png"
                 width={200}
                 height={50}
                 className="d-none d-sm-block d-lg-none"
                 style={{ objectFit: "cover" }}
               />
               <Image
-                src="/images/logo.png"
+                src="/images/logo3.png"
                 width={120}
                 height={50}
                 className="d-block d-sm-none"
@@ -63,21 +64,11 @@ const Header = () => {
                   border: "none",
                   backgroundColor: "white",
                   position: "absolute",
-                  right: 15,
-                  bottom: 7,
+                  right: 10,
+                  bottom: 5,
                 }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-search bg-"
-                  viewBox="0 0 16 16"
-                  style={{ color: "#40A691" }}
-                >
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                </svg>
+                <i className="bi bi-search" style={{ color: "#FF5757" }}></i>
               </button>
             </Form>
             <Nav className="align-items-center">
@@ -85,7 +76,7 @@ const Header = () => {
               <LoginDropdown />
               <Button
                 className="d-flex align-items-center"
-                style={{ backgroundColor: "#40A691", border: "none" }}
+                style={{ backgroundColor: "#c30909", border: "none" }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -103,16 +94,20 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Nav className="d-lg-none " style={{ backgroundColor: "white" }}>
+      <Navbar
+        fixed="top"
+        className="d-lg-none p-0"
+        style={{ backgroundColor: "#FF5757", marginTop: "4rem" }}
+      >
         <Container>
           <Form
-            className="d-flex w-50 justify-content-center w-100 mb-3"
+            className="d-flex w-50 justify-content-center w-100 p-0 mb-2 mt-1"
             style={{ position: "relative" }}
           >
             <Form.Control
               type="search"
               placeholder="Nhập từ khoá để tìm kiếm"
-              className="me-2 rounded-3"
+              className="me-2 rounded-3 "
               aria-label="Search"
             />
             <button
@@ -131,14 +126,14 @@ const Header = () => {
                 fill="currentColor"
                 className="bi bi-search bg-"
                 viewBox="0 0 16 16"
-                style={{ color: "#40A691" }}
+                style={{ color: "#FF5757" }}
               >
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
               </svg>
             </button>
           </Form>
         </Container>
-      </Nav>
+      </Navbar>
     </>
   );
 };

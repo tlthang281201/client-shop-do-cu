@@ -3,7 +3,7 @@ import Link from "next/link";
 const a = [1, 2, 3, 4, 5, 6];
 const Breadcumber = () => {
   return (
-    <div className="pt-3 ps-2" style={{ fontSize: "13px" }}>
+    <div className="pt-1 ps-2" style={{ fontSize: "13px" }}>
       <Link href={"/"} style={{ textDecoration: "none", color: "gray" }}>
         Trang chủ
       </Link>

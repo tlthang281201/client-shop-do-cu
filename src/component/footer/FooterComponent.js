@@ -11,7 +11,7 @@ const FooterComponent = () => {
                 <span
                   className="pb-1"
                   style={{
-                    borderBottom: "3px solid #40A691",
+                    borderBottom: "3px solid #FF5757",
                     fontSize: "18px",
                     lineHeight: "22px",
                     fontWeight: "bold",
@@ -44,7 +44,7 @@ const FooterComponent = () => {
               <div className="mb-3">
                 <span
                   style={{
-                    borderBottom: "1px solid #40A691",
+                    borderBottom: "1px solid #FF5757",
                     fontWeight: "500",
                     fontSize: "18px",
                     lineHeight: "21px",
@@ -69,7 +69,7 @@ const FooterComponent = () => {
               <div className="mb-3">
                 <span
                   style={{
-                    borderBottom: "1px solid #40A691",
+                    borderBottom: "1px solid #FF5757",
                     fontWeight: "500",
                     fontSize: "18px",
                     lineHeight: "21px",
@@ -80,7 +80,7 @@ const FooterComponent = () => {
               </div>
               <div
                 className="rounded-pill"
-                style={{ backgroundColor: "#40A691", width: "40%" }}
+                style={{ backgroundColor: "#FF5757", width: "40%" }}
               >
                 <div className="p-2 text-white d-flex align-items-center    ">
                   <svg
@@ -103,7 +103,7 @@ const FooterComponent = () => {
               <div className="mb-3">
                 <span
                   style={{
-                    borderBottom: "1px solid #40A691",
+                    borderBottom: "1px solid #FF5757",
                     fontWeight: "500",
                     fontSize: "18px",
                     lineHeight: "21px",
@@ -114,7 +114,7 @@ const FooterComponent = () => {
               </div>
               <div
                 className="rounded-pill"
-                style={{ backgroundColor: "#40A691", width: "40%" }}
+                style={{ backgroundColor: "#FF5757", width: "40%" }}
               >
                 <div className="p-2 text-white d-flex align-items-center    ">
                   <svg

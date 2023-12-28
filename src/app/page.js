@@ -12,9 +12,7 @@ export async function generateMetadata() {
 export default function Index() {
   return (
     <>
-      <div className="mt-2">
-        <Slide />
-      </div>
+      <Slide />
       <div className="mt-2">
         <CategorySection />
       </div>

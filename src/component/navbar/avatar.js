@@ -6,7 +6,7 @@ import { Dropdown } from "react-bootstrap";
 const AvatarDropdown = () => {
   const [show, setShow] = useState(false);
   return (
-    <Dropdown className="me-3 drop">
+    <Dropdown className="me-3">
       <Dropdown.Toggle
         variant="none"
         id="dropdown-basic"
@@ -18,7 +18,7 @@ const AvatarDropdown = () => {
           textOverflow: "ellipsis",
           padding: 0,
         }}
-        className="drop"
+        className="drop text-white"
       >
         <Image
           alt="avatar"

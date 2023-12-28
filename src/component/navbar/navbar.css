@@ -1,6 +1,9 @@
 .login:hover {
-  color: #40a691 !important;
+  opacity: 0.6;
 }
 .drop:enabled {
   border: none !important;
+}
+.drop:hover{
+  opacity: 0.6;
 }
