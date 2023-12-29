@@ -1,0 +1,8 @@
+.nav-underline .nav-link.active {
+  border-bottom-color: #ff5757;
+  font-weight: normal;
+}
+.nav-underline .nav-link {
+  color: gray;
+  font-weight: normal;
+}

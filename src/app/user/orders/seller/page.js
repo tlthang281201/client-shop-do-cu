@@ -1,13 +1,13 @@
 import LeftColumn from "@/component/account/manage/LeftColumn";
-import AccountInformationComponent from "@/component/account/manage/information/AccountInformationComponent";
+import ManageSellerComponent from "@/component/account/manage/orders/seller/ManageSellerComponent";
 import Breadcumber from "@/component/breadcumber/Breadcumber";
 import { Col, Container, Row } from "react-bootstrap";
 export async function generateMetadata() {
   return {
-    title: `Thông tin tài khoản`,
+    title: `Quản lý đơn bán`,
   };
 }
-const UserInformationPage = () => {
+const ManageSellerPage = () => {
   return (
     <Container>
       <Breadcumber />
@@ -16,11 +16,11 @@ const UserInformationPage = () => {
           <LeftColumn />
         </Col>
         <Col lg={8}>
-          <AccountInformationComponent />
+          <ManageSellerComponent />
         </Col>
       </Row>
     </Container>
   );
 };
 
-export default UserInformationPage;
+export default ManageSellerPage;

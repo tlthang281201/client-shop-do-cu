@@ -5,7 +5,7 @@ import { Form } from "react-bootstrap";
 const AccountInformationComponent = () => {
   const [show, setShow] = useState(false);
   return (
-    <div className="bg-white mt-2 p-3">
+    <div className="bg-white mt-2 p-3 mb-5">
       <div className="border-3 border-bottom">
         <h2 style={{ fontSize: "17px", fontWeight: "bold" }}>
           Thông tin tài khoản

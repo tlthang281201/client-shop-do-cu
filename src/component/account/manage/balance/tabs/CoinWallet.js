@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const CoinWallet = ({ coindata }) => {
   return (
-    <div className="mt-4">
+    <div className="mt-4 ">
       <div className="sodu">
         <span className="fw-bold">Số dư:</span>
         <span className="ms-5 fw-bold" style={{ color: "red" }}>

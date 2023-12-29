@@ -1,5 +1,5 @@
 import LeftColumn from "@/component/account/manage/LeftColumn";
-import AccountBalance from "@/component/account/manage/account_balance/AccountBalance";
+import AccountBalance from "@/component/account/manage/balance/AccountBalance";
 import Breadcumber from "@/component/breadcumber/Breadcumber";
 import { getCoin } from "@/services/TopUpServices";
 import { Col, Container, Row } from "react-bootstrap";

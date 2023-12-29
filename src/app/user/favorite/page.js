@@ -1,13 +1,13 @@
 import LeftColumn from "@/component/account/manage/LeftColumn";
-import AccountInformationComponent from "@/component/account/manage/information/AccountInformationComponent";
+import FavoritePostsComponent from "@/component/account/manage/favorite/FavoritePostsComponent";
 import Breadcumber from "@/component/breadcumber/Breadcumber";
 import { Col, Container, Row } from "react-bootstrap";
 export async function generateMetadata() {
   return {
-    title: `Thông tin tài khoản`,
+    title: `Quản lý tin lưu`,
   };
 }
-const UserInformationPage = () => {
+const FavoritePostsPage = () => {
   return (
     <Container>
       <Breadcumber />
@@ -16,11 +16,11 @@ const UserInformationPage = () => {
           <LeftColumn />
         </Col>
         <Col lg={8}>
-          <AccountInformationComponent />
+          <FavoritePostsComponent />
         </Col>
       </Row>
     </Container>
   );
 };
 
-export default UserInformationPage;
+export default FavoritePostsPage;

@@ -72,10 +72,10 @@ const LeftColumn = () => {
           <i className="bi bi-chevron-right"></i>
         </Link>
         <Link
-          href="/user/balances"
+          href="/user/posts"
           className="d-flex flex-row justify-content-between mb-2 pb-2 border-bottom text-decoration-none"
           style={
-            path.includes("quan-ly-tin-dang")
+            path.includes("/user/posts")
               ? { color: "#FF5757", fontWeight: "bold" }
               : { color: "gray" }
           }
@@ -84,10 +84,34 @@ const LeftColumn = () => {
           <i className="bi bi-chevron-right"></i>
         </Link>
         <Link
-          href="/user/chi-tiet-tai-khoan"
+          href="/user/orders/buyer"
           className="d-flex flex-row justify-content-between mb-2 pb-2 border-bottom text-decoration-none"
           style={
-            path.includes("lich-su-giao-dich")
+            path.includes("/user/orders/buyer")
+              ? { color: "#FF5757", fontWeight: "bold" }
+              : { color: "gray" }
+          }
+        >
+          <div>Quản lý đơn mua</div>
+          <i className="bi bi-chevron-right"></i>
+        </Link>
+        <Link
+          href="/user/orders/seller"
+          className="d-flex flex-row justify-content-between mb-2 pb-2 border-bottom text-decoration-none"
+          style={
+            path.includes("/user/orders/seller")
+              ? { color: "#FF5757", fontWeight: "bold" }
+              : { color: "gray" }
+          }
+        >
+          <div>Quản lý đơn bán</div>
+          <i className="bi bi-chevron-right"></i>
+        </Link>
+        <Link
+          href="/user/transaction"
+          className="d-flex flex-row justify-content-between mb-2 pb-2 border-bottom text-decoration-none"
+          style={
+            path.includes("/user/transaction")
               ? { color: "#FF5757", fontWeight: "bold" }
               : { color: "gray" }
           }
@@ -96,10 +120,10 @@ const LeftColumn = () => {
           <i className="bi bi-chevron-right"></i>
         </Link>
         <Link
-          href="/user/chi-tiet-tai-khoan"
+          href="/user/favorite"
           className="d-flex flex-row justify-content-between mb-2 pb-2 border-bottom text-decoration-none"
           style={
-            path.includes("quan-ly-tin-luu")
+            path.includes("/user/favorite")
               ? { color: "#FF5757", fontWeight: "bold" }
               : { color: "gray" }
           }

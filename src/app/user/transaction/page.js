@@ -1,13 +1,13 @@
 import LeftColumn from "@/component/account/manage/LeftColumn";
-import AccountInformationComponent from "@/component/account/manage/information/AccountInformationComponent";
+import TransactionHistoryComponent from "@/component/account/manage/transaction/TransactionHistoryComponent";
 import Breadcumber from "@/component/breadcumber/Breadcumber";
 import { Col, Container, Row } from "react-bootstrap";
 export async function generateMetadata() {
   return {
-    title: `Thông tin tài khoản`,
+    title: `Lịch sử giao dịch`,
   };
 }
-const UserInformationPage = () => {
+const TransactionHistoryPage = () => {
   return (
     <Container>
       <Breadcumber />
@@ -16,11 +16,11 @@ const UserInformationPage = () => {
           <LeftColumn />
         </Col>
         <Col lg={8}>
-          <AccountInformationComponent />
+          <TransactionHistoryComponent />
         </Col>
       </Row>
     </Container>
   );
 };
 
-export default UserInformationPage;
+export default TransactionHistoryPage;
