@@ -61,6 +61,7 @@ const LoginComponent = () => {
           <form>
             <Col lg={12}>
               <TextField
+                key={1}
                 id="outlined-basic"
                 label="Email"
                 variant="outlined"
@@ -70,6 +71,7 @@ const LoginComponent = () => {
                 inputMode="email"
               />
               <TextField
+                key={2}
                 id="outlined-basic"
                 label="Mật khẩu"
                 variant="outlined"
