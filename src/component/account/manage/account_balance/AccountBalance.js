@@ -3,6 +3,9 @@ import { useState } from "react";
 import styles from "./styles.css";
 import { Nav } from "react-bootstrap";
 import CashWallet from "./tabs/CashWallet";
+import CoinWallet from "./tabs/CoinWallet";
+import NumberOfPushPost from "./tabs/NumberOfPushPost";
+import NumberOfPost from "./tabs/NumberOfPost";
 const AccountBalance = ({ coindata }) => {
   const [showTab, setShowTab] = useState({
     tab1: true,
@@ -42,7 +45,10 @@ const AccountBalance = ({ coindata }) => {
           <Nav.Link eventKey="4">Lượt đăng tin</Nav.Link>
         </Nav.Item>
       </Nav>
-      <div>{showTab.tab1 && <CashWallet coindata={coindata} />}</div>
+      {showTab.tab1 && <CashWallet coindata={coindata} />}
+      {showTab.tab2 && <CoinWallet coindata={coindata} />}
+      {showTab.tab3 && <NumberOfPushPost coindata={coindata} />}
+      {showTab.tab4 && <NumberOfPost coindata={coindata} />}
     </div>
   );
 };

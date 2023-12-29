@@ -10,7 +10,6 @@ const CashWallet = ({ coindata }) => {
     for (let i = 0; i < array.length; i += 2) {
       // Tạo cặp phần tử
       const pair = array.slice(i, i + 2);
-
       // Tạo div chứa cặp phần tử
       const divPair = (
         <div key={i / 2} className="d-flex flex-column gap-3 deposit">

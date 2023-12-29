@@ -8,7 +8,7 @@ const LeftColumn = () => {
   return (
     <div className="bg-white mt-2">
       <div className="d-flex flex-row pt-3 pe-3 ps-3 align-items-center gap-3">
-        <div className="border rounded-circle position-relative">
+        <label className="border rounded-circle position-relative">
           <Image
             alt="a"
             src="https://a1.vnecdn.net/t71360687213249374259.png?w=60&h=60&s=dDaUYLRDxBW6j49R6JIlyg"
@@ -22,8 +22,9 @@ const LeftColumn = () => {
             style={{ right: "35%", bottom: "0px" }}
           >
             <i className="bi bi-camera p-1"></i>
+            <input type="file" className="d-none" />
           </div>
-        </div>
+        </label>
         <div className="d-flex flex-column gap-1">
           <div className="fw-bold">thang281201</div>
           <div style={{ color: "#757575", fontSize: "15px" }}>

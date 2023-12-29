@@ -6,7 +6,7 @@ import Slide from "@/component/slides/slides";
 import { Container } from "react-bootstrap";
 export async function generateMetadata() {
   return {
-    title: "Website mua bán đồ cũ",
+    title: "Chợ Nhà Việt - Website mua bán đồ cũ",
   };
 }
 export default function Index() {

@@ -5,7 +5,7 @@ import React from "react";
 import styles from "./styles.css";
 const PostComponent = ({ data }) => {
   return (
-    <Link href={"#"} style={{ textDecoration: "none" }}>
+    <Link href={"/tin"} style={{ textDecoration: "none" }}>
       <div className="d-flex pt-3 flex-column  gap-2 mb-2">
         <div className="image">
           <Image

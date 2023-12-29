@@ -3,7 +3,12 @@ import RightPost from "@/component/listpost/right/RightPost";
 import PostDetail from "@/component/post/PostDetail";
 import SuggestedPost from "@/component/post/component/SuggestedPost";
 import { Col, Container, Row } from "react-bootstrap";
+export async function generateMetadata() {
 
+  return {
+    title: `Bán đồ`,
+  };
+}
 const Post = () => {
   return (
     <Container>
