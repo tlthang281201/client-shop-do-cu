@@ -3,7 +3,26 @@ import PostComponent from "@/component/listpost/right/PostComponent";
 import useWindowDimensions from "@/utils/window-dimension";
 import { Col, Container, Row } from "react-bootstrap";
 import Slider from "react-slick";
-
+const posts = [
+  {
+    title: "Redmi K40 12/256G máy đẹp",
+    image:
+      "https://cdn.chotot.com/CM7mwnOFPJgBta2ct1Pe9bRdKwuqAy_n73dkc8atx-k/preset:view/plain/c6a4a403cc0e156bfec0a2b1cf80312f-2858888749170481477.jpg",
+    price: "2.500.000",
+    city: "Thành phố đà nẵng",
+    district: "Quận Hải Châu",
+    ward: "phường Hải Châu 2",
+  },
+  {
+    title: "iPhone XsMax 64G máy quốc tế",
+    image:
+      "https://cdn.chotot.com/g_XQF92xedlwpTe1vorYQ4PutSAAQXjCkf6iau7Sevw/preset:view/plain/7edc6d75ba9bd222ddbd508414558fe3-2858581736386343745.jpg",
+    price: "3.850.000",
+    city: "Hà Nội",
+    district: "Quận Cầu Giấy",
+    ward: "Phường Trung Hoà",
+  },
+];
 const a = [1, 1, 1, 1, 1, 1, 1, 1];
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -100,9 +119,9 @@ const SuggestedPost = () => {
             nextArrow={<NextArrow />}
             prevArrow={<PrevArrow />}
           >
-            {a.map((value, i) => (
+            {posts.map((item, i) => (
               <Col key={i} className="p-2">
-                <PostComponent />
+                <PostComponent data={item} />
               </Col>
             ))}
           </Slider>

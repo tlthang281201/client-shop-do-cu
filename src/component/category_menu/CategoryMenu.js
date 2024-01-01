@@ -3,6 +3,43 @@ import Link from "next/link";
 import styles from "./styles.css";
 import Image from "next/image";
 import CreateSlug from "@/utils/create-slug";
+const cate = [
+  {
+    title: "Đồ điện tử",
+    image:
+      "https://lighthouse.chotot.com/_next/image?url=https%3A%2F%2Fstatic.chotot.com%2Fstorage%2Fchapy-pro%2Fnewcats%2Fv8%2F5000.png&w=256&q=95",
+  },
+  {
+    title: "Xe cộ",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY5tUBcNypQTgnDjR3b9oEBmdKlx5NProIBQ&usqp=CAU",
+  },
+  {
+    title: "Đồ dùng văn phòng",
+    image:
+      "https://lighthouse.chotot.com/_next/image?url=https%3A%2F%2Fstatic.chotot.com%2Fstorage%2Fchapy-pro%2Fnewcats%2Fv8%2F8000.png&w=256&q=95",
+  },
+  {
+    title: "Thời trang, đồ dùng cá nhân",
+    image:
+      "https://lighthouse.chotot.com/_next/image?url=https%3A%2F%2Fstatic.chotot.com%2Fstorage%2Fchapy-pro%2Fnewcats%2Fv8%2F14000.png&w=256&q=95",
+  },
+  {
+    title: "Tủ lạnh, máy lạnh, máy giặt",
+    image:
+      "https://lighthouse.chotot.com/_next/image?url=https%3A%2F%2Fstatic.chotot.com%2Fstorage%2Fchapy-pro%2Fnewcats%2Fv8%2F9000.png&w=256&q=95",
+  },
+  {
+    title: "Giải trí, thể thao, sở thich",
+    image:
+      "https://lighthouse.chotot.com/_next/image?url=https%3A%2F%2Fstatic.chotot.com%2Fstorage%2Fchapy-pro%2Fnewcats%2Fv8%2F4000.png&w=256&q=95",
+  },
+  {
+    title: "Danh mục khác",
+    image:
+      "https://lighthouse.chotot.com/_next/image?url=https%3A%2F%2Fstatic.chotot.com%2Fstorage%2Fchapy-pro%2Fnewcats%2Fv8%2Ftat-ca-danh-muc.png&w=256&q=95",
+  },
+];
 const CategoryMenu = ({ cateparent }) => {
   return (
     <div

@@ -11,7 +11,7 @@ const LeftColumn = () => {
         <label className="border rounded-circle position-relative">
           <Image
             alt="a"
-            src="https://a1.vnecdn.net/t71360687213249374259.png?w=60&h=60&s=dDaUYLRDxBW6j49R6JIlyg"
+            src="https://static.chotot.com/storage/marketplace/common/png/default_user.png"
             width={84}
             height={84}
             className="rounded-circle p-1"

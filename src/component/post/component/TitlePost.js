@@ -5,9 +5,7 @@ const TitlePost = () => {
   return (
     <>
       <div style={{ margin: "20px 0 10px" }}>
-        <h1 className="title-detail">
-          Bán lô đất hẻm 1 xẹt phường An Lạc kế bên khu dân cư Hương Lộ
-        </h1>
+        <h1 className="title-detail">iPhone 11 Promax quốc tế 64gb zin</h1>
       </div>
       <p className="info-posting-time">Thứ năm, 21/12/2023, 16:48 (GMT+7)</p>
       <div className="box-price">

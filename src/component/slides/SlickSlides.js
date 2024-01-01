@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import Slider from "react-slick";
 const image = [
-  "https://i-raovat.vnecdn.net/2023/04/06/cda926a6_1680763895.jpg?w=1280&h=768&q=100&dpr=1&rt=fit&g=no&wmi=&wmg=ce&wmo=50&wms=30&wmx=0&wmy=0&s=A_iIpg_Er1BnAUAFM2cEYg",
-  "https://i-raovat.vnecdn.net/2023/04/06/7afb7443_1680763899.jpg?w=1280&h=768&q=100&dpr=1&rt=fit&g=no&wmi=&wmg=ce&wmo=50&wms=30&wmx=0&wmy=0&s=HCt-oO_6QDVXLZJXQGbfsw",
-  "https://i-raovat.vnecdn.net/2023/04/06/11365a94_1680763901.jpg?w=1280&h=768&q=100&dpr=1&rt=fit&g=no&wmi=&wmg=ce&wmo=50&wms=30&wmx=0&wmy=0&s=4ojh6NykLmgN28SwuX_5pQ",
-  "https://i-raovat.vnecdn.net/2023/04/06/83289843_1680763901.jpg?w=1280&h=768&q=100&dpr=1&rt=fit&g=no&wmi=&wmg=ce&wmo=50&wms=30&wmx=0&wmy=0&s=Dh12EP9Gf6FYFrcRQWtYAw",
+  "https://cdn.chotot.com/VMzX0LKcVh5pQq5shnMJK4HZk3waaEBBzX0qbloUDlE/preset:view/plain/862775dfb298cc947823cbfe3995fb57-2858878959461941414.jpg",
+  "https://cdn.chotot.com/EAq46j8z9iW8b7GxcnvchfsnesuufHyROATpJT2jwSE/preset:view/plain/2216de6eb0b3623cb8080aeea4be382a-2858878959234503436.jpg",
+  "https://cdn.chotot.com/UsyRC2wCMAueiKmTD7Xq8buURB7U7BL03miFr-iHMRI/preset:view/plain/f2e46f9c9f4d90f1c88da21ab436b4e5-2858878958721100657.jpg",
+  "https://cdn.chotot.com/TiPTY5Vt_eDZidvajklLJA_4lB4TDNF1UE2A_PbckHY/preset:view/plain/2e4d0ea8402b87322230efe0b74ea338-2858878959339716756.jpg",
 ];
 const SlickSlide = () => {
   const [nav1, setNav1] = useState(null);

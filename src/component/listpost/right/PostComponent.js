@@ -2,7 +2,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 
-const PostComponent = () => {
+const PostComponent = ({ data }) => {
   return (
     <div className="d-flex pt-3" style={{ borderBottom: "1px solid #DFE3ED" }}>
       <Card style={{ width: "100%", border: "none" }}>
@@ -10,7 +10,7 @@ const PostComponent = () => {
           variant="top"
           height={200}
           style={{ objectFit: "cover" }}
-          src="https://i-raovat.vnecdn.net/2023/06/06/capture-1686046398.PNG?w=1280&h=768&q=100&dpr=1&rt=fit&g=no&wmi=&wmg=ce&wmo=50&wms=30&wmx=0&wmy=0&s=U5b2S7MnZjMc2J9D-0S1PA"
+          src={data?.image}
         />
         <Card.Body style={{ padding: "10px 0" }}>
           <Card.Title
@@ -25,7 +25,7 @@ const PostComponent = () => {
               display: "-webkit-box",
             }}
           >
-            Thu mua iphone ipad apple khoá icloud 10123010 icloud icloud
+            {data?.title}
           </Card.Title>
           <p
             style={{
@@ -36,7 +36,7 @@ const PostComponent = () => {
               fontSize: "16px",
             }}
           >
-            1230012300đ
+            {data?.price} đ
           </p>
           <span
             style={{
@@ -47,7 +47,7 @@ const PostComponent = () => {
               whiteSpace: "normal",
             }}
           >
-            Phường hỉa châu, Phường hỉa châu, Phường hỉa châu
+            {data?.district}, {data?.ward}, {data?.city}
           </span>
         </Card.Body>
       </Card>

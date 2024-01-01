@@ -1,0 +1,13 @@
+@media (min-width: 992px) {
+  .ps-lg-5 {
+    padding-left: 8rem !important;
+  }
+}
+@media (min-width: 992px) {
+  .pe-lg-5 {
+    padding-right: 8rem !important;
+  }
+}
+label {
+  font-weight: bold;
+}

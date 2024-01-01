@@ -11,7 +11,7 @@ const PostComponent = ({ data }) => {
           <Image
             alt="image"
             src={
-              "https://cdn.chotot.com/7ptS7Zme7uo9edDfs-qfpVLrqx2roIU4W2Vus-JMupg/preset:listing/plain/2dc3f50dcbd2fe45b31e232eece42d35-2857583644814330255.jpg"
+              "https://cdn.chotot.com/cEV078zqPchkBtfcIn5AVypQxJpLZkigsNOFcsaP5oQ/preset:listing/plain/13c7768e5627195513530ffedf8028ca-2858884347652659525.jpg"
             }
             width={500}
             height={500}

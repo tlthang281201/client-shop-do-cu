@@ -1,6 +1,5 @@
 "use client";
-import { useState } from "react";
-import { Container } from "react-bootstrap";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SlickSlide from "../slides/SlickSlides";
@@ -9,7 +8,6 @@ import formatter from "@/utils/format";
 import TitlePost from "./component/TitlePost";
 import BoxContact from "./component/BoxContact";
 import { PostDescription } from "./component/PostDescription";
-import SuggestedPost from "./component/SuggestedPost";
 
 const PostDetail = () => {
   return (
@@ -20,8 +18,7 @@ const PostDetail = () => {
       <div className="pb-3">
         <TitlePost />
       </div>
-      <BoxContact />
-      <PostDescription />      
+      <PostDescription />
     </div>
   );
 };

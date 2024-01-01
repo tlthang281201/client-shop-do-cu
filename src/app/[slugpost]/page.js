@@ -1,10 +1,10 @@
 import Breadcumber from "@/component/breadcumber/Breadcumber";
 import RightPost from "@/component/listpost/right/RightPost";
 import PostDetail from "@/component/post/PostDetail";
+import BoxContact from "@/component/post/component/BoxContact";
 import SuggestedPost from "@/component/post/component/SuggestedPost";
 import { Col, Container, Row } from "react-bootstrap";
 export async function generateMetadata() {
-
   return {
     title: `Bán đồ`,
   };
@@ -20,16 +20,19 @@ const Post = () => {
             md={12}
             sm={12}
             xs={12}
-            style={{  borderRight: "1px solid #F2F5F8" }}
+            style={{ borderRight: "1px solid #F2F5F8" }}
           >
             <PostDetail />
           </Col>
-          <Col lg={4} md={12} sm={12} xs={12} >
+          <Col lg={4} md={12} sm={12} xs={12}>
+            <BoxContact />
             <RightPost />
           </Col>
         </Row>
         <Row>
-          <Col><SuggestedPost /></Col>
+          <Col>
+            <SuggestedPost />
+          </Col>
         </Row>
       </div>
     </Container>
