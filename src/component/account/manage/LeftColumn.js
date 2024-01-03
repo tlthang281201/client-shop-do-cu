@@ -27,17 +27,18 @@ const LeftColumn = () => {
         </label>
         <div className="d-flex flex-column gap-1">
           <div className="fw-bold">thang281201</div>
-          <div style={{ color: "#757575", fontSize: "15px" }}>
+          <div
+            className="d-flex flex-row align-items-center gap-1"
+            style={{ color: "#757575", fontSize: "13px" }}
+          >
+            <i class="bi bi-calendar3"></i>
             Tham gia từ: 10/10/2018
           </div>
           <div
             style={{ fontSize: "15px" }}
             className="d-flex flex-row align-items-center gap-2"
           >
-            <i
-              className="bi bi-coin"
-              style={{ color: "#d13000", marginTop: "2px" }}
-            ></i>
+            <Image src="/images/coin.png" width={20} height={20} />
             <div>
               Đồng cũ:{" "}
               <span style={{ color: "#d13000", fontWeight: "bold" }}>16</span>

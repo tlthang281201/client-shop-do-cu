@@ -1,0 +1,24 @@
+.discount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  border: 1px solid #fff;
+  background-color: #e5193b;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 10px;
+  padding: 3px 5px;
+}
+.option {
+  cursor: pointer;
+}
+.chose-option {
+  border: 1px solid #12a154 !important;
+  background-color: #ecf9f1;
+}
+.option:hover {
+  border: 1px solid #12a154 !important;
+  background-color: #ecf9f1;
+}

@@ -101,8 +101,20 @@ const BoxContact = () => {
                 className="avatar-img"
               />
             </Link>
-            <div className="d-flex flex-column ms-2">
-              <span className="fw-bold">Thắng Trần</span>
+            <div className="d-flex flex-column ms-2 gap-2">
+              <div className="d-flex flex-row justify-content-between align-items-center">
+                <span className="fw-bold">Thắng Trần</span>
+                <div className="border ps-1 pe-1 rounded-1">
+                  <Link
+                    href="#"
+                    className="text-decoration-none text-secondary"
+                    style={{ fontSize: "13px" }}
+                  >
+                    Xem trang
+                  </Link>
+                </div>
+              </div>
+
               <div className="d-flex flex-row flex-wrap align-items-center">
                 <Rating
                   name="half-rating-read"

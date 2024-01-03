@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import DataTable from "react-data-table-component";
+import PostComponent from "../component/PostComponent";
 
 const customStyles = {
   header: {
@@ -75,7 +76,7 @@ const ShowingPosts = ({ data }) => {
   );
   return (
     <div className="mt-4 mb-4">
-      <DataTable
+      {/* <DataTable
         columns={columns}
         data={[]}
         customStyles={customStyles}
@@ -85,7 +86,8 @@ const ShowingPosts = ({ data }) => {
         noDataComponent={
           <span className="text-danger pt-4">Không tìm thấy dữ liệu</span>
         }
-      />
+      /> */}
+      <PostComponent />
     </div>
   );
 };

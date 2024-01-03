@@ -1,0 +1,8 @@
+.container-border {
+  border: 2px solid;
+  border-color: #e8e8e8;
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+  border-right-width: 2px;
+}
