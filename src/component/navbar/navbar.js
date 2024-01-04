@@ -9,7 +9,11 @@ import AvatarDropdown from "./avatar";
 import LoginDropdown from "./login-dropdown";
 import Image from "next/image";
 
-const Header = () => {
+import { useUserContext } from "@/context/context";
+
+const NavbarHeader = () => {
+  const { user } = useUserContext();
+
   return (
     <>
       <Navbar
@@ -72,8 +76,8 @@ const Header = () => {
               </button>
             </Form>
             <Nav className="align-items-center">
-              {/* <AvatarDropdown /> */}
-              <LoginDropdown />
+              {user ? <AvatarDropdown user={user} /> : <LoginDropdown />}
+
               <Link href="/dang-tin" className="text-decoration-none">
                 <Button
                   className="d-flex align-items-center"
@@ -139,4 +143,4 @@ const Header = () => {
     </>
   );
 };
-export default Header;
+export default NavbarHeader;

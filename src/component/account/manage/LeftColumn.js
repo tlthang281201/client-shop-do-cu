@@ -1,4 +1,5 @@
 "use client";
+import { Rating } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -12,8 +13,8 @@ const LeftColumn = () => {
           <Image
             alt="a"
             src="https://static.chotot.com/storage/marketplace/common/png/default_user.png"
-            width={84}
-            height={84}
+            width={80}
+            height={80}
             className="rounded-circle p-1"
             style={{ objectFit: "cover", objectPosition: "center" }}
           />
@@ -27,12 +28,32 @@ const LeftColumn = () => {
         </label>
         <div className="d-flex flex-column gap-1">
           <div className="fw-bold">thang281201</div>
+          <div className="d-flex flex-row align-items-center gap-2 flex-wrap">
+            <span className="fw-bold" style={{ fontSize: "14px" }}>
+              2.3
+            </span>
+            <Rating
+              name="half-rating-read"
+              defaultValue={4.4}
+              precision={0.5}
+              readOnly
+              size="small"
+            />
+            <Link
+              href="#"
+              className="text-decoration-none "
+              style={{ fontSize: "13px" }}
+            >
+              ( 6 đánh giá )
+            </Link>
+          </div>
           <div
-            className="d-flex flex-row align-items-center gap-1"
+            className="d-flex flex-row align-items-center gap-1 flex-wrap"
             style={{ color: "#757575", fontSize: "13px" }}
           >
-            <i class="bi bi-calendar3"></i>
-            Tham gia từ: 10/10/2018
+            <i className="bi bi-calendar3"></i>
+            <span>Tham gia từ:</span>
+            <span>10/10/2018</span>
           </div>
           <div
             style={{ fontSize: "15px" }}
@@ -49,27 +70,23 @@ const LeftColumn = () => {
       <hr className="ms-3 me-3 border-3" />
       <div className="d-flex flex-column pe-3 ps-3 pb-3">
         <Link
-          href="/user/chi-tiet-tai-khoan"
-          className="d-flex flex-row justify-content-between mb-2 pb-2 border-bottom text-decoration-none"
-          style={
-            path.includes("chi-tiet-tai-khoan")
-              ? { color: "#FF5757", fontWeight: "bold" }
-              : { color: "gray" }
-          }
-        >
-          <div>Thông tin tài khoản</div>
-          <i className="bi bi-chevron-right"></i>
-        </Link>
-        <Link
           href="/user/balances"
           className="d-flex flex-row justify-content-between mb-2 pb-2 border-bottom text-decoration-none"
           style={
             path.includes("balances")
               ? { color: "#FF5757", fontWeight: "bold" }
-              : { color: "gray" }
+              : { color: "black" }
           }
         >
-          <div>Tài khoản đăng tin</div>
+          <div className="d-flex flex-row align-items-center gap-2">
+            <Image
+              src="https://static.chotot.com/storage/chotot-icons/svg/escrow.svg"
+              width={30}
+              height={30}
+              alt="a"
+            />
+            Ví bán hàng
+          </div>
           <i className="bi bi-chevron-right"></i>
         </Link>
         <Link
@@ -78,10 +95,23 @@ const LeftColumn = () => {
           style={
             path.includes("/user/posts")
               ? { color: "#FF5757", fontWeight: "bold" }
-              : { color: "gray" }
+              : { color: "black" }
           }
         >
-          <div>Quản lý tin đăng</div>
+          <div className="d-flex flex-row align-items-center gap-2">
+            <div>
+              <i
+                className="bi bi-newspaper rounded-circle px-2"
+                style={{
+                  color: "white",
+                  backgroundColor: "#FF5757",
+                  paddingTop: "7px",
+                  paddingBottom: "7px",
+                }}
+              ></i>
+            </div>
+            Quản lý tin đăng
+          </div>
           <i className="bi bi-chevron-right"></i>
         </Link>
         <Link
@@ -90,10 +120,18 @@ const LeftColumn = () => {
           style={
             path.includes("/user/orders/buyer")
               ? { color: "#FF5757", fontWeight: "bold" }
-              : { color: "gray" }
+              : { color: "black" }
           }
         >
-          <div>Quản lý đơn mua</div>
+          <div className="d-flex flex-row align-items-center gap-2">
+            <Image
+              src="https://static.chotot.com/storage/chotot-icons/svg/escrow_buy_orders.svg"
+              width={30}
+              height={30}
+              alt="a"
+            />
+            Quản lý đơn mua
+          </div>
           <i className="bi bi-chevron-right"></i>
         </Link>
         <Link
@@ -102,10 +140,18 @@ const LeftColumn = () => {
           style={
             path.includes("/user/orders/seller")
               ? { color: "#FF5757", fontWeight: "bold" }
-              : { color: "gray" }
+              : { color: "black" }
           }
         >
-          <div>Quản lý đơn bán</div>
+          <div className="d-flex flex-row align-items-center gap-2">
+            <Image
+              src="https://static.chotot.com/storage/chotot-icons/svg/escrow-orders.svg"
+              width={30}
+              height={30}
+              alt="a"
+            />
+            Quản lý đơn bán
+          </div>
           <i className="bi bi-chevron-right"></i>
         </Link>
         <Link
@@ -114,10 +160,18 @@ const LeftColumn = () => {
           style={
             path.includes("/user/transaction")
               ? { color: "#FF5757", fontWeight: "bold" }
-              : { color: "gray" }
+              : { color: "black" }
           }
         >
-          <div>Lịch sử giao dịch</div>
+          <div className="d-flex flex-row align-items-center gap-2">
+            <Image
+              src="https://st.chotot.com/storage/chotot-icons/svg/circle-list.svg"
+              width={30}
+              height={30}
+              alt="a"
+            />
+            Lịch sử giao dịch
+          </div>
           <i className="bi bi-chevron-right"></i>
         </Link>
         <Link
@@ -126,10 +180,38 @@ const LeftColumn = () => {
           style={
             path.includes("/user/favorite")
               ? { color: "#FF5757", fontWeight: "bold" }
-              : { color: "gray" }
+              : { color: "black" }
           }
         >
-          <div>Quản lý tin lưu</div>
+          <div className="d-flex flex-row align-items-center gap-2">
+            <Image
+              src="https://static.chotot.com/storage/chotot-icons/svg/menu-saved-ad.svg"
+              width={30}
+              height={30}
+              alt="a"
+            />
+            Tin đã lưu
+          </div>
+          <i className="bi bi-chevron-right"></i>
+        </Link>
+        <Link
+          href="/user/chi-tiet-tai-khoan"
+          className="d-flex flex-row justify-content-between mb-2 pb-2 border-bottom text-decoration-none"
+          style={
+            path.includes("chi-tiet-tai-khoan")
+              ? { color: "#FF5757", fontWeight: "bold" }
+              : { color: "black" }
+          }
+        >
+          <div className="d-flex flex-row align-items-center gap-2">
+            <Image
+              src="https://static.chotot.com/storage/icons/svg/setting.svg"
+              width={30}
+              height={30}
+              alt="a"
+            />
+            Cài đặt tài khoản
+          </div>
           <i className="bi bi-chevron-right"></i>
         </Link>
       </div>

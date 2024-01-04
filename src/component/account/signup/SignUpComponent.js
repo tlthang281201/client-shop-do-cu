@@ -1,9 +1,14 @@
 "use client";
 
-import { Button, TextField } from "@mui/material";
+import { useUserContext } from "@/context/context";
+import { signUp } from "@/services/Auth";
+import { signUpWithEmail } from "@/services/AuthService";
+import { SignUpSchema } from "@/validation/FormValidation";
+import { Button, CircularProgress, TextField } from "@mui/material";
+import { Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 const IconGoogle = () => {
@@ -35,7 +40,40 @@ const IconGoogle = () => {
   );
 };
 const SignUpComponent = () => {
+  const returnUrl = useSearchParams();
+  const url = returnUrl.get("return");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const router = useRouter();
+  const { setUser } = useUserContext();
+
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+    repassword: "",
+  };
+
+  const handleSubmit = async (values) => {
+    setMessage("");
+    setError("");
+    setLoading(true);
+    const result = await signUp(values.email, values.password, values.name);
+    const { data, error } = JSON.parse(result);
+    if (!error) {
+      setUser(data.user);
+      if (url) {
+        return redirect(url);
+      } else {
+        return redirect("/");
+      }
+    }
+    if (error) {
+      setError("Email này đã được đăng ký, vui lòng dùng email khác");
+    }
+    setLoading(false);
+  };
   return (
     <Container>
       <div className="d-flex justify-content-center  bg-white mt-3 p-3">
@@ -58,63 +96,136 @@ const SignUpComponent = () => {
           <h4 className="fw-bold mt-2" style={{ textAlign: "center" }}>
             Đăng ký tài khoản
           </h4>
-          <form>
-            <Col lg={12}>
-              <TextField
-                id="outlined-basic"
-                label="Họ và tên"
-                variant="outlined"
-                style={{ width: "100%" }}
-                className="mt-3"
-              />
-              <TextField
-                id="outlined-basic"
-                label="Email"
-                variant="outlined"
-                style={{ width: "100%" }}
-                className="mt-3"
-                type="email"
-                inputMode="email"
-              />
-              <TextField
-                id="outlined-basic"
-                label="Mật khẩu"
-                variant="outlined"
-                type="password"
-                className="mt-4 mb-3"
-                style={{ width: "100%" }}
-              />
-              <Button
-                variant="contained"
-                style={{ backgroundColor: "#FF5757", width: "100%" }}
-                className="mt-3 fw-bold fs-6"
-              >
-                ĐĂNG KÝ
-              </Button>
-              <div className="d-flex align-items-center mt-3">
-                <hr style={{ width: "100%", marginRight: "5px" }} />
-                <span style={{ whiteSpace: "nowrap" }}>
-                  {" "}
-                  hoặc đăng nhập bằng{" "}
-                </span>
-                <hr style={{ width: "100%", marginLeft: "5px" }} />
-              </div>
-              <Button
-                className="text-black mt-2"
-                style={{ border: "1px solid grey", width: "100%" }}
-                variant="outlined"
-                startIcon={<IconGoogle />}
-              >
-                ĐĂNG NHẬP BẰNG GOOGLE
-              </Button>
-              <div className="mt-3 text-center">
-                <span>Đã có tài khoản? </span>
-                <Link className="text-decoration-none" href={"/dang-nhap"}>
-                  Đăng nhập
-                </Link>
-              </div>
-            </Col>
-          </form>
+
+          {/* <form> */}
+          <Formik
+            initialValues={initialValues}
+            validationSchema={SignUpSchema}
+            onSubmit={handleSubmit}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
+              <Col lg={12}>
+                {message && (
+                  <div className="alert alert-success mt-2">{message}</div>
+                )}
+                {error && (
+                  <div className="alert alert-danger mt-2">{error}</div>
+                )}
+                <TextField
+                  id="outlined-basic"
+                  name="name"
+                  label="Họ và tên"
+                  variant="outlined"
+                  style={{ width: "100%" }}
+                  className="mt-3"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.name && Boolean(errors.name)}
+                  helperText={touched.name ? errors.name : ""}
+                />
+                <TextField
+                  id="outlined-basic"
+                  name="email"
+                  label="Email"
+                  variant="outlined"
+                  style={{ width: "100%" }}
+                  className="mt-3"
+                  type="email"
+                  inputMode="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.email && Boolean(errors.email)}
+                  helperText={touched.email && errors.email}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Mật khẩu"
+                  variant="outlined"
+                  name="password"
+                  type="password"
+                  className="mt-4"
+                  style={{ width: "100%" }}
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.password && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Nhập lại mật khẩu"
+                  variant="outlined"
+                  name="repassword"
+                  type="password"
+                  className="mt-4 mb-3"
+                  style={{ width: "100%" }}
+                  value={values.repassword}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.repassword && Boolean(errors.repassword)}
+                  helperText={touched.repassword && errors.repassword}
+                />
+                <div style={{ position: "relative" }}>
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#FF5757", width: "100%" }}
+                    className="mt-3 fw-bold fs-6"
+                    onClick={handleSubmit}
+                    type="submit"
+                    disabled={loading}
+                  >
+                    ĐĂNG KÝ
+                  </Button>
+                  {loading && (
+                    <CircularProgress
+                      size={24}
+                      sx={{
+                        position: "absolute",
+                        color: "white",
+                        top: "50%",
+                        left: "50%",
+                        marginLeft: "-12px",
+                        marginTop: "-5px",
+                      }}
+                    />
+                  )}
+                </div>
+
+                <div className="d-flex align-items-center mt-3">
+                  <hr style={{ width: "100%", marginRight: "5px" }} />
+                  <span style={{ whiteSpace: "nowrap" }}>
+                    {" "}
+                    hoặc đăng nhập bằng{" "}
+                  </span>
+                  <hr style={{ width: "100%", marginLeft: "5px" }} />
+                </div>
+                <Button
+                  className="text-black mt-2"
+                  style={{ border: "1px solid grey", width: "100%" }}
+                  variant="outlined"
+                  startIcon={<IconGoogle />}
+                >
+                  ĐĂNG NHẬP BẰNG GOOGLE
+                </Button>
+                <div className="mt-3 text-center">
+                  <span>Đã có tài khoản? </span>
+                  <Link className="text-decoration-none" href={"/dang-nhap"}>
+                    Đăng nhập
+                  </Link>
+                </div>
+              </Col>
+            )}
+          </Formik>
+          {/* </form> */}
         </Row>
       </div>
     </Container>

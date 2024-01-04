@@ -1,4 +1,6 @@
 import LoginComponent from "@/component/account/login/LoginComponent";
+import { readUserSession } from "@/services/Auth";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata() {
   return {
@@ -6,10 +8,12 @@ export async function generateMetadata() {
   };
 }
 
-const LoginPage = () => {
-  return (
-    <LoginComponent />
-  );
+const LoginPage = async () => {
+  const { data } = await readUserSession();
+  if (data.session) {
+    return redirect("/");
+  }
+  return <LoginComponent />;
 };
 
 export default LoginPage;

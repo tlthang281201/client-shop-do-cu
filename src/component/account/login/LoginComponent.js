@@ -1,9 +1,14 @@
 "use client";
-import { Button, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { Col, Container, Row } from "react-bootstrap";
+import { Formik } from "formik";
+import { useState } from "react";
+import { SignInSchema } from "@/validation/FormValidation";
+import { signIn } from "@/services/Auth";
+import { useUserContext } from "@/context/context";
 const IconGoogle = () => {
   return (
     <svg
@@ -33,7 +38,37 @@ const IconGoogle = () => {
   );
 };
 const LoginComponent = () => {
+  const returnUrl = useSearchParams();
+  const url = returnUrl.get("return");
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { setUser } = useUserContext();
   const router = useRouter();
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+  const handleSubmit = async (values) => {
+    setMessage("");
+    setError("");
+    setLoading(true);
+    const res = await signIn(values.email, values.password);
+    const { data, error } = JSON.parse(res);
+    if (!error) {
+      setUser(data.user);
+      if (url) {
+        return redirect(url);
+      } else {
+        return redirect("/");
+      }
+    } else {
+      setError(
+        "Thông tin đăng nhập không chính xác hoặc tài khoản đã bị đình chỉ hoạt động"
+      );
+    }
+    setLoading(false);
+  };
   return (
     <Container>
       <div className="d-flex justify-content-center  bg-white mt-3 p-3">
@@ -58,69 +93,121 @@ const LoginComponent = () => {
           <h4 className="fw-bold mt-2" style={{ textAlign: "center" }}>
             ĐĂNG NHẬP
           </h4>
-          <form>
-            <Col lg={12}>
-              <TextField
-                key={1}
-                id="outlined-basic"
-                label="Email"
-                variant="outlined"
-                style={{ width: "100%" }}
-                className="mt-3"
-                type="email"
-                inputMode="email"
-              />
-              <TextField
-                key={2}
-                id="outlined-basic"
-                label="Mật khẩu"
-                variant="outlined"
-                type="password"
-                className="mt-4 mb-3"
-                style={{ width: "100%" }}
-              />
-              <Button
-                variant="contained"
-                style={{ backgroundColor: "#FF5757", width: "100%" }}
-                className="mt-3 fw-bold fs-6"
-              >
-                ĐĂNG NHẬP
-              </Button>
-              <Button
-                variant="contained"
-                style={{
-                  backgroundColor: "#d7d7d7",
-                  width: "100%",
-                  textTransform: "none",
-                }}
-                className="mt-3 text-black"
-              >
-                Quên mật khẩu?
-              </Button>
-              <div className="d-flex align-items-center mt-3">
-                <hr style={{ width: "100%", marginRight: "5px" }} />
-                <span style={{ whiteSpace: "nowrap" }}> hoặc </span>
-                <hr style={{ width: "100%", marginLeft: "5px" }} />
-              </div>
-              <Button
-                className="text-black mt-2"
-                style={{ border: "1px solid grey", width: "100%" }}
-                variant="outlined"
-                startIcon={<IconGoogle />}
-              >
-                ĐĂNG NHẬP BẰNG GOOGLE
-              </Button>
-              <div className="mt-3 text-center">
-                <span>Chưa có tài khoản? </span>
-                <Link className="text-decoration-none" href={"/dang-ky"}>
-                  Đăng kí ngay
-                </Link>
-              </div>
-            </Col>
-            {/* <Link href={"#"} className="text-decoration-none">
-                Quên mật khẩu?
-              </Link> */}
-          </form>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={SignInSchema}
+            onSubmit={handleSubmit}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
+              <Col lg={12}>
+                {message && (
+                  <div className="alert alert-success mt-2">{message}</div>
+                )}
+                {error && (
+                  <div className="alert alert-danger mt-2">{error}</div>
+                )}
+                <TextField
+                  key={1}
+                  id="outlined-basic"
+                  label="Email"
+                  variant="outlined"
+                  style={{ width: "100%" }}
+                  className="mt-3"
+                  type="email"
+                  inputMode="email"
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.email && Boolean(errors.email)}
+                  helperText={touched.email ? errors.email : ""}
+                />
+                <TextField
+                  key={2}
+                  id="outlined-basic"
+                  label="Mật khẩu"
+                  variant="outlined"
+                  type="password"
+                  className="mt-4 mb-3"
+                  name="password"
+                  style={{ width: "100%" }}
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.password && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
+                />
+                <div style={{ position: "relative" }}>
+                  <Button
+                    variant="contained"
+                    onClick={handleSubmit}
+                    style={{ backgroundColor: "#FF5757", width: "100%" }}
+                    disabled={loading}
+                    className="mt-3 fw-bold fs-6"
+                  >
+                    ĐĂNG NHẬP
+                  </Button>
+                  {loading && (
+                    <CircularProgress
+                      size={24}
+                      sx={{
+                        position: "absolute",
+                        color: "white",
+                        top: "50%",
+                        left: "50%",
+                        marginLeft: "-12px",
+                        marginTop: "-5px",
+                      }}
+                    />
+                  )}
+                </div>
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: "#d7d7d7",
+                    width: "100%",
+                    textTransform: "none",
+                  }}
+                  className="mt-3 text-black"
+                >
+                  Quên mật khẩu?
+                </Button>
+                <div className="d-flex align-items-center mt-3">
+                  <hr style={{ width: "100%", marginRight: "5px" }} />
+                  <span style={{ whiteSpace: "nowrap" }}> hoặc </span>
+                  <hr style={{ width: "100%", marginLeft: "5px" }} />
+                </div>
+                <Button
+                  className="text-black mt-2"
+                  style={{ border: "1px solid grey", width: "100%" }}
+                  variant="outlined"
+                  startIcon={<IconGoogle />}
+                >
+                  ĐĂNG NHẬP BẰNG GOOGLE
+                </Button>
+                <div className="mt-3 text-center">
+                  <span>Chưa có tài khoản? </span>
+                  <Link
+                    className="text-decoration-none"
+                    href={
+                      url
+                        ? `/dang-ky?return=${encodeURIComponent(url)}`
+                        : "/dang-ky"
+                    }
+                  >
+                    Đăng kí ngay
+                  </Link>
+                </div>
+              </Col>
+            )}
+          </Formik>
         </Row>
       </div>
     </Container>

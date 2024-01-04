@@ -1,26 +1,22 @@
-import LeftColumn from "@/component/account/manage/LeftColumn";
-import AccountInformationComponent from "@/component/account/manage/information/AccountInformationComponent";
-import Breadcumber from "@/component/breadcumber/Breadcumber";
-import { Col, Container, Row } from "react-bootstrap";
+import UserInformationComponent from "@/component/account/manage/UserInformationComponent";
+import { readUserSession } from "@/services/Auth";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+
 export async function generateMetadata() {
   return {
     title: `Thông tin tài khoản`,
   };
 }
-const UserInformationPage = () => {
-  return (
-    <Container>
-      <Breadcumber />
-      <Row>
-        <Col lg={4}>
-          <LeftColumn />
-        </Col>
-        <Col lg={8}>
-          <AccountInformationComponent />
-        </Col>
-      </Row>
-    </Container>
-  );
+const UserInformationPage = async () => {
+  const { data } = await readUserSession();
+  const heads = headers();
+  const pathname = heads.get("next-url");
+  const uri = encodeURIComponent(pathname);
+  if (!data.session) {
+    return redirect(`/dang-nhap?return=${uri}`);
+  }
+  return <UserInformationComponent />;
 };
 
 export default UserInformationPage;
