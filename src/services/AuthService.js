@@ -1,16 +1,20 @@
 import { useUserContext } from "@/context/context";
 import { supabase } from "@/utils/supabase-config";
 import { capitalizeFirstLetter } from "@/utils/utils";
+import { setCookie } from "cookies-next";
 
-export async function currentUser() {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user;
+export async function currentUser(id) {
+  const { data } = await supabase
+    .from("users")
+    .select(`*,city(name),district(name),ward(name)`)
+    .eq("id", id)
+    .single();
+
+  return { data };
 }
 
 export async function signUpWithEmail(email, password, name) {
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email: email,
     password: password,
     options: {
@@ -22,30 +26,51 @@ export async function signUpWithEmail(email, password, name) {
       },
     },
   });
-  if (error) {
-    return false;
-  }
-  if (!error) {
-    return true;
-  }
+  return { data, error };
 }
 
 export async function signInWithEmail(email, password) {
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
     password: password,
   });
-  if (error) {
-    // if (error.message.includes("Invalid")) {
-    //   setError("Thông tin tài khoản không chính xác");
-    // }
-    return false;
-  }
-  if (!error) {
-    return true;
-  }
+  return { data, error };
 }
 
 export async function signOut() {
   const { error } = await supabase.auth.signOut();
+}
+
+export async function updateProfile(data, id) {
+  const { error } = await supabase
+    .from("users")
+    .update({
+      name: data.name,
+      phone: data.phone,
+    })
+    .eq("id", id);
+  return { error };
+}
+
+export async function updateAddress(data, id) {
+  const { error } = await supabase
+    .from("users")
+    .update({
+      city: data.city,
+      district: data.district,
+      ward: data.ward,
+      address: data.address,
+    })
+    .eq("id", id);
+  return { error };
+}
+
+export async function updateAvatar(url, id) {
+  const { error } = await supabase
+    .from("users")
+    .update({
+      avatar: url,
+    })
+    .eq("id", id);
+  return { error };
 }

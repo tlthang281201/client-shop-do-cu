@@ -1,36 +1,81 @@
 "use client";
-import { Rating } from "@mui/material";
+import { CircularProgress, Rating } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import BoxWalletComponent from "./BoxWalletComponent";
+import moment from "moment";
+import upImage from "@/utils/utils";
+import { useUserContext } from "@/context/context";
+import { updateAvatar } from "@/services/AuthService";
+import { useState } from "react";
 
-const LeftColumn = () => {
+const LeftColumn = ({ data }) => {
   const path = usePathname();
+  const [loading, setLoading] = useState(false);
+
+  const { userSession, getUserInfo } = useUserContext();
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      setLoading(true);
+      const fileName = await upImage(file);
+      const data = await updateAvatar(
+        `https://weeevlktjgkhinnqsmai.supabase.co/storage/v1/object/public/post_images/avatar/${fileName}`,
+        userSession.user.id
+      );
+      getUserInfo();
+      setLoading(false);
+    }
+  };
   return (
     <div className="bg-white mt-2">
       <div className="d-flex flex-row pt-3 pe-3 ps-3 align-items-center gap-3">
         <label className="border rounded-circle position-relative">
           <Image
             alt="a"
-            src="https://static.chotot.com/storage/marketplace/common/png/default_user.png"
+            src={
+              data
+                ? data.avatar
+                : "https://static.chotot.com/storage/marketplace/common/png/default_user.png"
+            }
             width={80}
             height={80}
-            className="rounded-circle p-1"
+            className="rounded-circle p-1 "
             style={{ objectFit: "cover", objectPosition: "center" }}
           />
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                position: "absolute",
+                color: "white",
+                top: "50%",
+                left: "50%",
+                marginLeft: "-12px",
+                marginTop: "-13px",
+              }}
+            />
+          )}
           <div
             className="position-absolute text-white border rounded-circle bg-gray"
             style={{ right: "35%", bottom: "0px" }}
           >
             <i className="bi bi-camera p-1"></i>
-            <input type="file" className="d-none" />
+            <input
+              type="file"
+              onChange={handleFileUpload}
+              accept="image/png, image/jpg, image/jpeg"
+              className="d-none"
+            />
           </div>
         </label>
         <div className="d-flex flex-column gap-1">
-          <div className="fw-bold">thang281201</div>
+          <div className="fw-bold">{data?.name}</div>
           <div className="d-flex flex-row align-items-center gap-2 flex-wrap">
             <span className="fw-bold" style={{ fontSize: "14px" }}>
-              2.3
+              {data?.rating}
             </span>
             <Rating
               name="half-rating-read"
@@ -44,7 +89,7 @@ const LeftColumn = () => {
               className="text-decoration-none "
               style={{ fontSize: "13px" }}
             >
-              ( 6 đánh giá )
+              ( {data?.number_reviews} đánh giá )
             </Link>
           </div>
           <div
@@ -53,9 +98,10 @@ const LeftColumn = () => {
           >
             <i className="bi bi-calendar3"></i>
             <span>Tham gia từ:</span>
-            <span>10/10/2018</span>
+            <span>{moment(data?.created_at).format("DD/MM/YYYY")}</span>
           </div>
-          <div
+
+          {/* <div
             style={{ fontSize: "15px" }}
             className="d-flex flex-row align-items-center gap-2"
           >
@@ -64,8 +110,20 @@ const LeftColumn = () => {
               Đồng cũ:{" "}
               <span style={{ color: "#d13000", fontWeight: "bold" }}>16</span>
             </div>
-          </div>
+          </div> */}
         </div>
+      </div>
+      <div className="d-flex flex-row px-3 pt-2 gap-2">
+        <BoxWalletComponent
+          title={"Ví Bán Hàng"}
+          value={data?.cash_wallet}
+          type="wallet"
+        />
+        <BoxWalletComponent
+          title={"Đồng Cũ"}
+          value={data?.coin_wallet}
+          type="coin"
+        />
       </div>
       <hr className="ms-3 me-3 border-3" />
       <div className="d-flex flex-column pe-3 ps-3 pb-3">

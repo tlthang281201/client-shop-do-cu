@@ -1,14 +1,14 @@
 "use client";
 
 import { useUserContext } from "@/context/context";
-import { signUp } from "@/services/Auth";
 import { signUpWithEmail } from "@/services/AuthService";
 import { SignUpSchema } from "@/validation/FormValidation";
 import { Button, CircularProgress, TextField } from "@mui/material";
+import { setCookie } from "cookies-next";
 import { Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 const IconGoogle = () => {
@@ -46,27 +46,28 @@ const SignUpComponent = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
-  const { setUser } = useUserContext();
-
-  const initialValues = {
-    name: "",
-    email: "",
-    password: "",
-    repassword: "",
-  };
+  const { getUserInfo, getcurrentUser } = useUserContext();
 
   const handleSubmit = async (values) => {
     setMessage("");
     setError("");
     setLoading(true);
-    const result = await signUp(values.email, values.password, values.name);
-    const { data, error } = JSON.parse(result);
+    const { data, error } = await signUpWithEmail(
+      values.email,
+      values.password,
+      values.name
+    );
+
     if (!error) {
-      setUser(data.user);
+      setCookie("user", data.user);
       if (url) {
-        return redirect(url);
+        getcurrentUser();
+        getUserInfo();
+        router.replace(url);
       } else {
-        return redirect("/");
+        getcurrentUser();
+        getUserInfo();
+        router.replace("/");
       }
     }
     if (error) {
@@ -99,7 +100,12 @@ const SignUpComponent = () => {
 
           {/* <form> */}
           <Formik
-            initialValues={initialValues}
+            initialValues={{
+              name: "",
+              email: "",
+              password: "",
+              repassword: "",
+            }}
             validationSchema={SignUpSchema}
             onSubmit={handleSubmit}
           >
@@ -218,7 +224,10 @@ const SignUpComponent = () => {
                 </Button>
                 <div className="mt-3 text-center">
                   <span>Đã có tài khoản? </span>
-                  <Link className="text-decoration-none" href={"/dang-nhap"}>
+                  <Link
+                    className="text-decoration-none"
+                    href={`/dang-nhap?return=${encodeURIComponent(url)}`}
+                  >
                     Đăng nhập
                   </Link>
                 </div>

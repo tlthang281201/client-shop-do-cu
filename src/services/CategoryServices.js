@@ -1,4 +1,3 @@
-"use server"
 import { supabase } from "@/utils/supabase-config";
 
 export const getCategoryParent = async () => {
@@ -25,5 +24,13 @@ export const getCategoryChildren = async (id) => {
     .from("category_children")
     .select()
     .match({ active: true, parent: id });
+  return { catechildren };
+};
+
+export const getAllCategoryChildren = async () => {
+  const catechildren = await supabase
+    .from("category_children")
+    .select()
+    .match({ active: true });
   return { catechildren };
 };

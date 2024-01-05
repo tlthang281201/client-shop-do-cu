@@ -1,6 +1,8 @@
 "use client";
 import { useUserContext } from "@/context/context";
 import { logOut } from "@/services/Auth";
+import { signOut } from "@/services/AuthService";
+import { deleteCookie } from "cookies-next";
 import Image from "next/image";
 import { redirect, useRouter } from "next/navigation";
 import { Dropdown } from "react-bootstrap";
@@ -8,9 +10,11 @@ import { Dropdown } from "react-bootstrap";
 const AvatarDropdown = ({ user }) => {
   const { setUser } = useUserContext();
   const router = useRouter();
-  const handleSignOut = async () => {
-    await logOut();
+  const handleSignOut = () => {
+    signOut();
+    deleteCookie("user");
     setUser(null);
+    router.replace("/dang-nhap");
   };
   return (
     <Dropdown className="me-3">
@@ -29,7 +33,7 @@ const AvatarDropdown = ({ user }) => {
       >
         <Image
           alt="avatar"
-          src={user?.user_metadata?.avatar}
+          src={user?.avatar}
           className="rounded-circle"
           width={30}
           height={30}
@@ -42,7 +46,7 @@ const AvatarDropdown = ({ user }) => {
           }}
           className="ms-2 d-none d-md-inline"
         >
-          {user?.user_metadata?.name}
+          {user?.name}
         </span>
       </Dropdown.Toggle>
 
@@ -106,7 +110,10 @@ const AvatarDropdown = ({ user }) => {
           />
           Tin đã lưu
         </Dropdown.Item>
-        <Dropdown.Item className="d-flex flex-row align-items-center gap-2">
+        <Dropdown.Item
+          className="d-flex flex-row align-items-center gap-2"
+          onClick={() => router.push("/user/chi-tiet-tai-khoan")}
+        >
           <Image
             src="https://static.chotot.com/storage/icons/svg/setting.svg"
             width={30}

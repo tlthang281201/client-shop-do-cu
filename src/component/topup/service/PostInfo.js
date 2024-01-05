@@ -3,7 +3,7 @@ import React from "react";
 
 const PostInfo = () => {
   return (
-    <div className="d-flex flex-row gap-2 mt-2 mb-3">
+    <div className="d-flex flex-row gap-2 mt-2 mb-3 ">
       <Image
         src="https://cdn.chotot.com/j6x7IlmqJLMaADq_qHpud_wf24gzFhNEBEuKOXKQcuE/preset:listing/plain/b7b988f0adb54d7278331707f519065e-2859194353782525030.jpg"
         width={150}

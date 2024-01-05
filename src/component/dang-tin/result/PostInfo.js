@@ -1,7 +1,8 @@
+import { formatter } from "@/utils/format-currency";
 import Image from "next/image";
 import React from "react";
 
-const PostInfo = () => {
+const PostInfo = ({ data }) => {
   return (
     <div className="pe-4 ps-4 pb-2 pt-4">
       <div className="d-flex flex-row gap-3">
@@ -14,8 +15,10 @@ const PostInfo = () => {
           height={130}
         />
         <div className="d-flex flex-column">
-          <span>Bán bộ bàn ghế đỏ 8 ghế</span>
-          <span style={{ color: "red", fontWeight: "bold" }}>1.200.000 đ</span>
+          <span>{data.title}</span>
+          <span style={{ color: "red", fontWeight: "bold" }}>
+            {formatter.format(data.price)}
+          </span>
         </div>
       </div>
     </div>

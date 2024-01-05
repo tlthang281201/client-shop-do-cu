@@ -1,11 +1,31 @@
 import { NextResponse } from "next/server";
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request) {
-  const isLogged = request.cookies.get("sb-weeevlktjgkhinnqsmai-auth-token");
-  if (isLogged) {
+  let cookie = request.cookies.get("user");
+  let url = request.nextUrl.pathname;
+  // Listen to inserts
+  // console.log(JSON.parse(cookie.value).role);
+
+  if (url.startsWith("/user") || url.startsWith("/dang-tin")) {
+    if (cookie) {
+      return NextResponse.next();
+    } else {
+      const returnUrl = request.nextUrl.pathname;
+      return NextResponse.redirect(
+        new URL(
+          `/dang-nhap?return=${encodeURIComponent(returnUrl)}`,
+          request.url
+        )
+      );
+    }
   }
-  return NextResponse.next();
+  if (url.startsWith("/dang-nhap") || url.startsWith("/dang-ky")) {
+    if (cookie) {
+      return NextResponse.redirect(new URL("/", request.url));
+    } else {
+      return NextResponse.next();
+    }
+  }
 }
 export const config = {
   matcher: [

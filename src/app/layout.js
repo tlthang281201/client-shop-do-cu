@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { AppWrapper } from "@/context/context";
 import NavbarHeader from "@/component/navbar/navbar";
+import { Toaster } from "sonner";
 
 export default function RootLayout({ children }) {
   return (
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
           <div className="d-lg-none" style={{ marginTop: "7.5rem" }}></div>
           <main style={{ marginBottom: "10px" }}>{children}</main>
           <FooterComponent />
+          <Toaster position="top-right" richColors />
         </AppWrapper>
       </body>
     </html>

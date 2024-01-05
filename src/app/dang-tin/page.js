@@ -2,6 +2,8 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import styles from "./styles.css";
 import FormInput from "@/component/dang-tin/FormInput";
+import { useUserContext } from "@/context/context";
+
 export async function generateMetadata() {
   return {
     title: `Chợ Nhà Việt - Đăng tin`,

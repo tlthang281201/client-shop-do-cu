@@ -7,8 +7,9 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import { useState } from "react";
 import { SignInSchema } from "@/validation/FormValidation";
-import { signIn } from "@/services/Auth";
 import { useUserContext } from "@/context/context";
+import { signInWithEmail } from "@/services/AuthService";
+import { getCookie, setCookie } from "cookies-next";
 const IconGoogle = () => {
   return (
     <svg
@@ -40,27 +41,32 @@ const IconGoogle = () => {
 const LoginComponent = () => {
   const returnUrl = useSearchParams();
   const url = returnUrl.get("return");
+
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const { setUser } = useUserContext();
+
+  const { getUserInfo, getcurrentUser } = useUserContext();
   const router = useRouter();
-  const initialValues = {
-    email: "",
-    password: "",
-  };
+
   const handleSubmit = async (values) => {
     setMessage("");
     setError("");
     setLoading(true);
-    const res = await signIn(values.email, values.password);
-    const { data, error } = JSON.parse(res);
+    const { data, error } = await signInWithEmail(
+      values.email,
+      values.password
+    );
     if (!error) {
-      setUser(data.user);
+      setCookie("user", data.user);
       if (url) {
-        return redirect(url);
+        getUserInfo();
+        getcurrentUser();
+        router.replace(url);
       } else {
-        return redirect("/");
+        getUserInfo();
+        getcurrentUser();
+        router.replace("/");
       }
     } else {
       setError(
@@ -94,7 +100,7 @@ const LoginComponent = () => {
             ĐĂNG NHẬP
           </h4>
           <Formik
-            initialValues={initialValues}
+            initialValues={{ email: "", password: "" }}
             validationSchema={SignInSchema}
             onSubmit={handleSubmit}
           >

@@ -1,8 +1,11 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 const LoginDropdown = () => {
+  const pathname = usePathname();
   return (
     <Link
-      href={`/dang-nhap`}
+      href={`/dang-nhap?return=${encodeURIComponent(pathname)}`}
       className="d-flex align-items-center bg-none me-3 login text-decoration-none"
       style={{ fontSize: "13px", color: "white" }}
     >

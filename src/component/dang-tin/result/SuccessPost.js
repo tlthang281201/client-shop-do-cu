@@ -23,7 +23,7 @@ const SuccessPost = () => {
           <div></div>
           <div>
             <Link
-              href="#"
+              href="/dang-tin"
               className="text-white text-decoration-none border p-2 rounded-2"
             >
               Đăng tin khác
