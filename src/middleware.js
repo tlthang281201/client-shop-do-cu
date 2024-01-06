@@ -6,7 +6,20 @@ export function middleware(request) {
   // Listen to inserts
   // console.log(JSON.parse(cookie.value).role);
 
-  if (url.startsWith("/user") || url.startsWith("/dang-tin")) {
+  if (url.startsWith("/user")) {
+    if (cookie) {
+      return NextResponse.next();
+    } else {
+      const returnUrl = request.nextUrl.pathname;
+      return NextResponse.redirect(
+        new URL(
+          `/dang-nhap?return=${encodeURIComponent(returnUrl)}`,
+          request.url
+        )
+      );
+    }
+  }
+  if (url.startsWith("/dang-tin")) {
     if (cookie) {
       return NextResponse.next();
     } else {
