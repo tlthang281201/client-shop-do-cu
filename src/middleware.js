@@ -1,37 +1,18 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export function middleware(request) {
   let cookie = request.cookies.get("user");
   let url = request.nextUrl.pathname;
-  // Listen to inserts
-  // console.log(JSON.parse(cookie.value).role);
 
   if (url.startsWith("/user")) {
     if (cookie) {
       return NextResponse.next();
     } else {
-      const returnUrl = request.nextUrl.pathname;
-      return NextResponse.redirect(
-        new URL(
-          `/dang-nhap?return=${encodeURIComponent(returnUrl)}`,
-          request.url
-        )
-      );
+      return NextResponse.redirect(new URL(`/dang-nhap`, request.url));
     }
   }
-  if (url.startsWith("/dang-tin")) {
-    if (cookie) {
-      return NextResponse.next();
-    } else {
-      const returnUrl = request.nextUrl.pathname;
-      return NextResponse.redirect(
-        new URL(
-          `/dang-nhap?return=${encodeURIComponent(returnUrl)}`,
-          request.url
-        )
-      );
-    }
-  }
+
   if (url.startsWith("/dang-nhap") || url.startsWith("/dang-ky")) {
     if (cookie) {
       return NextResponse.redirect(new URL("/", request.url));

@@ -19,6 +19,7 @@ export function AppWrapper({ children }) {
         setUser(data);
       }
       if (!data) {
+        await signOut();
         deleteCookie("user");
         setUser(null);
       }

@@ -10,8 +10,8 @@ import { Dropdown } from "react-bootstrap";
 const AvatarDropdown = ({ user }) => {
   const { setUser } = useUserContext();
   const router = useRouter();
-  const handleSignOut = () => {
-    signOut();
+  const handleSignOut = async () => {
+    await signOut();
     deleteCookie("user");
     setUser(null);
     router.replace("/dang-nhap");

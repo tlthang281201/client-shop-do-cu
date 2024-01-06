@@ -1,7 +1,5 @@
-import { useUserContext } from "@/context/context";
 import { supabase } from "@/utils/supabase-config";
 import { capitalizeFirstLetter } from "@/utils/utils";
-import { setCookie } from "cookies-next";
 
 export async function currentUser(id) {
   const { data } = await supabase
@@ -38,7 +36,7 @@ export async function signInWithEmail(email, password) {
 }
 
 export async function signOut() {
-  const { error } = await supabase.auth.signOut();
+  await supabase.auth.signOut();
 }
 
 export async function updateProfile(data, id) {

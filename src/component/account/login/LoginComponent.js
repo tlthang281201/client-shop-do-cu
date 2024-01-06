@@ -62,11 +62,11 @@ const LoginComponent = () => {
       if (url) {
         getUserInfo();
         getcurrentUser();
-        router.replace(url);
+        router.push(url);
       } else {
         getUserInfo();
         getcurrentUser();
-        router.replace("/");
+        router.push("/");
       }
     } else {
       setError(
