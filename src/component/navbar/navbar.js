@@ -78,7 +78,10 @@ const NavbarHeader = () => {
             <Nav className="align-items-center">
               {user ? <AvatarDropdown user={user} /> : <LoginDropdown />}
 
-              <Link href="/dang-tin" className="text-decoration-none">
+              <Link
+                href={user ? `/dang-tin` : `dang-nhap`}
+                className="text-decoration-none"
+              >
                 <Button
                   className="d-flex align-items-center"
                   style={{ backgroundColor: "#c30909", border: "none" }}
