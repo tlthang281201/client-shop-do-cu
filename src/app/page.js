@@ -28,7 +28,7 @@ export default function Index() {
           </Row>
         </div> */}
         <div className="mt-2">
-          <FeaturedPost title={"Tin nổi bật"} />
+          {/* <FeaturedPost title={"Tin nổi bật"} /> */}
         </div>
 
         <div className="mt-2">
