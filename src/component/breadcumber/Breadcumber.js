@@ -6,7 +6,7 @@ const Breadcumber = ({ data }) => {
       <Link href={"/"} style={{ textDecoration: "none", color: "gray" }}>
         Trang chủ
       </Link>
-      {data.map((value, index) => (
+      {data?.map((value, index) => (
         <span
           key={index}
           style={{

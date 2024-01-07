@@ -65,7 +65,7 @@ const ServiceInfo = () => {
         <Col lg={6} md={8} sm={12} xs={12} className="mb-5">
           <div className="fw-bold">Đẩy tin ngay</div>
           <div className="d-flex flex-row gap-2">
-            {services.map(
+            {services?.map(
               (item, i) =>
                 !item.type && (
                   <div
@@ -100,7 +100,7 @@ const ServiceInfo = () => {
         <Col lg={6} md={4} sm={12} xs={12}>
           <div className="fw-bold">Tin nổi bật</div>
           <div style={{ width: "100%", position: "relative" }}>
-            {services.map(
+            {services?.map(
               (item, i) =>
                 item.type === "feature" && (
                   <div

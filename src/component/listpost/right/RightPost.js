@@ -43,7 +43,7 @@ const RightPost = async ({ id }) => {
       </div>
       <div className="mb-2">
         <Row>
-          {data.map((item, i) => (
+          {data?.map((item, i) => (
             <Col key={i} lg={12} md={6} sm={6} xs={6}>
               <PostComponent data={item} />
             </Col>

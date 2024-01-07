@@ -151,7 +151,7 @@ const FormInputOrder = ({ data }) => {
                 <option value={""} disabled>
                   Thành, phố
                 </option>
-                {address.city?.map((item, i) => (
+                {address?.city?.map((item, i) => (
                   <option key={i} value={item.id}>
                     {item.name}
                   </option>
@@ -173,7 +173,7 @@ const FormInputOrder = ({ data }) => {
                 <option value={""} disabled>
                   Quận, huyện
                 </option>
-                {address.district?.map((item, i) => (
+                {address?.district?.map((item, i) => (
                   <option key={i} value={item.id}>
                     {item.name}
                   </option>
@@ -194,7 +194,7 @@ const FormInputOrder = ({ data }) => {
                 <option value={""} disabled>
                   Phường, xã
                 </option>
-                {address.ward?.map((item, i) => (
+                {address?.ward?.map((item, i) => (
                   <option key={i} value={item.id}>
                     {item.name}
                   </option>

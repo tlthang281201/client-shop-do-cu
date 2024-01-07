@@ -119,7 +119,7 @@ const SuggestedPost = ({ data }) => {
             nextArrow={<NextArrow />}
             prevArrow={<PrevArrow />}
           >
-            {data.map((item, i) => (
+            {data?.map((item, i) => (
               <Col key={i} className="p-2">
                 <PostComponent data={item} />
               </Col>

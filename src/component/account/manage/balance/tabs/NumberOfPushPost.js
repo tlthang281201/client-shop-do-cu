@@ -13,7 +13,7 @@ const NumberOfPushPost = ({ coindata }) => {
       // Tạo div chứa cặp phần tử
       const divPair = (
         <div key={i / 2} className="d-flex flex-column gap-3 deposit">
-          {pair.map((item, index) => (
+          {pair?.map((item, index) => (
             <button
               onClick={() => setOption(item.id)}
               key={index}

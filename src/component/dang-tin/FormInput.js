@@ -459,7 +459,7 @@ const FormInput = () => {
           className="w-100 d-flex"
           style={{ flexWrap: "wrap", alignItems: "center" }}
         >
-          {selectedFile.map((file, index) => (
+          {selectedFile?.map((file, index) => (
             <div
               key={index}
               style={{

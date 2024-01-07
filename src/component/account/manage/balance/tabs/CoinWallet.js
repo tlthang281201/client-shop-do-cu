@@ -20,7 +20,7 @@ const CoinWallet = ({ coindata }) => {
         className="d-flex flex-row gap-2 mt-3 text-nowrap"
         style={{ overflowX: "auto", maxWidth: "100%" }}
       >
-        {coindata.map((val, i) => (
+        {coindata?.map((val, i) => (
           <div
             className={`border rounded-2 p-1`}
             style={{ textAlign: "center", minWidth: "180px" }}
@@ -36,7 +36,9 @@ const CoinWallet = ({ coindata }) => {
               style={{ backgroundColor: "#F0F7FE", fontSize: "14px" }}
             >
               <div style={{ color: "#757575" }}>Giá 1.000.000 VNĐ</div>
-              <div className="fw-bold text-wrap">Nhận được 1.100.000 Đồng Cũ</div>
+              <div className="fw-bold text-wrap">
+                Nhận được 1.100.000 Đồng Cũ
+              </div>
             </div>
             <button
               className="btn btn-primary mt-2 mb-2"

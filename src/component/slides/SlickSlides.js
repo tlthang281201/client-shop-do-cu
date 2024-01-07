@@ -105,7 +105,7 @@ const SlickSlide = ({ data }) => {
           style={{ backgroundColor: "#eee", padding: 0 }}
         >
           <Slider nextArrow={<NextArrow />} prevArrow={<PrevArrow />}>
-            {data.images.map((value, index) => (
+            {data?.images?.map((value, index) => (
               <div key={index}>
                 <Image
                   key={index}

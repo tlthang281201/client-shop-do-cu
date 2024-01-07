@@ -39,7 +39,7 @@ const NewPost = (props) => {
         <Container>
           {loading && (
             <Row>
-              {number.map((v, i) => (
+              {number?.map((v, i) => (
                 <Col lg={2} md={4} sm={6} xs={6}>
                   <Skeleton height={150} />
                   <Skeleton count={3} />
@@ -48,7 +48,7 @@ const NewPost = (props) => {
             </Row>
           )}
           <Row>
-            {posts.map((val, i) => (
+            {posts?.map((val, i) => (
               <Col key={i} lg={2} md={4} sm={6} xs={6}>
                 <PostComponent data={val} />
               </Col>

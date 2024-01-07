@@ -23,7 +23,7 @@ const FeaturedPost = (props) => {
       <div className="mb-2">
         <Container>
           <Row>
-            {a.map((val, i) => (
+            {a?.map((val, i) => (
               <Col key={i} lg={2} md={4} sm={6} xs={6}>
                 <PostComponent />
               </Col>
