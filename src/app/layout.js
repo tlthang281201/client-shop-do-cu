@@ -1,14 +1,14 @@
 import { Roboto } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-const inter = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
+import styles from "./global.css";
 import FooterComponent from "@/component/footer/FooterComponent";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { AppWrapper } from "@/context/context";
 import NavbarHeader from "@/component/navbar/navbar";
 import { Toaster } from "sonner";
-
+const inter = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

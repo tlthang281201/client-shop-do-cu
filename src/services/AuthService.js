@@ -21,6 +21,7 @@ export async function signUpWithEmail(email, password, name) {
         avatar:
           "https://static.chotot.com/storage/marketplace/common/png/default_user.png",
         token: null,
+        active: true,
       },
     },
   });

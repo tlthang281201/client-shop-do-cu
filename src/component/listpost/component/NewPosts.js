@@ -1,8 +1,23 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import PostComponent from "./PostComponent";
 import { Col, Container, Row } from "react-bootstrap";
-const a = [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+import { getAllPost } from "@/services/PostServices";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+const number = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 const NewPost = (props) => {
+  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const fetchPosts = async () => {
+    setLoading(true);
+    const { data } = await getAllPost();
+    setPosts(data.filter((onep) => onep.is_selling === false));
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchPosts();
+  }, []);
   return (
     <div style={{ backgroundColor: "white" }} className="p-3 mb-3">
       <div
@@ -17,15 +32,25 @@ const NewPost = (props) => {
         >
           {props.title}
         </h2>
-        <span style={{ fontSize: "13px", color: "gray" }}>Xem tất cả</span>
+        {/* <span style={{ fontSize: "13px", color: "gray" }}>Xem tất cả</span> */}
       </div>
 
       <div className="mb-2">
         <Container>
+          {loading && (
+            <Row>
+              {number.map((v, i) => (
+                <Col lg={2} md={4} sm={6} xs={6}>
+                  <Skeleton height={150} />
+                  <Skeleton count={3} />
+                </Col>
+              ))}
+            </Row>
+          )}
           <Row>
-            {a.map((val, i) => (
+            {posts.map((val, i) => (
               <Col key={i} lg={2} md={4} sm={6} xs={6}>
-                <PostComponent />
+                <PostComponent data={val} />
               </Col>
             ))}
           </Row>

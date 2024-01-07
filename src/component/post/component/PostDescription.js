@@ -1,8 +1,7 @@
-const a = [1, 1, 1, 1, 1, 1, 1, 11, 1, 1];
-export const PostDescription = () => {
+export const PostDescription = ({ data }) => {
   return (
     <>
-      <div className="general-information">
+      {/* <div className="general-information">
         <div className="box-title">
           <h2 className="title">Thông tin chi tiết</h2>
         </div>
@@ -18,7 +17,7 @@ export const PostDescription = () => {
             ))}
           </ul>
         </div>
-      </div>
+      </div> */}
       <div className="line-break"></div>
       <div className="description">
         <div className="box-title">
@@ -27,7 +26,7 @@ export const PostDescription = () => {
         <div className="content-product">
           <div className="information">
             <div className="content-detail">
-              <p>lorem</p>
+              <p dangerouslySetInnerHTML={{ __html: data.description }}></p>
             </div>
           </div>
         </div>

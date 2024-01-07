@@ -15,10 +15,17 @@ export async function generateMetadata() {
 const CreatePostSuccessPage = async ({ params }) => {
   const { data } = await getPostById(params.id);
   const cookie = cookies();
-  const id = JSON.parse(cookie.get("user").value).id;
-  if (data.seller_id !== id) {
-    return redirect("/error/403");
+  let user = cookie.get("user");
+
+  if (!user) {
+    return redirect("/dang-nhap");
+  } else if (user) {
+    const id = JSON.parse(cookie.get("user").value).id;
+    if (data.seller_id !== id) {
+      return redirect("/error/403");
+    }
   }
+
   return (
     <Container style={{ marginTop: "80px" }} className="ps-lg-5 pe-lg-5">
       <div className="bg-white pt-2">

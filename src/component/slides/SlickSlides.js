@@ -8,7 +8,7 @@ const image = [
   "https://cdn.chotot.com/UsyRC2wCMAueiKmTD7Xq8buURB7U7BL03miFr-iHMRI/preset:view/plain/f2e46f9c9f4d90f1c88da21ab436b4e5-2858878958721100657.jpg",
   "https://cdn.chotot.com/TiPTY5Vt_eDZidvajklLJA_4lB4TDNF1UE2A_PbckHY/preset:view/plain/2e4d0ea8402b87322230efe0b74ea338-2858878959339716756.jpg",
 ];
-const SlickSlide = () => {
+const SlickSlide = ({ data }) => {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
 
@@ -98,24 +98,19 @@ const SlickSlide = () => {
     <div>
       <Row>
         <Col
-          lg={9}
-          md={9}
-          sm={9}
+          lg={12}
+          md={12}
+          sm={12}
           xs={12}
           style={{ backgroundColor: "#eee", padding: 0 }}
         >
-          <Slider
-            asNavFor={nav2}
-            ref={(slider) => (slider1 = slider)}
-            nextArrow={<NextArrow />}
-            prevArrow={<PrevArrow />}
-          >
-            {image.map((value, index) => (
+          <Slider nextArrow={<NextArrow />} prevArrow={<PrevArrow />}>
+            {data.images.map((value, index) => (
               <div key={index}>
                 <Image
                   key={index}
                   alt="a"
-                  src={value}
+                  src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${value}`}
                   style={{
                     maxWidth: "100%",
                     maxHeight: "100%",
@@ -129,7 +124,7 @@ const SlickSlide = () => {
             ))}
           </Slider>
         </Col>
-        <Col lg={3} md={3} sm={3} xs={3} className="d-none d-sm-block p-0">
+        {/* <Col lg={3} md={3} sm={3} xs={3} className="d-none d-sm-block p-0">
           <Slider
             asNavFor={nav1}
             ref={(slider) => (slider2 = slider)}
@@ -141,12 +136,12 @@ const SlickSlide = () => {
             prevArrow={<></>}
             accessibility={false}
           >
-            {image.map((value, index) => (
+            {data.images.map((value, index) => (
               <div key={index}>
                 <Image
                   key={index}
                   alt="a"
-                  src={value}
+                  src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${value}`}
                   style={{ width: "100% !important", objectFit: "contain" }}
                   width={200}
                   quality={80}
@@ -155,7 +150,7 @@ const SlickSlide = () => {
               </div>
             ))}
           </Slider>
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );

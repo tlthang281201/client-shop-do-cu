@@ -14,7 +14,7 @@ import {
 } from "@/services/AddressServices";
 import { useUserContext } from "@/context/context";
 import Image from "next/image";
-import upImage from "@/utils/utils";
+import { upImagePublic } from "@/utils/utils";
 import { supabaseAdmin } from "@/utils/supabase-config";
 import { getCookie } from "cookies-next";
 import { addPost } from "@/services/PostServices";
@@ -94,7 +94,7 @@ const FormInput = () => {
   };
 
   const uploadImage = async (file) => {
-    const fileName = await upImage(file);
+    const fileName = await upImagePublic(file);
     setData((prevData) => ({
       ...prevData,
       image: [...prevData.image, fileName],

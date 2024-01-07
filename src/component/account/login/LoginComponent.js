@@ -10,6 +10,7 @@ import { SignInSchema } from "@/validation/FormValidation";
 import { useUserContext } from "@/context/context";
 import { signInWithEmail } from "@/services/AuthService";
 import { getCookie, setCookie } from "cookies-next";
+import { supabaseAdmin } from "@/utils/supabase-config";
 const IconGoogle = () => {
   return (
     <svg
@@ -39,15 +40,20 @@ const IconGoogle = () => {
   );
 };
 const LoginComponent = () => {
-  const returnUrl = useSearchParams();
-  const url = returnUrl.get("return");
-
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { getUserInfo, getcurrentUser } = useUserContext();
   const router = useRouter();
+  const forgotPassword = async () => {
+    const { data, error } = await supabaseAdmin.auth.admin.updateUserById(
+      "8a7e420d-942c-4ec0-9209-eb11bf7c9825",
+      { user_metadata: { active: true } }
+    );
+    console.log(data);
+    console.log(error);
+  };
 
   const handleSubmit = async (values) => {
     setMessage("");
@@ -58,15 +64,15 @@ const LoginComponent = () => {
       values.password
     );
     if (!error) {
-      setCookie("user", data.user);
-      if (url) {
-        getUserInfo();
-        getcurrentUser();
-        router.push(url);
-      } else {
+      if (data.user.user_metadata.active === true) {
+        setCookie("user", data.user);
         getUserInfo();
         getcurrentUser();
         router.push("/");
+      } else {
+        setError(
+          "Thông tin đăng nhập không chính xác hoặc tài khoản đã bị đình chỉ hoạt động"
+        );
       }
     } else {
       setError(
@@ -174,18 +180,19 @@ const LoginComponent = () => {
                     />
                   )}
                 </div>
-                <Button
+                {/* <Button
                   variant="contained"
                   style={{
                     backgroundColor: "#d7d7d7",
                     width: "100%",
                     textTransform: "none",
                   }}
+                  onClick={() => forgotPassword()}
                   className="mt-3 text-black"
                 >
                   Quên mật khẩu?
-                </Button>
-                <div className="d-flex align-items-center mt-3">
+                </Button> */}
+                {/* <div className="d-flex align-items-center mt-3">
                   <hr style={{ width: "100%", marginRight: "5px" }} />
                   <span style={{ whiteSpace: "nowrap" }}> hoặc </span>
                   <hr style={{ width: "100%", marginLeft: "5px" }} />
@@ -197,17 +204,10 @@ const LoginComponent = () => {
                   startIcon={<IconGoogle />}
                 >
                   ĐĂNG NHẬP BẰNG GOOGLE
-                </Button>
+                </Button> */}
                 <div className="mt-3 text-center">
                   <span>Chưa có tài khoản? </span>
-                  <Link
-                    className="text-decoration-none"
-                    href={
-                      url
-                        ? `/dang-ky?return=${encodeURIComponent(url)}`
-                        : "/dang-ky"
-                    }
-                  >
+                  <Link className="text-decoration-none" href={"/dang-ky"}>
                     Đăng kí ngay
                   </Link>
                 </div>

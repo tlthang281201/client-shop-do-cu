@@ -14,14 +14,17 @@ export async function generateMetadata({ params }) {
     title: `Mua Bán ${data?.name}`,
   };
 }
-const Page = ({ params }) => {
+const Page = async ({ params }) => {
+  const slug = params.slug.split("-");
+  const id = slug[slug.length - 1];
+  const { data } = await getCategoryParentById(id);
   return (
     <>
       <div className="d-none d-md-block">
         <Slide />
       </div>
       <Container>
-        <Breadcumber />
+        <Breadcumber data={["Danh mục", `${data.name}`]} />
       </Container>
       <div className="mt-2">
         <CategoryChildrenSection slug={params.slug} />
@@ -34,7 +37,7 @@ const Page = ({ params }) => {
               <LeftPost title={"Tất cả"} />
             </Col>
             <Col lg={4} md={12} sm={12} xs={12}>
-              <RightPost />
+              <RightPost id={id} />
             </Col>
           </Row>
         </div>

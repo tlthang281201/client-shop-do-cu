@@ -3,34 +3,60 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import styles from "./styles.css";
+import moment from "moment";
+import { formatter } from "@/utils/format-currency";
+import CreateSlug from "@/utils/create-slug";
 const PostComponent = ({ data }) => {
+  moment.locale();
   return (
-    <Link href={"/tin"} style={{ textDecoration: "none" }}>
+    <Link
+      href={`${CreateSlug(data?.title)}-${data?.id}`}
+      style={{ textDecoration: "none" }}
+    >
       <div className="d-flex pt-3 flex-column  gap-2 mb-2">
         <div className="image">
           <Image
             alt="image"
-            src={
-              "https://cdn.chotot.com/cEV078zqPchkBtfcIn5AVypQxJpLZkigsNOFcsaP5oQ/preset:listing/plain/13c7768e5627195513530ffedf8028ca-2858884347652659525.jpg"
-            }
+            src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.images[0]}`}
             width={500}
             height={500}
+            style={{ objectFit: "cover" }}
           />
         </div>
         <div className="body d-flex flex-column">
           <div>
-            <p className="m-0 fs-6" style={{ color: "black" }}>
-              Redmi Note 10 Pro 5G Dimen1100 ~775K Antutu
+            <p
+              className="m-0 fs-6"
+              style={{
+                color: "black",
+                lineHeight: "20px",
+                maxHeight: "42px",
+                overflow: "hidden",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+              }}
+            >
+              {data?.title}
             </p>
-            <p style={{ color: "#c30909", fontWeight: "bold" }}>10000000đ</p>
+            <p style={{ color: "#c30909", fontWeight: "bold" }}>
+              {formatter.format(data?.price)}
+            </p>
           </div>
           <div className="sub-info">
-            <div className="d-flex justify-content-between align-items-center">
-              <span>
-                <i className="bi bi-geo-alt-fill  me-1"></i>Hà nội
+            <div className="d-flex align-items-center text-nowrap">
+              <span className="">
+                <i className="bi bi-calendar3 me-1"></i>
+                {/* {moment(data?.created_at, "YYYYMMDD").fromNow()} */}
+                {moment(data?.created_at).format("DD/MM")}
               </span>
-              <span className="ms-3">
-                <i className="bi bi-calendar3 me-2"></i>3 ngày trước
+              <span
+                className="ms-1"
+                style={{ textOverflow: "ellipsis", overflow: "hidden" }}
+              >
+                <i className="bi bi-geo-alt-fill me-1"></i>
+                {data?.city_id?.name}
               </span>
             </div>
           </div>

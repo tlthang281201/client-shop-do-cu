@@ -1,98 +1,22 @@
+"use client";
+import { useUserContext } from "@/context/context";
 import { Rating } from "@mui/material";
+import { getCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 
-const BoxContact = () => {
+const BoxContact = ({ data, id }) => {
+  const [show, setShow] = useState(false);
+  const { user } = useUserContext();
+
   return (
     <>
-      {/* <div className="box-module box-supplier-fluid-2">
-        <div className="box-body">
-          <div className="box-img" bis_skin_checked="1">
-            <Link href="/user/1003765553" title="a" className="box">
-              <Image
-                src="https://s1.vnecdn.net/myvne/i/v4/graphics/img_60x60.gif"
-                alt="a"
-                width={60}
-                height={60}
-                className="avatar-img"
-              />
-            </Link>
-          </div>
-          <div className="info-supplier">
-            <div className="info-item d-flex flex-column">
-              <div>
-                <Link href="/user/1003765553" className="fs-6 ms-1 text-black">
-                  haibinh153
-                </Link>
-              </div>
-
-              <div className="d-flex flex-row ">
-                <Rating
-                  name="half-rating-read"
-                  defaultValue={4.4}
-                  precision={0.5}
-                  readOnly
-                />
-                <span className="fw-bold ms-2 fs-6">3.6</span>
-                <Link href={"#"} className="ms-2">
-                  ( 8 đánh giá )
-                </Link>
-              </div>
-            </div>
-            <div className="border-line" bis_skin_checked="1"></div>
-
-            <p className="info-item">
-              <div
-                className="d-flex flex-row justify-content-between align-items-center"
-                style={{
-                  borderRadius: "5px",
-                  backgroundColor: "#fff",
-                  width: "250px",
-                  color: "#3c763d",
-                  border: "1px solid #cacaca",
-                  padding: "5px",
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                }}
-              >
-                <div className="d-flex flex-row align-items-center">
-                  <i class="bi bi-telephone-fill ms-2 fs-5"></i>
-                  <span className="ms-2">012312***</span>
-                </div>
-
-                <span className="me-2" style={{ float: "right" }}>
-                  BẤM ĐỂ HIỆN SỐ
-                </span>
-              </div>
-              <div
-                className="mt-2 d-flex flex-row justify-content-between align-items-center"
-                style={{
-                  borderRadius: "5px",
-                  backgroundColor: "#fff",
-                  width: "250px",
-                  color: "#3c763d",
-                  border: "1px solid #cacaca",
-                  padding: "5px",
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                }}
-              >
-                <i class="bi bi-chat-left-text-fill ms-2 fs-5"></i>
-
-                <span className="me-2" style={{ float: "right" }}>
-                  CHAT VỚI NGƯỜI BÁN
-                </span>
-              </div>
-            </p>
-          </div>
-        </div>
-      </div> */}
       <div className="box-module box-supplier-fluid-2">
         <div className="d-flex flex-column">
           <div className="d-flex flex-row align-items-center">
-            <Link href="/user/1003765553" title="a">
+            <Link href={`/profile/${data.seller_id.id}`} title="a">
               <Image
                 src="https://s1.vnecdn.net/myvne/i/v4/graphics/img_60x60.gif"
                 alt="a"
@@ -103,10 +27,10 @@ const BoxContact = () => {
             </Link>
             <div className="d-flex flex-column ms-2 gap-2">
               <div className="d-flex flex-row justify-content-between align-items-center">
-                <span className="fw-bold">Thắng Trần</span>
+                <span className="fw-bold">{data?.seller_id.name}</span>
                 <div className="border ps-1 pe-1 rounded-1">
                   <Link
-                    href="#"
+                    href={`/profile/${data.seller_id.id}`}
                     className="text-decoration-none text-secondary"
                     style={{ fontSize: "13px" }}
                   >
@@ -118,82 +42,171 @@ const BoxContact = () => {
               <div className="d-flex flex-row flex-wrap align-items-center">
                 <Rating
                   name="half-rating-read"
-                  defaultValue={4.4}
+                  defaultValue={
+                    data.seller_id.rating === 0
+                      ? 0
+                      : data.seller_id.rating / data.seller_id.number_reviews
+                  }
                   precision={0.5}
                   readOnly
                   size="small"
                 />
-                <span className="fw-bold ms-2 fs-6">3.6</span>
-                <Link
-                  href={"#"}
-                  className="ms-2 text-decoration-none"
-                  style={{ fontSize: "14px" }}
-                >
-                  ( 8 đánh giá )
-                </Link>
+                <span className="fw-bold ms-2 fs-6">
+                  {data.seller_id.rating === 0
+                    ? 0
+                    : data.seller_id.rating / data.seller_id.number_reviews}
+                </span>
+                {data.seller_id.rating === 0 ? (
+                  <span
+                    style={{ fontSize: "14px" }}
+                    className="ms-2 text-secondary"
+                  >
+                    (Chưa có đánh giá)
+                  </span>
+                ) : (
+                  <Link
+                    href={"#"}
+                    className="ms-2 text-decoration-none"
+                    style={{ fontSize: "14px" }}
+                  >
+                    ( {data.seller_id.number_reviews} đánh giá )
+                  </Link>
+                )}
               </div>
             </div>
           </div>
+
           <div className="border-line" bis_skin_checked="1"></div>
-          <div
-            className="d-flex flex-row justify-content-center align-items-center"
-            style={{
-              borderRadius: "5px",
-              backgroundColor: "#589f39",
-              width: "300px",
-              height: "42px",
-              color: "white",
-              padding: "5px",
-              cursor: "pointer",
-              fontWeight: "bold",
-            }}
-          >
-            <span className="me-2" style={{ float: "right" }}>
-              MUA NGAY
-            </span>
-          </div>
-          <div
-            className="d-flex flex-row justify-content-between align-items-center mt-2"
-            style={{
-              borderRadius: "5px",
-              backgroundColor: "#fff",
-              width: "300px",
-              color: "#3c763d",
 
-              border: "1px solid #cacaca",
-              padding: "5px",
-              cursor: "pointer",
-              fontWeight: "bold",
-            }}
-          >
-            <div className="d-flex flex-row align-items-center">
-              <i className="bi bi-telephone-fill ms-2 fs-5"></i>
-              <span className="ms-2">012312***</span>
+          {data.seller_id.id === user?.id && (
+            <div>
+              <Link
+                href="/user/posts"
+                className="mt-2 d-flex flex-row justify-content-center align-items-center mb-2 gap-2 text-decoration-none"
+                style={{
+                  borderRadius: "5px",
+                  backgroundColor: "rgb(51, 168, 55)",
+                  width: "300px",
+                  color: "white",
+                  border: "1px solid rgb(51, 168, 55)",
+                  padding: "5px",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
+              >
+                <i class="bi bi-eye-slash ms-2 fs-5"></i>
+                <span
+                  className="me-2"
+                  style={{ float: "right", fontSize: "15px" }}
+                >
+                  Đã bán/Ẩn tin
+                </span>
+              </Link>
+              <div
+                className="d-flex flex-row justify-content-center align-items-center mb-4 gap-2"
+                style={{
+                  borderRadius: "5px",
+                  backgroundColor: "#fff",
+                  width: "300px",
+                  color: "#589f39",
+                  border: "1px solid rgb(51, 168, 55)",
+                  padding: "5px",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
+              >
+                <i class="bi bi-pencil-square"></i>
+
+                <span
+                  className="me-2"
+                  style={{
+                    float: "right",
+                    fontSize: "15px",
+                  }}
+                >
+                  Sửa tin
+                </span>
+              </div>
             </div>
+          )}
+          {data.seller_id.id !== user?.id && (
+            <Link
+              href={user ? `/buy-now/${id}` : "/dang-nhap"}
+              className="d-flex flex-row justify-content-center align-items-center text-decoration-none"
+              style={{
+                borderRadius: "5px",
+                backgroundColor: "#589f39",
+                width: "300px",
+                height: "42px",
+                color: "white",
+                padding: "5px",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              <span className="me-2" style={{ float: "right" }}>
+                MUA NGAY
+              </span>
+            </Link>
+          )}
+          {data.seller_id.id !== user?.id && (
+            <div
+              className={`d-flex flex-row ${
+                show === false
+                  ? "justify-content-between"
+                  : "justify-content-center"
+              } align-items-center mt-2 `}
+              onClick={() => setShow(true)}
+              style={{
+                borderRadius: "5px",
+                backgroundColor: "#fff",
+                width: "300px",
+                color: "#3c763d",
 
-            <span className="me-2" style={{ float: "right" }}>
-              BẤM ĐỂ HIỆN SỐ
-            </span>
-          </div>
-          <div
-            className="mt-2 d-flex flex-row justify-content-between align-items-center mb-4"
-            style={{
-              borderRadius: "5px",
-              backgroundColor: "#fff",
-              width: "300px",
-              color: "#589f39",
-              border: "1px solid #cacaca",
-              padding: "5px",
-              cursor: "pointer",
-              fontWeight: "bold",
-            }}
-          >
-            <i className="bi bi-chat-left-text-fill ms-2 fs-5"></i>
+                border: "1px solid #cacaca",
+                padding: "5px",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              {show && (
+                <span style={{ textAlign: "center" }}>{data.phone}</span>
+              )}
+              {show === false && (
+                <div className="d-flex flex-row align-items-center">
+                  <i className="bi bi-telephone-fill ms-2 fs-5"></i>
+                  <span className="ms-2">0935***</span>
+                </div>
+              )}
 
-            <span className="me-2" style={{ float: "right" }}>
-              CHAT VỚI NGƯỜI BÁN
-            </span>
-          </div>
+              {show === false && (
+                <span className="me-2" style={{ float: "right" }}>
+                  BẤM ĐỂ HIỆN SỐ
+                </span>
+              )}
+            </div>
+          )}
+          {data.seller_id.id !== user?.id && (
+            <div
+              className="mt-2 d-flex flex-row justify-content-between align-items-center mb-4"
+              style={{
+                borderRadius: "5px",
+                backgroundColor: "#fff",
+                width: "300px",
+                color: "#589f39",
+                border: "1px solid #cacaca",
+                padding: "5px",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              <i className="bi bi-chat-left-text-fill ms-2 fs-5"></i>
+
+              <span className="me-2" style={{ float: "right" }}>
+                CHAT VỚI NGƯỜI BÁN
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </>

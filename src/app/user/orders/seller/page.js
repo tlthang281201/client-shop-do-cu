@@ -10,7 +10,7 @@ export async function generateMetadata() {
 const ManageSellerPage = () => {
   return (
     <Container>
-      <Breadcumber />
+      <Breadcumber data={["Quản lý đơn bán"]} />
       <Row>
         <Col lg={4}>
           <LeftColumn />

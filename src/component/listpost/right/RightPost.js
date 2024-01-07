@@ -2,6 +2,7 @@ import React from "react";
 import style from "./styles.css";
 import PostComponent from "./PostComponent";
 import { Col, Row } from "react-bootstrap";
+import { getAllPostByCategory } from "@/services/PostServices";
 const posts = [
   {
     title: "Redmi K40 12/256G máy đẹp",
@@ -22,7 +23,8 @@ const posts = [
     ward: "Phường Trung Hoà",
   },
 ];
-const RightPost = () => {
+const RightPost = async ({ id }) => {
+  const { data } = await getAllPostByCategory(id);
   return (
     <div style={{ backgroundColor: "white" }} className="p-3">
       <div
@@ -41,7 +43,7 @@ const RightPost = () => {
       </div>
       <div className="mb-2">
         <Row>
-          {posts.map((item, i) => (
+          {data.map((item, i) => (
             <Col key={i} lg={12} md={6} sm={6} xs={6}>
               <PostComponent data={item} />
             </Col>

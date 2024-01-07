@@ -8,19 +8,19 @@ const services = [
     id: 1,
     title: "7 ngày",
     price: 94000,
-    discount: 32,
+    // discount: 32,
   },
   {
     id: 2,
     title: "3 ngày",
     price: 63000,
-    discount: 32,
+    // discount: 32,
   },
   {
     id: 3,
     title: "1 ngày",
     price: 22000,
-    discount: 32,
+    // discount: 32,
   },
   {
     id: 4,

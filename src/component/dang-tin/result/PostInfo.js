@@ -7,9 +7,7 @@ const PostInfo = ({ data }) => {
     <div className="pe-4 ps-4 pb-2 pt-4">
       <div className="d-flex flex-row gap-3">
         <Image
-          src={
-            "https://cdn.chotot.com/MZvn2c4GiXg8YFfyO_-oEZzS6ulw3bLEZAHWXym888U/preset:view/plain/5b77d68aec4138d6c3e6bd3e0025fa03-2858458707755483284.jpg"
-          }
+          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data.images[0]}`}
           style={{ objectFit: "cover" }}
           width={130}
           height={130}

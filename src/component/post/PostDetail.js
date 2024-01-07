@@ -9,16 +9,16 @@ import TitlePost from "./component/TitlePost";
 import BoxContact from "./component/BoxContact";
 import { PostDescription } from "./component/PostDescription";
 
-const PostDetail = () => {
+const PostDetail = ({ data }) => {
   return (
-    <div style={{ backgroundColor: "white" }} className="p-3 mb-3">
+    <div style={{ backgroundColor: "white" }} className="px-3 pt-3 mb-1">
       <div>
-        <SlickSlide />
+        <SlickSlide data={data} />
       </div>
       <div className="pb-3">
-        <TitlePost />
+        <TitlePost data={data} />
       </div>
-      <PostDescription />
+      <PostDescription data={data} />
     </div>
   );
 };

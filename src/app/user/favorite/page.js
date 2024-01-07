@@ -1,6 +1,7 @@
 import LeftColumn from "@/component/account/manage/LeftColumn";
 import FavoritePostsComponent from "@/component/account/manage/favorite/FavoritePostsComponent";
 import Breadcumber from "@/component/breadcumber/Breadcumber";
+import { useUserContext } from "@/context/context";
 import { Col, Container, Row } from "react-bootstrap";
 export async function generateMetadata() {
   return {
@@ -10,7 +11,7 @@ export async function generateMetadata() {
 const FavoritePostsPage = () => {
   return (
     <Container>
-      <Breadcumber />
+      <Breadcumber data={["Tin đã lưu"]} />
       <Row>
         <Col lg={4}>
           <LeftColumn />

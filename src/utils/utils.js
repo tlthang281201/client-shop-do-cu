@@ -16,7 +16,7 @@ function getRandomString(length) {
 
   return result;
 }
-export default async function upImage(file) {
+export async function upImage(file) {
   const timestamp = Date.now();
   const randomString = getRandomString(3);
   const fileExtension = file.name.split(".").pop();
@@ -24,6 +24,19 @@ export default async function upImage(file) {
   const { data } = await supabaseAdmin.storage
     .from("post_images")
     .upload(`avatar/${fileName}`, file, {
+      upsert: false,
+    });
+  return fileName;
+}
+
+export async function upImagePublic(file) {
+  const timestamp = Date.now();
+  const randomString = getRandomString(3);
+  const fileExtension = file.name.split(".").pop();
+  const fileName = `image_${randomString}${timestamp}.${fileExtension}`;
+  const { data } = await supabaseAdmin.storage
+    .from("post_images")
+    .upload(`public/${fileName}`, file, {
       upsert: false,
     });
   return fileName;

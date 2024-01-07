@@ -10,7 +10,7 @@ export async function generateMetadata() {
 const TransactionHistoryPage = () => {
   return (
     <Container>
-      <Breadcumber />
+      <Breadcumber data={["Lịch sử giao dịch"]} />
       <Row>
         <Col lg={4}>
           <LeftColumn />

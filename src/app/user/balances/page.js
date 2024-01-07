@@ -14,7 +14,7 @@ const UserBalancePage = async () => {
   const { data } = await getCoin();
   return (
     <Container>
-      <Breadcumber />
+      <Breadcumber data={["Ví bán hàng"]} />
       <Row>
         <Col lg={4}>
           <LeftColumn />

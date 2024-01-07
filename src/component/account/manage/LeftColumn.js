@@ -5,15 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import BoxWalletComponent from "./BoxWalletComponent";
 import moment from "moment";
-import upImage from "@/utils/utils";
+import { upImage } from "@/utils/utils";
 import { useUserContext } from "@/context/context";
 import { updateAvatar } from "@/services/AuthService";
-import { useState } from "react";
+import { use, useState } from "react";
 
-const LeftColumn = ({ data }) => {
+const LeftColumn = () => {
   const path = usePathname();
   const [loading, setLoading] = useState(false);
-
+  const { user } = useUserContext();
   const { userSession, getUserInfo } = useUserContext();
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
@@ -36,8 +36,8 @@ const LeftColumn = ({ data }) => {
           <Image
             alt="a"
             src={
-              data
-                ? data.avatar
+              user
+                ? user.avatar
                 : "https://static.chotot.com/storage/marketplace/common/png/default_user.png"
             }
             width={80}
@@ -72,25 +72,34 @@ const LeftColumn = ({ data }) => {
           </div>
         </label>
         <div className="d-flex flex-column gap-1">
-          <div className="fw-bold">{data?.name}</div>
+          <div className="fw-bold">{user?.name}</div>
           <div className="d-flex flex-row align-items-center gap-2 flex-wrap">
             <span className="fw-bold" style={{ fontSize: "14px" }}>
-              {data?.rating}
+              {user?.rating}
             </span>
             <Rating
               name="half-rating-read"
-              defaultValue={4.4}
+              defaultValue={
+                user?.rating ? 0 : user?.rating / user?.number_reviews
+              }
               precision={0.5}
               readOnly
               size="small"
             />
-            <Link
-              href="#"
-              className="text-decoration-none "
-              style={{ fontSize: "13px" }}
-            >
-              ( {data?.number_reviews} đánh giá )
-            </Link>
+            {user?.rating === 0 && (
+              <span style={{ fontSize: "13px" }} className="text-secondary">
+                (Chưa có đánh giá)
+              </span>
+            )}
+            {user?.rating !== 0 && (
+              <Link
+                href="#"
+                className="text-decoration-none "
+                style={{ fontSize: "13px" }}
+              >
+                ( {user?.number_reviews} đánh giá )
+              </Link>
+            )}
           </div>
           <div
             className="d-flex flex-row align-items-center gap-1 flex-wrap"
@@ -98,7 +107,7 @@ const LeftColumn = ({ data }) => {
           >
             <i className="bi bi-calendar3"></i>
             <span>Tham gia từ:</span>
-            <span>{moment(data?.created_at).format("DD/MM/YYYY")}</span>
+            <span>{moment(user?.created_at).format("DD/MM/YYYY")}</span>
           </div>
 
           {/* <div
@@ -116,12 +125,12 @@ const LeftColumn = ({ data }) => {
       <div className="d-flex flex-row px-3 pt-2 gap-2">
         <BoxWalletComponent
           title={"Ví Bán Hàng"}
-          value={data?.cash_wallet}
+          value={user?.cash_wallet}
           type="wallet"
         />
         <BoxWalletComponent
           title={"Đồng Cũ"}
-          value={data?.coin_wallet}
+          value={user?.coin_wallet}
           type="coin"
         />
       </div>

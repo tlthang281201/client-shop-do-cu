@@ -1,22 +1,30 @@
 "use client";
+import CreateSlug from "@/utils/create-slug";
+import { formatter } from "@/utils/format-currency";
+import Link from "next/link";
 import React from "react";
 import { Card } from "react-bootstrap";
 
 const PostComponent = ({ data }) => {
   return (
-    <div className="d-flex pt-3" style={{ borderBottom: "1px solid #DFE3ED" }}>
+    <Link
+      href={`/${CreateSlug(data.title)}-${data.id}`}
+      className="d-flex pt-3 text-decoration-none"
+      style={{ borderBottom: "1px solid #DFE3ED" }}
+    >
       <Card style={{ width: "100%", border: "none" }}>
         <Card.Img
           variant="top"
           height={200}
           style={{ objectFit: "cover" }}
-          src={data?.image}
+          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.images[0]}`}
         />
         <Card.Body style={{ padding: "10px 0" }}>
           <Card.Title
             style={{
               fontSize: "17px",
               lineHeight: "20px",
+              height: "42px",
               maxHeight: "42px",
               overflow: "hidden",
               WebkitLineClamp: 2,
@@ -31,12 +39,12 @@ const PostComponent = ({ data }) => {
             style={{
               lineHeight: "25px",
               fontWeight: "bold",
-              color: "#40A691",
+              color: "#d92c37",
               margin: 0,
               fontSize: "16px",
             }}
           >
-            {data?.price} đ
+            {formatter.format(data?.price)}
           </p>
           <span
             style={{
@@ -47,11 +55,11 @@ const PostComponent = ({ data }) => {
               whiteSpace: "normal",
             }}
           >
-            {data?.district}, {data?.ward}, {data?.city}
+            {data?.district_id.name}, {data?.city_id.name}
           </span>
         </Card.Body>
       </Card>
-    </div>
+    </Link>
   );
 };
 

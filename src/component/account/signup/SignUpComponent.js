@@ -40,8 +40,6 @@ const IconGoogle = () => {
   );
 };
 const SignUpComponent = () => {
-  const returnUrl = useSearchParams();
-  const url = returnUrl.get("return");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -60,15 +58,9 @@ const SignUpComponent = () => {
 
     if (!error) {
       setCookie("user", data.user);
-      if (url) {
-        getcurrentUser();
-        getUserInfo();
-        router.replace(url);
-      } else {
-        getcurrentUser();
-        getUserInfo();
-        router.replace("/");
-      }
+      getcurrentUser();
+      getUserInfo();
+      router.replace("/");
     }
     if (error) {
       setError("Email này đã được đăng ký, vui lòng dùng email khác");
@@ -206,7 +198,7 @@ const SignUpComponent = () => {
                   )}
                 </div>
 
-                <div className="d-flex align-items-center mt-3">
+                {/* <div className="d-flex align-items-center mt-3">
                   <hr style={{ width: "100%", marginRight: "5px" }} />
                   <span style={{ whiteSpace: "nowrap" }}>
                     {" "}
@@ -221,13 +213,10 @@ const SignUpComponent = () => {
                   startIcon={<IconGoogle />}
                 >
                   ĐĂNG NHẬP BẰNG GOOGLE
-                </Button>
+                </Button> */}
                 <div className="mt-3 text-center">
                   <span>Đã có tài khoản? </span>
-                  <Link
-                    className="text-decoration-none"
-                    href={`/dang-nhap?return=${encodeURIComponent(url)}`}
-                  >
+                  <Link className="text-decoration-none" href={`/dang-nhap`}>
                     Đăng nhập
                   </Link>
                 </div>

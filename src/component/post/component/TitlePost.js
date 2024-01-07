@@ -1,25 +1,36 @@
 import formatter from "@/utils/format";
-import React from "react";
+import moment from "moment";
+import React, { useEffect } from "react";
+import "moment/locale/vi";
+import { capitalizeFirstLetter } from "@/utils/utils";
 
-const TitlePost = () => {
+const TitlePost = ({ data }) => {
+  moment.locale("vi");
+  const date = capitalizeFirstLetter(moment(data?.created_at).format("LLLL"));
   return (
     <>
       <div style={{ margin: "20px 0 10px" }}>
-        <h1 className="title-detail">iPhone 11 Promax quốc tế 64gb zin</h1>
+        <h1 className="title-detail">{data.title}</h1>
       </div>
-      <p className="info-posting-time">Thứ năm, 21/12/2023, 16:48 (GMT+7)</p>
-      <div className="box-price">
+      <p className="info-posting-time">{date}</p>
+      <div className="box-price" style={{ position: "relative" }}>
         <p className="price-current">
-          Gia:
+          Giá:
           <span className="price-current-value">
             {" "}
-            {formatter.format(1400000)}
+            {data.price ? formatter.format(data?.price) : "Thoả thuận"}
           </span>
         </p>
+        {/* <button
+          className="btn-fav"
+          style={{ position: "absolute", top: 0, right: 0 }}
+        >
+          Lưu tin
+        </button> */}
       </div>
       <div className="info-location">
         <span style={{ fontWeight: "bold", color: "black" }}>Địa chỉ: </span>
-        Tên Lửa , Quận Bình Tân, TP Hồ Chí Minh
+        {data?.ward_id?.name}, {data?.district_id?.name}, {data?.city_id?.name}
       </div>
     </>
   );

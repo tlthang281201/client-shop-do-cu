@@ -98,13 +98,13 @@ const PrevArrow = (props) => {
   );
 };
 
-const SuggestedPost = () => {
+const SuggestedPost = ({ data }) => {
   const { width } = useWindowDimensions();
 
   return (
     <section className="suggestions-area bg-white mt-2">
       <div className="box-title ps-3 pt-3">
-        <h2 className="title">Gợi ý cho bạn</h2>
+        <h2 className="title">Sản phẩm cùng danh mục</h2>
       </div>
 
       <Container>
@@ -119,7 +119,7 @@ const SuggestedPost = () => {
             nextArrow={<NextArrow />}
             prevArrow={<PrevArrow />}
           >
-            {posts.map((item, i) => (
+            {data.map((item, i) => (
               <Col key={i} className="p-2">
                 <PostComponent data={item} />
               </Col>

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.css";
 import roundNumber from "@/utils/round-number";
+import { formatter } from "@/utils/format-currency";
 const BoxOption = ({ data, className }) => {
   return (
     <div className={className}>
@@ -63,9 +64,20 @@ const BoxOption = ({ data, className }) => {
                   color: "#8c8c8c",
                 }}
               >
-                {data.price}đ
+                {formatter.format(data.price)}
               </span>
             </>
+          ) : data.type === "feature" ? (
+            <span
+              style={{
+                fontSize: ".75rem",
+                lineHeight: "1rem",
+                fontWeight: "bold",
+                color: "#12a154",
+              }}
+            >
+              {formatter.format(data.price)} / 1 ngày
+            </span>
           ) : (
             <span
               style={{
@@ -75,7 +87,7 @@ const BoxOption = ({ data, className }) => {
                 color: "#12a154",
               }}
             >
-              {data.price}đ
+              {formatter.format(data.price)}
             </span>
           )}
         </div>

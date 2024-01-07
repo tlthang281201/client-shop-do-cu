@@ -16,7 +16,6 @@ export async function generateMetadata() {
 const CreatePostPage = () => {
   let cookie = cookies();
   let user = cookie.get("user");
-  console.log(user);
   if (!user) {
     return redirect("/dang-nhap");
   }

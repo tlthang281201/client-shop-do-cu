@@ -54,7 +54,10 @@ const AvatarDropdown = ({ user }) => {
         className="dropdown-account mt-lg-2 mt-5"
         style={{ left: -50 }}
       >
-        <Dropdown.Item className="d-flex flex-row align-items-center gap-2">
+        <Dropdown.Item
+          onClick={() => router.push("/user/posts")}
+          className="d-flex flex-row align-items-center gap-2"
+        >
           <i
             className="bi bi-newspaper rounded-circle"
             style={{

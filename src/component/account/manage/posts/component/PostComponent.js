@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "react-bootstrap";
 const PostComponent = () => {
   return (
-    <div>
+    <div className="mb-3">
       <div className="container-border p-2 rounded-1">
         <div className="d-flex flex-row gap-2">
           <Image

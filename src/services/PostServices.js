@@ -42,6 +42,47 @@ export async function addPost(post) {
 }
 
 export async function getPostById(id) {
-  const { data } = await supabase.from("post").select().eq("id", id).single();
+  const { data } = await supabase
+    .from("post")
+    .select(
+      `*,city_id(name),district_id(name),ward_id(name),seller_id(id,name,avatar,rating,number_reviews)`
+    )
+    .eq("id", id)
+    .single();
+  return { data };
+}
+
+export async function getPostByUserId(id) {
+  const { data } = await supabase
+    .from("post")
+    .select(`*,cate_p_id(name)`)
+    .eq("seller_id", id)
+    .order("created_at", { ascending: false });
+  return { data };
+}
+
+export async function getAllPost() {
+  const { data } = await supabase
+    .from("post")
+    .select(`*,city_id(name)`)
+    .match({ status: 1, is_show: true, is_sold: false })
+    .order("created_at", { ascending: false });
+  return { data };
+}
+
+export async function getAllPostByCategory(id) {
+  const { data } = await supabase
+    .from("post")
+    .select(`*,city_id(name),district_id(name),ward_id(name)`)
+    .match({ status: 1, is_show: true, is_sold: false, cate_p_id: id })
+    .order("created_at", { ascending: false });
+  return { data };
+}
+
+export async function updatePostIsSelling(id) {
+  const { data } = await supabase
+    .from("post")
+    .update({ is_selling: true })
+    .eq("id", id);
   return { data };
 }

@@ -12,7 +12,7 @@ const UserInformationComponent = ({ session }) => {
 
   return (
     <Container>
-      <Breadcumber />
+      <Breadcumber data={["Cài đặt tài khoản"]} />
       <Row>
         <Col lg={4}>
           <LeftColumn data={user} />
