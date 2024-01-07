@@ -4,7 +4,7 @@ import Image from "next/image";
 const StatusOrder = ({ status }) => {
   return (
     <div className="p-3">
-      <div className="d-flex flex-row gap-3 align-items-center">
+      <div className="d-flex flex-row gap-3 align-items-center justify-content-center">
         <div className="d-flex flex-column align-items-center">
           {/* <Image src={"/images/status1.png"} width={40} height={40} /> */}
           <svg

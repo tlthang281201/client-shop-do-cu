@@ -95,6 +95,7 @@ const FormInputOrder = ({ data }) => {
       const { res } = await createOrder(orderData);
       setPending(false);
       if (!res.error) {
+        router.replace("/user/orders/buyer");
         toast.success("Đặt hàng thành công");
       }
       if (res.error) {
@@ -308,7 +309,7 @@ const FormInputOrder = ({ data }) => {
             placeholder="Nhập ghi chú cho người bán"
           />
         </div>
-        <div className="d-flex flex-row mt-3 gap-5 align-items-center justify-content-between">
+        <div className="d-flex flex-row mt-3 gap-5 align-items-center justify-content-between pb-3">
           <div className="d-flex flex-column">
             <span style={{ fontSize: "13px" }}>Tổng cộng</span>
             <span className="fw-bold" style={{ fontSize: "20px" }}>

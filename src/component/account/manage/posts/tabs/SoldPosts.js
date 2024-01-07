@@ -43,6 +43,7 @@ const customStyles = {
         borderLeftWidth: "1px",
         borderLeftColor: "rgba(0, 0, 0, 0.12)",
       },
+      fontSize: "15px",
     },
   },
 };

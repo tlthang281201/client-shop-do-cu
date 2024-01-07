@@ -23,7 +23,7 @@ const LeftColumn = () => {
       const fileName = await upImage(file);
       const data = await updateAvatar(
         `https://weeevlktjgkhinnqsmai.supabase.co/storage/v1/object/public/post_images/avatar/${fileName}`,
-        userSession.user.id
+        user.id
       );
       getUserInfo();
       setLoading(false);

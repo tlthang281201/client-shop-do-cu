@@ -18,7 +18,7 @@ const BoxContact = ({ data, id }) => {
           <div className="d-flex flex-row align-items-center">
             <Link href={`/profile/${data.seller_id.id}`} title="a">
               <Image
-                src="https://s1.vnecdn.net/myvne/i/v4/graphics/img_60x60.gif"
+                src={data.seller_id.avatar}
                 alt="a"
                 width={60}
                 height={60}

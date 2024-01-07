@@ -1,10 +1,13 @@
-import { deleteOrder } from "@/services/OrderService";
+import { deleteOrder, updatePaidOrder } from "@/services/OrderService";
 
-export async function GET(req, res) {
+export async function GET(req) {
   const searchParams = req.nextUrl.searchParams;
   const result = searchParams.get("resultCode");
   const order_code = searchParams.get("orderId");
+
   if (result === "0") {
+    const { data } = await updatePaidOrder(order_code);
+    // Set post is_selling true
     return new Response(`Thanh toán thành công`, {
       status: 200,
     });

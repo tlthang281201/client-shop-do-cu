@@ -6,15 +6,9 @@ import { formatter } from "@/utils/format-currency";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useUserContext } from "@/context/context";
-import {
-  fetchCity,
-  fetchDistrict,
-  fetchWard,
-} from "@/services/AddressServices";
-import PostInfo from "@/component/buy-now/PostInfo";
+import PostInfo from "./PostInfo";
 
-const FormInfo = () => {
+const FormInfo = ({ order }) => {
   return (
     <Form>
       <div className="px-3">
@@ -25,20 +19,22 @@ const FormInfo = () => {
           </div>
           <div className="d-flex flex-row gap-2 mt-2">
             <div style={{ width: "50%" }}>
+              <Form.Label>Họ tên</Form.Label>
               <Form.Control
                 type="text"
-                value={"Tên"}
+                value={order?.name}
                 disabled
                 name="name"
                 required
               />
             </div>
             <div style={{ width: "50%" }}>
+              <Form.Label>Số điện thoại</Form.Label>
               <Form.Control
                 type="text"
                 required
                 disabled
-                value={"phone"}
+                value={order?.phone}
                 name="phone"
               />
             </div>
@@ -48,7 +44,7 @@ const FormInfo = () => {
               <Form.Control
                 required
                 type="text"
-                value={"Thành phố"}
+                value={order?.city?.name}
                 name="address"
                 disabled
               />
@@ -57,7 +53,7 @@ const FormInfo = () => {
               <Form.Control
                 required
                 type="text"
-                value={"Quận"}
+                value={order?.district?.name}
                 name="address"
                 disabled
               />
@@ -66,7 +62,7 @@ const FormInfo = () => {
               <Form.Control
                 required
                 type="text"
-                value={"Phường"}
+                value={order?.ward.name}
                 name="address"
                 disabled
               />
@@ -77,7 +73,7 @@ const FormInfo = () => {
               <Form.Control
                 required
                 type="text"
-                value={"Địa chỉ"}
+                value={order?.address}
                 disabled
                 name="address"
               />
@@ -85,7 +81,7 @@ const FormInfo = () => {
           </div>
         </div>
         <hr style={{ color: "#e8e8e8", height: "1px", opacity: 1 }} />
-        <PostInfo />
+        <PostInfo data={order} />
         <hr style={{ color: "#e8e8e8", height: "1px", opacity: 1 }} />
 
         <div className="d-flex flex-row align-items-center gap-2">
@@ -98,27 +94,30 @@ const FormInfo = () => {
             defaultValue={1}
             name="radio-buttons-group"
           >
-            <div className="d-flex flex-row align-items-center">
-              <FormControlLabel value={1} control={<Radio />} />
-              <Image
-                src={"/images/momo.png"}
-                width={20}
-                height={20}
-                className="me-2"
-              />
-              <label>Ví Momo</label>
-            </div>
-
-            <div className="d-flex flex-row align-items-center">
-              <FormControlLabel value={2} control={<Radio />} />
-              <Image
-                src={"/images/cash.png"}
-                width={20}
-                height={20}
-                className="me-2"
-              />
-              <label>Thanh toán COD</label>
-            </div>
+            {order?.payment_type === 1 && (
+              <div className="d-flex flex-row align-items-center">
+                <FormControlLabel value={1} control={<Radio />} />
+                <Image
+                  src={"/images/momo.png"}
+                  width={20}
+                  height={20}
+                  className="me-2"
+                />
+                <label>Ví Momo</label>
+              </div>
+            )}
+            {order?.payment_type === 2 && (
+              <div className="d-flex flex-row align-items-center">
+                <FormControlLabel value={2} control={<Radio />} />
+                <Image
+                  src={"/images/cash.png"}
+                  width={20}
+                  height={20}
+                  className="me-2"
+                />
+                <label>Thanh toán COD</label>
+              </div>
+            )}
           </RadioGroup>
         </div>
         <hr style={{ color: "#e8e8e8", height: "1px", opacity: 1 }} />
@@ -142,11 +141,13 @@ const FormInfo = () => {
             style={{ borderBottom: "1px dashed black" }}
           >
             <span>Số tiền</span>
-            <span>{formatter.format(199999)}</span>
+            <span>{formatter.format(order?.post_id?.price)}</span>
           </div>
           <div className="d-flex justify-content-between mt-2 pb-2">
             <span>Tổng thanh toán</span>
-            <span className="fw-bold">{formatter.format(199999)}</span>
+            <span className="fw-bold">
+              {formatter.format(order?.post_id?.price)}
+            </span>
           </div>
           <div className="d-flex flex-row gap-2 align-items-center mt-2">
             <Image src={"/images/verified_user.svg"} width={30} height={30} />
@@ -168,7 +169,7 @@ const FormInfo = () => {
             className="mt-2 mb-4"
             rows={3}
             disabled
-            value={"Ghi chú"}
+            value={order?.note ? order?.note : ""}
           />
         </div>
       </div>

@@ -68,7 +68,10 @@ const AvatarDropdown = ({ user }) => {
           ></i>
           Quản lý tin đăng
         </Dropdown.Item>
-        <Dropdown.Item className="d-flex flex-row align-items-center gap-2">
+        <Dropdown.Item
+          className="d-flex flex-row align-items-center gap-2"
+          onClick={() => router.push("/user/balances")}
+        >
           <Image
             src="https://static.chotot.com/storage/chotot-icons/svg/escrow.svg"
             width={30}
@@ -77,7 +80,10 @@ const AvatarDropdown = ({ user }) => {
           />
           Ví bán hàng
         </Dropdown.Item>
-        <Dropdown.Item className="d-flex flex-row align-items-center gap-2">
+        <Dropdown.Item
+          className="d-flex flex-row align-items-center gap-2"
+          onClick={() => router.push("/user/orders/buyer")}
+        >
           <Image
             src="https://static.chotot.com/storage/chotot-icons/svg/escrow_buy_orders.svg"
             width={30}
@@ -86,7 +92,10 @@ const AvatarDropdown = ({ user }) => {
           />
           Quản lý đơn mua
         </Dropdown.Item>
-        <Dropdown.Item className="d-flex flex-row align-items-center gap-2">
+        <Dropdown.Item
+          className="d-flex flex-row align-items-center gap-2"
+          onClick={() => router.push("/user/orders/seller")}
+        >
           <Image
             src="https://static.chotot.com/storage/chotot-icons/svg/escrow-orders.svg"
             width={30}
@@ -95,7 +104,10 @@ const AvatarDropdown = ({ user }) => {
           />
           Quản lý đơn bán
         </Dropdown.Item>
-        <Dropdown.Item className="d-flex flex-row align-items-center gap-2">
+        <Dropdown.Item
+          className="d-flex flex-row align-items-center gap-2"
+          onClick={() => router.push("/user/transaction")}
+        >
           <Image
             src="https://st.chotot.com/storage/chotot-icons/svg/circle-list.svg"
             width={30}
@@ -104,7 +116,10 @@ const AvatarDropdown = ({ user }) => {
           />
           Lịch sử giao dịch
         </Dropdown.Item>
-        <Dropdown.Item className="d-flex flex-row align-items-center gap-2">
+        <Dropdown.Item
+          className="d-flex flex-row align-items-center gap-2"
+          onClick={() => router.push("/user/favorite")}
+        >
           <Image
             src="https://static.chotot.com/storage/chotot-icons/svg/menu-saved-ad.svg"
             width={30}

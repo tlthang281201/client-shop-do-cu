@@ -11,7 +11,7 @@ const OrderInfo = () => {
         <Col lg={8} md={8} sm={12} xs={12}>
           <div className="bg-white">
             <div className="p-3 pt-4">
-              <h5 className="fw-bold">Thông tin đơn hàng</h5>
+              <h5 className="fw-bold">Trạng thái đơn hàng</h5>
             </div>
             <StatusOrder status={-1} />
             <hr style={{ color: "#e8e8e8", height: "1px", opacity: 1 }} />
@@ -27,6 +27,8 @@ const OrderInfo = () => {
                 </span>
               </div>
             </div>
+            <hr style={{ color: "#e8e8e8", height: "1px", opacity: 1 }} />
+            <div>a</div>
             <hr style={{ color: "#e8e8e8", height: "1px", opacity: 1 }} />
             <FormInfo />
           </div>
