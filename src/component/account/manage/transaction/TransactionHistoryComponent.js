@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { Nav } from "react-bootstrap";
 import styles from "./styles.css";
+import PostPayment from "./tab/PostPayment";
+import ServicePayment from "./tab/ServicePayment";
+import WithdrawRequest from "./tab/WithdrawRequest";
 
 const TransactionHistoryComponent = () => {
   const [showTab, setShowTab] = useState({
@@ -30,12 +33,18 @@ const TransactionHistoryComponent = () => {
       </div>
       <Nav variant="underline" defaultActiveKey="1" className="pb-1 mt-3">
         <Nav.Item onClick={() => handleSelect(1)}>
-          <Nav.Link eventKey="1">Thanh toán dịch vụ</Nav.Link>
+          <Nav.Link eventKey="1">Thanh toán tin đăng</Nav.Link>
         </Nav.Item>
-        <Nav.Item onClick={() => handleSelect(2)} className="ms-2">
-          <Nav.Link eventKey="2">Lịch sử rút tiền</Nav.Link>
+        <Nav.Item onClick={() => handleSelect(2)}>
+          <Nav.Link eventKey="2">Thanh toán dịch vụ</Nav.Link>
+        </Nav.Item>
+        <Nav.Item onClick={() => handleSelect(3)} className="ms-2">
+          <Nav.Link eventKey="3">Lịch sử rút tiền</Nav.Link>
         </Nav.Item>
       </Nav>
+      {showTab.tab1 && <PostPayment />}
+      {showTab.tab2 && <ServicePayment />}
+      {showTab.tab3 && <WithdrawRequest />}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import LeftPost from "@/component/listpost/left/LeftPost";
 import RightPost from "@/component/listpost/right/RightPost";
 import Slide from "@/component/slides/slides";
 import { getCategoryParentById } from "@/services/CategoryServices";
+import { redirect } from "next/navigation";
 import { Col, Container, Row } from "react-bootstrap";
 export async function generateMetadata({ params }) {
   const slug = params.slug.split("-");
@@ -18,6 +19,9 @@ const Page = async ({ params }) => {
   const slug = params.slug.split("-");
   const id = slug[slug.length - 1];
   const { data } = await getCategoryParentById(id);
+  if (!data) {
+    return redirect("/error/403");
+  }
   return (
     <>
       <div className="d-none d-md-block">

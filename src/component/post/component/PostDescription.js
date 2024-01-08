@@ -26,7 +26,7 @@ export const PostDescription = ({ data }) => {
         <div className="content-product">
           <div className="information">
             <div className="content-detail">
-              <p dangerouslySetInnerHTML={{ __html: data.description }}></p>
+              <div dangerouslySetInnerHTML={{ __html: data.description }}></div>
             </div>
           </div>
         </div>

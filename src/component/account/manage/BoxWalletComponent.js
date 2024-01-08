@@ -1,4 +1,4 @@
-import { formatter } from "@/utils/format-currency";
+import { formatDongCu, formatMoney, formatter } from "@/utils/format-currency";
 import Image from "next/image";
 import React from "react";
 
@@ -24,7 +24,7 @@ const BoxWalletComponent = ({ title, value, type }) => {
             fontWeight: "bold",
           }}
         >
-          {type === "wallet" ? formatter.format(value) : value}
+          {type === "wallet" ? formatMoney(value) : formatDongCu(value)}
         </span>
         {type === "wallet" && (
           <Image src="/images/wallet.jpg" width={20} height={20} alt="a" />

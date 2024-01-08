@@ -1,4 +1,10 @@
-import { deleteOrder, updatePaidOrder } from "@/services/OrderService";
+import {
+  deleteOrder,
+  getOrderByOrderCode,
+  updatePaidOrder,
+} from "@/services/OrderService";
+import { createTransaction } from "@/services/TransactionHistoryServices";
+import { redirect } from "next/navigation";
 
 export async function GET(req) {
   const searchParams = req.nextUrl.searchParams;
@@ -7,14 +13,13 @@ export async function GET(req) {
 
   if (result === "0") {
     const { data } = await updatePaidOrder(order_code);
+    const res = await createTransaction(data, 0);
     // Set post is_selling true
-    return new Response(`Thanh toán thành công`, {
-      status: 200,
-    });
+    return redirect(`/result/success/${res.data.id}`);
   } else {
-    const { data } = await deleteOrder(order_code);
-    return new Response(`Thanh toán thất bại`, {
-      status: 200,
-    });
+    const { data } = await getOrderByOrderCode(order_code);
+    const res1 = await deleteOrder(order_code);
+    const res = await createTransaction(data, 1);
+    return redirect(`/result/fail/${res.data.id}`);
   }
 }

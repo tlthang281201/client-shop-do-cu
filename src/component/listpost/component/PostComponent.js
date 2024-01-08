@@ -41,7 +41,7 @@ const PostComponent = ({ data }) => {
               {data?.title}
             </p>
             <p style={{ color: "#c30909", fontWeight: "bold" }}>
-              {formatter.format(data?.price)}
+              {data?.price ? formatter.format(data?.price) : "Thoả thuận"}
             </p>
           </div>
           <div className="sub-info">

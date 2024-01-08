@@ -89,7 +89,9 @@ const ProcessingOrder = ({ refreshCount }) => {
         sortable: true,
         selector: (row) => (
           <div className="text-danger fw-bold">
-            {formatter.format(row.post_id?.price)}
+            {row.post_id?.price
+              ? formatter.format(row.post_id?.price)
+              : "Thoả thuận"}
           </div>
         ),
       },
@@ -116,6 +118,14 @@ const ProcessingOrder = ({ refreshCount }) => {
           >
             {row?.paid === true ? "Đã thanh toán" : "Chưa thanh toán"}
           </span>
+        ),
+      },
+      {
+        name: "Phương thức",
+        wrap: true,
+        width: "140px",
+        selector: (row) => (
+          <span>{row?.payment_type === 1 ? "Ví MOMO" : "Ship COD"}</span>
         ),
       },
       {

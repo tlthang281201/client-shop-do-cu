@@ -31,7 +31,7 @@ const AccountInformationComponent = ({ data, session }) => {
 
   const validatePhone = (str) => {
     if (str) {
-      const phoneRegex = /^\d{10}$/;
+      const phoneRegex = /^0\d{9}$/;
       if (phoneRegex.test(str)) {
         setNewData({ ...newData, phone: str });
         setErrors({ ...errors, phone: null });

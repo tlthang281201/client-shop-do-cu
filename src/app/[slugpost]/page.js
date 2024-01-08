@@ -8,6 +8,8 @@ import {
   getAllPostByCategory,
   getPostById,
 } from "@/services/PostServices";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { Col, Container, Row } from "react-bootstrap";
 export async function generateMetadata({ params }) {
   const slug = params.slugpost.split("-");
@@ -19,13 +21,18 @@ export async function generateMetadata({ params }) {
   };
 }
 const Post = async ({ params }) => {
+  revalidatePath("[slugpost]/page", "page");
   const slug = params.slugpost.split("-");
   const id = slug[slug.length - 1];
   const { data } = await getPostById(id);
+  if (!data) {
+    return redirect("/error/404");
+  }
+  // tin dang cung danh muc
   const res = await getAllPostByCategory(data.cate_p_id);
+
   // Tin dang noi bat
   // const featurePost = await getAllPost();
-
   return (
     <Container>
       <Breadcumber data={[`${data.title}`]} />

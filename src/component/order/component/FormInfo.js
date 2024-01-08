@@ -91,7 +91,7 @@ const FormInfo = ({ order }) => {
         <div className="d-flex flex-row mt-2">
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue={1}
+            defaultValue={order?.payment_type}
             name="radio-buttons-group"
           >
             {order?.payment_type === 1 && (
@@ -134,44 +134,46 @@ const FormInfo = ({ order }) => {
           <span className="fw-bold">Tự thoả thuận phương thức giao hàng</span>
         </div>
         <hr style={{ color: "#e8e8e8", height: "1px", opacity: 1 }} />
-        <div className="d-flex flex-column">
-          <span className="fw-bold">Thông tin thanh toán</span>
-          <div
-            className="d-flex justify-content-between mt-2 pb-2"
-            style={{ borderBottom: "1px dashed black" }}
-          >
-            <span>Số tiền</span>
-            <span>{formatter.format(order?.post_id?.price)}</span>
+        {order?.post_id?.price && (
+          <div className="d-flex flex-column">
+            <span className="fw-bold">Thông tin thanh toán</span>
+            <div
+              className="d-flex justify-content-between mt-2 pb-2"
+              style={{ borderBottom: "1px dashed black" }}
+            >
+              <span>Số tiền</span>
+              <span>{formatter.format(order?.post_id?.price)}</span>
+            </div>
+            <div className="d-flex justify-content-between mt-2 pb-2">
+              <span>Tổng thanh toán</span>
+              <span className="fw-bold">
+                {formatter.format(order?.post_id?.price)}
+              </span>
+            </div>
+            <div className="d-flex flex-row gap-2 align-items-center mt-2">
+              <Image src={"/images/verified_user.svg"} width={30} height={30} />
+              <span style={{ fontSize: "15px" }}>
+                Số tiền thanh toán được đảm bảo trong{" "}
+                <span className="fw-bold">7 ngày</span> hoặc đến khi bạn nhận
+                được hàng.
+              </span>
+            </div>
           </div>
-          <div className="d-flex justify-content-between mt-2 pb-2">
-            <span>Tổng thanh toán</span>
-            <span className="fw-bold">
-              {formatter.format(order?.post_id?.price)}
-            </span>
-          </div>
-          <div className="d-flex flex-row gap-2 align-items-center mt-2">
-            <Image src={"/images/verified_user.svg"} width={30} height={30} />
-            <span style={{ fontSize: "15px" }}>
-              Số tiền thanh toán được đảm bảo trong{" "}
-              <span className="fw-bold">7 ngày</span> hoặc đến khi bạn nhận được
-              hàng.
-            </span>
-          </div>
+        )}
 
-          <div className="d-flex flex-row align-items-center gap-2 mt-4">
-            <Image src={"/images/sticky_note.svg"} width={20} height={20} />
-            <span className="fw-bold" style={{ fontSize: "17px" }}>
-              Ghi chú
-            </span>
-          </div>
-          <Form.Control
-            as="textarea"
-            className="mt-2 mb-4"
-            rows={3}
-            disabled
-            value={order?.note ? order?.note : ""}
-          />
+        <div className="d-flex flex-row align-items-center gap-2 mt-4">
+          <Image src={"/images/sticky_note.svg"} width={20} height={20} />
+          <span className="fw-bold" style={{ fontSize: "17px" }}>
+            Ghi chú
+          </span>
         </div>
+        <Form.Control
+          as="textarea"
+          className="mt-2 mb-4"
+          rows={3}
+          disabled
+          value={order?.note ? order?.note : ""}
+        />
       </div>
     </Form>
   );

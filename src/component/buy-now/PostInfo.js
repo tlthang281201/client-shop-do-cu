@@ -14,7 +14,7 @@ const PostInfo = ({ data }) => {
           style={{ objectFit: "cover", borderRadius: 100 }}
         />
         <span className="fw-bold" style={{ fontSize: "15px" }}>
-          {data?.seller_id?.name}
+          {data?.seller_id?.name} ({data?.phone})
         </span>
       </div>
       <div className="d-flex flex-row gap-2">
@@ -28,7 +28,7 @@ const PostInfo = ({ data }) => {
         <div className="d-flex flex-column gap-2">
           <span>{data.title}</span>
           <span style={{ color: "#d0021b", fontWeight: "bold" }}>
-            {formatter.format(data.price)}
+            {data?.price ? formatter.format(data.price) : "Thoả thuận"}
           </span>
         </div>
       </div>

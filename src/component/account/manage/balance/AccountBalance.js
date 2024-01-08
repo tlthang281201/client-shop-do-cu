@@ -43,10 +43,10 @@ const AccountBalance = ({ coindata }) => {
           <Nav.Link eventKey="4">Lượt đăng tin</Nav.Link>
         </Nav.Item> */}
       </Nav>
-      {showTab.tab1 && <CashWallet coindata={coindata} />}
+      {showTab.tab1 && <CashWallet />}
       {showTab.tab2 && <CoinWallet coindata={coindata} />}
-      {showTab.tab3 && <NumberOfPushPost coindata={coindata} />}
-      {showTab.tab4 && <NumberOfPost coindata={coindata} />}
+      {/* {showTab.tab3 && <NumberOfPushPost coindata={coindata} />}
+      {showTab.tab4 && <NumberOfPost coindata={coindata} />} */}
     </div>
   );
 };

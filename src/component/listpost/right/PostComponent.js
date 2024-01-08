@@ -44,7 +44,7 @@ const PostComponent = ({ data }) => {
               fontSize: "16px",
             }}
           >
-            {formatter.format(data?.price)}
+            {data?.price ? formatter.format(data?.price) : "Thoả thuận"}
           </p>
           <span
             style={{

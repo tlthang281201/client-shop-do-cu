@@ -2,36 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
-const CashWallet = ({ coindata }) => {
-  const [option, setOption] = useState(coindata[0]?.id);
-  const renderPack = (array) => {
-    const pairs = [];
-    for (let i = 0; i < array.length; i += 2) {
-      // Tạo cặp phần tử
-      const pair = array.slice(i, i + 2);
-      // Tạo div chứa cặp phần tử
-      const divPair = (
-        <div key={i / 2} className="d-flex flex-column gap-3 deposit">
-          {pair?.map((item, index) => (
-            <button
-              onClick={() => setOption(item.id)}
-              key={index}
-              className={`border p-3 rounded-2 text-nowrap ${
-                option === item.id && "border-danger"
-              }`}
-            >
-              Nạp {item.price} VNĐ
-            </button>
-          ))}
-        </div>
-      );
-
-      pairs.push(divPair);
-    }
-    return pairs;
-  };
-  const pairdiv = renderPack(coindata);
+const CashWallet = () => {
+  const [type, setType] = useState("1");
   return (
     <div className="mt-4">
       <div className="sodu">
@@ -41,73 +15,70 @@ const CashWallet = ({ coindata }) => {
         </span>
         <span className="ms-2">VND</span>
       </div>
-      <div className="sodu mt-3">
-        <span className="fw-bold">Nạp ví thanh toán:</span>
+      <div className="mt-3">
+        <Row>
+          <Form>
+            <Col lg={6} md={6} sm={12} xs={12}>
+              <Form.Group>
+                <Form.Label>Nhập số tiền cần rút</Form.Label>
+                <Form.Control type="number" placeholder="Nhập số tiền" />
+              </Form.Group>
+              <Form.Group className="mt-3">
+                <Form.Label>Rút về tài khoản ngân hàng hoặc momo</Form.Label>
+                <Form.Select
+                  defaultValue={"1"}
+                  onChange={(e) => setType(e.target.value)}
+                >
+                  <option value="1">Tài khoản Ngân hàng</option>
+                  <option value="2">Tài khoản Momo</option>
+                </Form.Select>
+              </Form.Group>
+              {type === "1" ? (
+                <>
+                  <Form.Group className="mt-3">
+                    <Form.Label>Chọn ngân hàng</Form.Label>
+                    <Form.Select defaultValue={"1"}>
+                      <option value="1">Ngân hàng VP bank</option>
+                      <option value="2">Ngân hàng BIDV</option>
+                    </Form.Select>
+                  </Form.Group>
+                  <Form.Group className="mt-3">
+                    <Form.Label>Nhập số tài khoản</Form.Label>
+                    <Form.Control type="text" placeholder="Nhập số tài khoản" />
+                  </Form.Group>
+                  <Form.Group className="mt-3">
+                    <Form.Label>Tên người thụ hưởng</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Nhập tên ngân hàng hoặc momo"
+                    />
+                  </Form.Group>
+                </>
+              ) : (
+                <>
+                  <Form.Group className="mt-3">
+                    <Form.Label>Nhập số điện thoại</Form.Label>
+                    <Form.Control type="text" placeholder="Nhập số tài khoản" />
+                  </Form.Group>
+                  <Form.Group className="mt-3">
+                    <Form.Label>Tên người thụ hưởng</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Nhập tên ngân hàng hoặc momo"
+                    />
+                  </Form.Group>
+                </>
+              )}
+            </Col>
+            <Button
+              type="submit"
+              className="btn btn-danger mt-3 text-decoration-none"
+            >
+              Gửi yêu cầu
+            </Button>
+          </Form>
+        </Row>
       </div>
-      <div className="d-flex flex-row gap-5 mt-3" style={{ overflow: "auto" }}>
-        {/* <div className="d-flex flex-column gap-3 deposit">
-          <button
-            onClick={() => handleChange(50)}
-            className={`border p-3 rounded-2 text-nowrap ${
-              option === 50 && "border-danger"
-            }`}
-          >
-            Nạp 50.000 VNĐ
-          </button>
-          <button
-            onClick={() => handleChange(100)}
-            className={`border p-3 rounded-2 text-nowrap ${
-              option === 100 && "border-danger"
-            }`}
-          >
-            Nạp 100.000 VNĐ
-          </button>
-        </div>
-        <div className="d-flex flex-column gap-3 deposit">
-          <button
-            onClick={() => handleChange(200)}
-            className={`border p-3 rounded-2 text-nowrap ${
-              option === 200 && "border-danger"
-            }`}
-          >
-            Nạp 200.000 VNĐ
-          </button>
-          <button
-            onClick={() => handleChange(500)}
-            className={`border p-3 rounded-2 text-nowrap ${
-              option === 500 && "border-danger"
-            }`}
-          >
-            Nạp 500.000 VNĐ
-          </button>
-        </div>
-        <div className="d-flex flex-column gap-3 deposit">
-          <button
-            onClick={() => handleChange(1000)}
-            className={`border p-3 rounded-2 text-nowrap ${
-              option === 1000 && "border-danger"
-            }`}
-          >
-            Nạp 1.000.000 VNĐ
-          </button>
-          <button
-            onClick={() => handleChange(2000)}
-            className={`border p-3 rounded-2 text-nowrap ${
-              option === 2000 && "border-danger"
-            }`}
-          >
-            Nạp 2.000.000 VNĐ
-          </button>
-        </div> */}
-        {pairdiv}
-      </div>
-
-      <Link
-        href={`/thanh-toan/${option}`}
-        className="btn btn-danger mt-3 text-decoration-none"
-      >
-        Nạp ngay
-      </Link>
     </div>
   );
 };

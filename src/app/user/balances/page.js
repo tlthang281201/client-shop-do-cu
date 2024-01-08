@@ -5,7 +5,7 @@ import { getCoin } from "@/services/TopUpServices";
 import { Col, Container, Row } from "react-bootstrap";
 export async function generateMetadata() {
   return {
-    title: `Tài khoản đăng tin`,
+    title: `Ví bán hàng`,
   };
 }
 export const revalidate = 0;

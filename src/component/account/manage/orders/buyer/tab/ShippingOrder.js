@@ -12,6 +12,7 @@ import {
 } from "@/services/OrderService";
 import { formatter } from "@/utils/format-currency";
 import { toast } from "sonner";
+import { CircularProgress } from "@mui/material";
 
 const customStyles = {
   header: {
@@ -68,8 +69,11 @@ const ShippingOrder = ({ refreshCount }) => {
   const [payType, setPayType] = useState("");
   const [total, setTotal] = useState("");
   const [idSeller, setIdSeller] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const columns = useMemo(
     () => [
       {
@@ -89,7 +93,9 @@ const ShippingOrder = ({ refreshCount }) => {
         sortable: true,
         selector: (row) => (
           <div className="text-danger fw-bold">
-            {formatter.format(row.post_id?.price)}
+            {row.post_id?.price
+              ? formatter.format(row.post_id?.price)
+              : "Thoả thuận"}
           </div>
         ),
       },
@@ -104,7 +110,6 @@ const ShippingOrder = ({ refreshCount }) => {
       {
         name: "Thanh toán",
         wrap: true,
-        sortable: true,
         width: "160px",
         selector: (row) => (
           <span
@@ -116,6 +121,14 @@ const ShippingOrder = ({ refreshCount }) => {
           >
             {row?.paid === true ? "Đã thanh toán" : "Chưa thanh toán"}
           </span>
+        ),
+      },
+      {
+        name: "Phương thức",
+        wrap: true,
+        width: "140px",
+        selector: (row) => (
+          <span>{row?.payment_type === 1 ? "Ví MOMO" : "Ship COD"}</span>
         ),
       },
       {
@@ -170,17 +183,17 @@ const ShippingOrder = ({ refreshCount }) => {
     }
   };
   const handleChange = async () => {
-    const { seller, res } = await updateCompletedOrder(
+    setLoading(true);
+    const { res } = await updateCompletedOrder(
       idOrder,
       payType,
       idSeller,
       total
     );
-    console.log(`seller: ${seller}`);
-    console.log(`res: ${res}`);
     getAllOrder(user?.id);
     handleClose();
     refreshCount(user?.id);
+    setLoading(false);
     toast.success("Cập nhập thành công");
   };
   useEffect(() => {
@@ -221,12 +234,28 @@ const ShippingOrder = ({ refreshCount }) => {
         </Modal.Header>
         <Modal.Body>Bạn đã nhận được hàng?</Modal.Body>
         <Modal.Footer className="d-flex justify-content-center">
-          <Button variant="danger" onClick={handleClose}>
+          <Button variant="danger" onClick={handleClose} disabled={loading}>
             Không
           </Button>
-          <Button variant="success" onClick={handleChange}>
-            Đồng ý
-          </Button>
+
+          <div style={{ position: "relative" }}>
+            <Button variant="success" onClick={handleChange} disabled={loading}>
+              Đồng ý
+            </Button>
+            {loading && (
+              <CircularProgress
+                size={24}
+                sx={{
+                  position: "absolute",
+                  color: "green",
+                  top: "50%",
+                  left: "50%",
+                  marginLeft: "-12px",
+                  marginTop: "-15px",
+                }}
+              />
+            )}
+          </div>
         </Modal.Footer>
       </Modal>
     </div>

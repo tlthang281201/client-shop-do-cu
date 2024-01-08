@@ -1,17 +1,11 @@
-import React from "react";
-import { useEffect, useMemo, useState } from "react";
-import DataTable from "react-data-table-component";
+"use client";
 import { useUserContext } from "@/context/context";
-import moment from "moment";
-import Image from "next/image";
-import Link from "next/link";
-import { Spinner } from "react-bootstrap";
-import {
-  getAllBuyOrderByUserId,
-  getAllSellOrderByUserId,
-} from "@/services/OrderService";
+import { getTransactionByUserId } from "@/services/TransactionHistoryServices";
 import { formatter } from "@/utils/format-currency";
-
+import moment from "moment";
+import React, { useEffect, useMemo, useState } from "react";
+import { Spinner } from "react-bootstrap";
+import DataTable from "react-data-table-component";
 const customStyles = {
   header: {
     style: {
@@ -61,7 +55,16 @@ const paginationComponentOptions = {
   selectAllRowsItemText: "Tất cả",
 };
 
-const RejectedOrder = () => {
+const PostPayment = () => {
+  const { user } = useUserContext();
+  const [transaction, setTransaction] = useState();
+  const getAllTransaction = async (id) => {
+    const { data: transaction } = await getTransactionByUserId(id);
+    if (transaction) {
+      setTransaction(transaction.filter((one) => one.type === 0));
+    }
+  };
+
   const columns = useMemo(
     () => [
       {
@@ -70,10 +73,10 @@ const RejectedOrder = () => {
         width: "70px",
       },
       {
-        name: "Tin đăng",
+        name: "Nội dung",
         width: "260px",
         wrap: true,
-        cell: (row) => <div className="d-flex">{row.post_id?.title}</div>,
+        cell: (row) => <div className="d-flex">{row.content}</div>,
       },
       {
         name: "Tổng tiền",
@@ -81,59 +84,25 @@ const RejectedOrder = () => {
         sortable: true,
         selector: (row) => (
           <div className="text-danger fw-bold">
-            {row.post_id?.price
-              ? formatter.format(row.post_id?.price)
-              : "Thoả thuận"}
+            {formatter.format(row.total)}
           </div>
         ),
       },
       {
-        name: "Ngày đặt hàng",
-        selector: (row) => row.created_at,
-        wrap: true,
+        name: "Thời gian",
+        width: "200px",
         sortable: true,
-        width: "180px",
-        format: (row) => moment(row.created_at).format("DD/MM/YYYY, HH:mm:ss"),
-      },
-      {
-        name: "Thanh toán",
-        wrap: true,
-        sortable: true,
-        width: "160px",
         selector: (row) => (
-          <span
-            className={
-              row?.paid === true
-                ? "text-success fw-bold"
-                : "text-danger fw-bold"
-            }
-          >
-            {row?.paid === true ? "Đã thanh toán" : "Chưa thanh toán"}
-          </span>
-        ),
-      },
-      {
-        name: "Phương thức",
-        wrap: true,
-        width: "140px",
-        selector: (row) => (
-          <span>{row?.payment_type === 1 ? "Ví MOMO" : "Ship COD"}</span>
+          <div>{moment(row.created_at).format("DD/MM/YYYY - H:m:ss")}</div>
         ),
       },
       {
         name: "Trạng thái",
         wrap: true,
-        sortable: true,
-        width: "160px",
+        width: "140px",
         selector: (row) => (
-          <span
-            className={
-              row?.is_refund === true
-                ? "text-warning fw-bold"
-                : "text-danger fw-bold"
-            }
-          >
-            {row?.is_refund === true ? "Hoàn tiền" : "Đã huỷ đơn hàng"}
+          <span className={row?.status === 0 ? `text-success` : "text-danger"}>
+            {row?.status === 0 ? "Thành công" : "Thất bại"}
           </span>
         ),
       },
@@ -141,39 +110,30 @@ const RejectedOrder = () => {
     []
   );
 
-  const { user } = useUserContext();
-  const [orders, setOrders] = useState();
-  const getAllOrder = async (id) => {
-    const { data: order } = await getAllSellOrderByUserId(id);
-    if (order) {
-      setOrders(
-        order.filter((onep) => onep.status === -1 || onep.is_refund === true)
-      );
-    }
-  };
   useEffect(() => {
-    getAllOrder(user?.id);
+    getAllTransaction(user?.id);
   }, [user]);
-
   return (
     <div className="mt-4 mb-4">
-      {orders ? (
-        orders.length > 0 ? (
+      {transaction ? (
+        transaction.length > 0 ? (
           <DataTable
             columns={columns}
-            data={orders}
+            data={transaction}
             customStyles={customStyles}
             pagination
             paginationPerPage={10}
             paginationComponentOptions={paginationComponentOptions}
             noDataComponent={
-              <span className="text-danger pt-3">Bạn chưa có đơn hàng nào</span>
+              <span className="text-danger pt-3">
+                Bạn chưa có giao dịch nào
+              </span>
             }
             persistTableHead
           />
         ) : (
           <div style={{ textAlign: "center" }}>
-            <span className="text-danger pt-3">Bạn chưa có đơn hàng nào</span>
+            <span className="text-danger pt-3">Bạn chưa có giao dịch nào</span>
           </div>
         )
       ) : (
@@ -185,4 +145,4 @@ const RejectedOrder = () => {
   );
 };
 
-export default RejectedOrder;
+export default PostPayment;

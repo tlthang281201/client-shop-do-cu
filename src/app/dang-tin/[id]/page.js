@@ -14,6 +14,9 @@ export async function generateMetadata() {
 }
 const CreatePostSuccessPage = async ({ params }) => {
   const { data } = await getPostById(params.id);
+  if (!data) {
+    return redirect("/error/403");
+  }
   const cookie = cookies();
   let user = cookie.get("user");
 

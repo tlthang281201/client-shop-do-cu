@@ -444,7 +444,7 @@ const FormInput = () => {
             <Form.Control
               placeholder="Số điện thoại liên hệ"
               required
-              pattern="[0-9]{10}"
+              pattern="0\d{9}"
               title="Vui lòng nhập số điện thoại có 10 chữ số"
               type="text"
               name="phone"

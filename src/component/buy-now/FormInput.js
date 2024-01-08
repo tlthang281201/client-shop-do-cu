@@ -58,7 +58,7 @@ const FormInputOrder = ({ data }) => {
     address: "",
     price: "",
     post_id: "",
-    payment_type: "1",
+    payment_type: data?.price ? "1" : "2",
     note: "",
   });
 
@@ -127,7 +127,7 @@ const FormInputOrder = ({ data }) => {
             <div style={{ width: "50%" }}>
               <Form.Control
                 type="text"
-                pattern="(\+?\d{10})"
+                pattern="0\d{9}"
                 required
                 placeholder="Số điện thoại"
                 onChange={(e) =>
@@ -228,22 +228,24 @@ const FormInputOrder = ({ data }) => {
         <div className="d-flex flex-row mt-2">
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue={1}
+            defaultValue={data?.price ? 1 : 2}
             name="payment_type"
             onChange={(e) =>
               setOrderData({ ...orderData, payment_type: e.target.value })
             }
           >
-            <div className="d-flex flex-row align-items-center">
-              <FormControlLabel value={1} control={<Radio />} />
-              <Image
-                src={"/images/momo.png"}
-                width={20}
-                height={20}
-                className="me-2"
-              />
-              <label>Ví Momo</label>
-            </div>
+            {data?.price && (
+              <div className="d-flex flex-row align-items-center">
+                <FormControlLabel value={1} control={<Radio />} />
+                <Image
+                  src={"/images/momo.png"}
+                  width={20}
+                  height={20}
+                  className="me-2"
+                />
+                <label>Ví Momo</label>
+              </div>
+            )}
 
             <div className="d-flex flex-row align-items-center">
               <FormControlLabel value={2} control={<Radio />} />
@@ -271,51 +273,56 @@ const FormInputOrder = ({ data }) => {
           <span className="fw-bold">Tự thoả thuận phương thức giao hàng</span>
         </div>
         <hr style={{ color: "#e8e8e8", height: "1px", opacity: 1 }} />
-        <div className="d-flex flex-column">
-          <span className="fw-bold">Thông tin thanh toán</span>
-          <div
-            className="d-flex justify-content-between mt-2 pb-2"
-            style={{ borderBottom: "1px dashed black" }}
-          >
-            <span>Số tiền</span>
-            <span>{formatter.format(data.price)}</span>
-          </div>
-          <div className="d-flex justify-content-between mt-2 pb-2">
-            <span>Tổng thanh toán</span>
-            <span className="fw-bold">{formatter.format(data.price)}</span>
-          </div>
-          <div className="d-flex flex-row gap-2 align-items-center mt-2">
-            <Image src={"/images/verified_user.svg"} width={30} height={30} />
-            <span style={{ fontSize: "15px" }}>
-              Số tiền thanh toán được đảm bảo trong{" "}
-              <span className="fw-bold">7 ngày</span> hoặc đến khi bạn nhận được
-              hàng.
-            </span>
-          </div>
-
-          <div className="d-flex flex-row align-items-center gap-2 mt-4">
-            <Image src={"/images/sticky_note.svg"} width={20} height={20} />
-            <span className="fw-bold" style={{ fontSize: "17px" }}>
-              Ghi chú
-            </span>
-          </div>
-          <Form.Control
-            as="textarea"
-            className="mt-2"
-            rows={3}
-            onChange={(e) =>
-              setOrderData({ ...orderData, note: e.target.value })
-            }
-            placeholder="Nhập ghi chú cho người bán"
-          />
-        </div>
-        <div className="d-flex flex-row mt-3 gap-5 align-items-center justify-content-between pb-3">
+        {data?.price && (
           <div className="d-flex flex-column">
-            <span style={{ fontSize: "13px" }}>Tổng cộng</span>
-            <span className="fw-bold" style={{ fontSize: "20px" }}>
-              {formatter.format(data.price)}
-            </span>
+            <span className="fw-bold">Thông tin thanh toán</span>
+            <div
+              className="d-flex justify-content-between mt-2 pb-2"
+              style={{ borderBottom: "1px dashed black" }}
+            >
+              <span>Số tiền</span>
+              <span>{formatter.format(data.price)}</span>
+            </div>
+            <div className="d-flex justify-content-between mt-2 pb-2">
+              <span>Tổng thanh toán</span>
+              <span className="fw-bold">{formatter.format(data.price)}</span>
+            </div>
+            <div className="d-flex flex-row gap-2 align-items-center mt-2">
+              <Image src={"/images/verified_user.svg"} width={30} height={30} />
+              <span style={{ fontSize: "15px" }}>
+                Số tiền thanh toán được đảm bảo trong{" "}
+                <span className="fw-bold">7 ngày</span> hoặc đến khi bạn nhận
+                được hàng.
+              </span>
+            </div>
           </div>
+        )}
+        <div className="d-flex flex-row align-items-center gap-2 mt-4">
+          <Image src={"/images/sticky_note.svg"} width={20} height={20} />
+          <span className="fw-bold" style={{ fontSize: "17px" }}>
+            Ghi chú
+          </span>
+        </div>
+        <Form.Control
+          as="textarea"
+          className="mt-2"
+          rows={3}
+          onChange={(e) => setOrderData({ ...orderData, note: e.target.value })}
+          placeholder="Nhập ghi chú cho người bán"
+        />
+
+        <div className="d-flex flex-row mt-3 gap-5 align-items-center justify-content-between pb-3">
+          {data?.price ? (
+            <div className="d-flex flex-column">
+              <span style={{ fontSize: "13px" }}>Tổng cộng</span>
+              <span className="fw-bold" style={{ fontSize: "20px" }}>
+                {formatter.format(data.price)}
+              </span>
+            </div>
+          ) : (
+            <div></div>
+          )}
+
           <div className="position-relative" style={{ width: "50%" }}>
             <Button
               type="submit"

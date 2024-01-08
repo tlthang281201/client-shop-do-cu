@@ -28,7 +28,18 @@ export async function updatePaidOrder(code) {
   const { data } = await supabase
     .from("orders")
     .update({ paid: true, paid_time: new Date() })
-    .eq("order_code", code);
+    .eq("order_code", code)
+    .select(`total,buyer_id,post_id(title)`)
+    .single();
+  return { data };
+}
+
+export async function getOrderByOrderCode(code) {
+  const { data } = await supabase
+    .from("orders")
+    .select(`total,buyer_id,post_id(title)`)
+    .eq("order_code", code)
+    .single();
   return { data };
 }
 
@@ -97,18 +108,21 @@ export async function updateCompletedOrder(id, payment_type, seller_id, total) {
     const { data } = await supabase
       .from("orders")
       .update({ status: 3, received_at: new Date() })
-      .eq("id", id);
-    const seller = await supabase
-      .from("users")
-      .select()
-      .eq("id", seller_id)
+      .eq("id", id)
+      .select(`seller_id(cash_wallet)`)
       .single();
+    // const seller = await supabase
+    //   .from("users")
+    //   .select()
+    //   .eq("id", seller_id)
+    //   .single();
 
     const res = await supabase
       .from("users")
-      .update({ cash_wallet: seller.data.cash_wallet + total })
+      .update({ cash_wallet: data.seller_id.cash_wallet + total })
       .eq("id", seller_id);
-    return { seller, res };
+
+    return { res };
   } else if (payment_type === 2) {
     const { data } = await supabase
       .from("orders")
