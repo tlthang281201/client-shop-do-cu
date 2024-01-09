@@ -11,7 +11,8 @@ export async function generateMetadata() {
 export const revalidate = 0;
 
 const UserBalancePage = async () => {
-  const { data } = await getCoin();
+  const { data: coinData } = await getCoin();
+
   return (
     <Container>
       <Breadcumber data={["Ví bán hàng"]} />
@@ -20,7 +21,7 @@ const UserBalancePage = async () => {
           <LeftColumn />
         </Col>
         <Col lg={8}>
-          <AccountBalance coindata={data} />
+          <AccountBalance coindata={coinData} />
         </Col>
       </Row>
     </Container>

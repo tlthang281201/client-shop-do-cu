@@ -1,3 +1,4 @@
+import { formatDongCu, formatter } from "@/utils/format-currency";
 import { supabase } from "@/utils/supabase-config";
 
 export const createTransaction = async (data, result) => {
@@ -50,3 +51,41 @@ export async function getTransactionByUserId(id) {
     .order("created_at", { ascending: false });
   return { data };
 }
+
+export const createServiceTransaction = async (
+  user_id,
+  coin,
+  total,
+  result
+) => {
+  // type: 1 là thanh toán đồng cũ bằng momo
+  if (result === 0) {
+    const res = await supabase
+      .from("transaction_history")
+      .insert({
+        content: `Thanh toán thành công gói ${formatDongCu(coin)} Đồng Cũ`,
+        status: 0,
+        total: total,
+        title: "Thanh toán thành công",
+        type: 1,
+        user: user_id,
+      })
+      .select()
+      .single();
+    return res;
+  } else {
+    const res = await supabase
+      .from("transaction_history")
+      .insert({
+        content: `Thanh toán thất bại gói ${formatDongCu(coin)} Đồng Cũ`,
+        status: 1,
+        total: total,
+        title: "Thanh toán thất bại",
+        type: 1,
+        user: user_id,
+      })
+      .select()
+      .single();
+    return res;
+  }
+};

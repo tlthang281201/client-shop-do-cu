@@ -125,12 +125,12 @@ const LeftColumn = () => {
       <div className="d-flex flex-row px-3 pt-2 gap-2">
         <BoxWalletComponent
           title={"Ví Bán Hàng"}
-          value={user?.cash_wallet}
+          value={user ? user?.cash_wallet : 0}
           type="wallet"
         />
         <BoxWalletComponent
           title={"Đồng Cũ"}
-          value={user?.coin_wallet}
+          value={user ? user?.coin_wallet : 0}
           type="coin"
         />
       </div>

@@ -101,7 +101,11 @@ const PostPayment = () => {
         wrap: true,
         width: "140px",
         selector: (row) => (
-          <span className={row?.status === 0 ? `text-success` : "text-danger"}>
+          <span
+            className={
+              row?.status === 0 ? `text-success fw-bold` : "text-danger fw-bold"
+            }
+          >
             {row?.status === 0 ? "Thành công" : "Thất bại"}
           </span>
         ),
