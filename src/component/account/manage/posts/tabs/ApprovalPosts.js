@@ -1,11 +1,12 @@
 import { useUserContext } from "@/context/context";
-import { getPostByUserId } from "@/services/PostServices";
+import { getPostByUserId, updatePostShowOrHide } from "@/services/PostServices";
 import { useEffect, useMemo, useState } from "react";
 import DataTable from "react-data-table-component";
 import Image from "next/image";
 import Link from "next/link";
 import moment from "moment";
 import { Spinner } from "react-bootstrap";
+import { toast } from "sonner";
 
 const customStyles = {
   header: {
@@ -71,6 +72,13 @@ const ApprovalPosts = () => {
   useEffect(() => {
     getAllPostByUserId(user?.id);
   }, [user]);
+
+  const hidePost = async (id) => {
+    const { data } = await updatePostShowOrHide(id, false);
+    toast.success("Ẩn tin thành công");
+    getAllPostByUserId(user?.id);
+  };
+
   const columns = useMemo(
     () => [
       {
@@ -82,8 +90,8 @@ const ApprovalPosts = () => {
             <Image
               src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${row.images[0]}`}
               width={120}
-              height={80}
-              style={{ objectFit: "fill", marginBottom: 10, marginTop: 10 }}
+              height={100}
+              style={{ objectFit: "cover", marginBottom: 10, marginTop: 10 }}
             />
           </Link>
         ),
@@ -91,6 +99,7 @@ const ApprovalPosts = () => {
       {
         name: "Tiêu đề",
         wrap: true,
+        width: "200px",
         cell: (row) => (
           <div className="d-flex flex-column gap-2">
             {row.title}
@@ -111,8 +120,18 @@ const ApprovalPosts = () => {
         selector: (row) => row.created_at,
         wrap: true,
         sortable: true,
-        width: "220px",
+        width: "180px",
         format: (row) => moment(row.created_at).format("DD/MM/YYYY, HH:mm:ss"),
+      },
+      {
+        name: "",
+        button: true,
+        width: "100px",
+        cell: (row) => (
+          <button className="btn btn-primary" onClick={() => hidePost(row.id)}>
+            <i className="bi bi-eye-slash me-1"></i>Ẩn tin
+          </button>
+        ),
       },
     ],
     []
@@ -125,7 +144,7 @@ const ApprovalPosts = () => {
           data={posts}
           customStyles={customStyles}
           pagination
-          paginationPerPage={2}
+          paginationPerPage={10}
           paginationComponentOptions={paginationComponentOptions}
           noDataComponent={
             <span className="text-danger pt-3">Bạn chưa có tin đăng nào</span>

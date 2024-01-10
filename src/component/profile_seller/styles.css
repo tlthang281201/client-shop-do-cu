@@ -1,5 +1,5 @@
 .nav-underline .nav-link.active {
-  border-bottom-color: #40a691;
+  border-bottom-color: rgb(255, 87, 87);
   font-size: 0.9rem;
 }
 .nav-underline .nav-link {

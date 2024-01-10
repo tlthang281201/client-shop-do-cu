@@ -102,31 +102,6 @@ const BoxContact = ({ data, id }) => {
                   Đã bán/Ẩn tin
                 </span>
               </Link>
-              <div
-                className="d-flex flex-row justify-content-center align-items-center mb-4 gap-2"
-                style={{
-                  borderRadius: "5px",
-                  backgroundColor: "#fff",
-                  width: "300px",
-                  color: "#589f39",
-                  border: "1px solid rgb(51, 168, 55)",
-                  padding: "5px",
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                }}
-              >
-                <i class="bi bi-pencil-square"></i>
-
-                <span
-                  className="me-2"
-                  style={{
-                    float: "right",
-                    fontSize: "15px",
-                  }}
-                >
-                  Sửa tin
-                </span>
-              </div>
             </div>
           )}
           {data.seller_id.id !== user?.id && (

@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import DataTable from "react-data-table-component";
-import { getPostByUserId } from "@/services/PostServices";
+import { getPostByUserId, updatePostShowOrHide } from "@/services/PostServices";
 import { useUserContext } from "@/context/context";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { Spinner } from "react-bootstrap";
+import CreateSlug from "@/utils/create-slug";
+import { toast } from "sonner";
 const customStyles = {
   header: {
     style: {
@@ -74,6 +76,12 @@ const ShowingPosts = () => {
     getAllPostByUserId(user?.id);
   }, [user]);
 
+  const hidePost = async (id) => {
+    const { data } = await updatePostShowOrHide(id, false);
+    toast.success("Ẩn tin thành công");
+    getAllPostByUserId(user?.id);
+  };
+
   const columns = useMemo(
     () => [
       {
@@ -94,7 +102,17 @@ const ShowingPosts = () => {
       {
         name: "Tiêu đề",
         wrap: true,
-        cell: (row) => <div className="d-flex">{row.title}</div>,
+        width: "190px",
+        cell: (row) => (
+          <div className="d-flex">
+            <Link
+              className="text-decoration-none fw-bold text-black"
+              href={`/${CreateSlug(row.title)}-${row.id}`}
+            >
+              {row.title}
+            </Link>
+          </div>
+        ),
       },
       {
         name: "Danh mục",
@@ -106,8 +124,18 @@ const ShowingPosts = () => {
         selector: (row) => row.created_at,
         wrap: true,
         sortable: true,
-        width: "220px",
+        width: "180px",
         format: (row) => moment(row.created_at).format("DD/MM/YYYY, HH:mm:ss"),
+      },
+      {
+        name: "",
+        button: true,
+        width: "100px",
+        cell: (row) => (
+          <button className="btn btn-primary" onClick={() => hidePost(row.id)}>
+            <i className="bi bi-eye-slash me-1"></i>Ẩn tin
+          </button>
+        ),
       },
     ],
     []
@@ -120,7 +148,7 @@ const ShowingPosts = () => {
           data={posts}
           customStyles={customStyles}
           pagination
-          paginationPerPage={2}
+          paginationPerPage={10}
           paginationComponentOptions={paginationComponentOptions}
           noDataComponent={
             <span className="text-danger pt-3">

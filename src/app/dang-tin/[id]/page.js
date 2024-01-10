@@ -14,6 +14,7 @@ export async function generateMetadata() {
 }
 const CreatePostSuccessPage = async ({ params }) => {
   const { data } = await getPostById(params.id);
+  console.log(data);
   if (!data) {
     return redirect("/error/403");
   }
@@ -24,7 +25,7 @@ const CreatePostSuccessPage = async ({ params }) => {
     return redirect("/dang-nhap");
   } else if (user) {
     const id = JSON.parse(cookie.get("user").value).id;
-    if (data.seller_id !== id) {
+    if (data.seller_id.id !== id) {
       return redirect("/error/403");
     }
   }
@@ -32,7 +33,7 @@ const CreatePostSuccessPage = async ({ params }) => {
   return (
     <Container style={{ marginTop: "80px" }} className="ps-lg-5 pe-lg-5">
       <div className="bg-white pt-2">
-        <Breadcumber />
+        <Breadcumber data={["Đăng tin thành công"]} />
         <hr />
         <SuccessPost />
         <PostInfo data={data} />

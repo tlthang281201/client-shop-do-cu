@@ -98,7 +98,7 @@ const SoldPosts = () => {
         selector: (row) => row.created_at,
         wrap: true,
         sortable: true,
-        width: "220px",
+        width: "180px",
         format: (row) => moment(row.created_at).format("DD/MM/YYYY, HH:mm:ss"),
       },
     ],
@@ -112,7 +112,7 @@ const SoldPosts = () => {
           data={posts}
           customStyles={customStyles}
           pagination
-          paginationPerPage={2}
+          paginationPerPage={10}
           paginationComponentOptions={paginationComponentOptions}
           noDataComponent={
             <span className="text-danger pt-3">Bạn chưa có tin đăng nào</span>

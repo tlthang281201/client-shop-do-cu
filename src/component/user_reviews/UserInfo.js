@@ -1,13 +1,13 @@
 import { Rating } from "@mui/material";
 import Image from "next/image";
 
-const UserInfo = () => {
+const UserInfo = ({ data }) => {
   return (
     <div className="mt-3">
       <div className="bg-white p-3 d-flex flex-row">
         <Image
           alt="avatar"
-          src={"https://cdn.chotot.com/uac2/3421381"}
+          src={data?.avatar}
           width={80}
           height={80}
           className="rounded-circle"
@@ -15,25 +15,43 @@ const UserInfo = () => {
         />
         <div className="d-flex flex-column ps-3">
           <span style={{ fontSize: "18px", fontWeight: "400" }}>
-            Thịnh hàng
+            {data?.name}
           </span>
           <div
             className="d-flex align-items-center mt-1"
             style={{ fontSize: "16px", fontWeight: "bold" }}
           >
-            <span style={{ marginTop: "2px" }}>4.7</span>
+            <span style={{ marginTop: "2px" }}>
+              {data?.number_reviews > 0
+                ? data?.rating / data?.number_reviews
+                : 0}
+            </span>
             <div className="d-flex align-items-center">
               <Rating
                 name="half-rating-read"
-                defaultValue={4.4}
+                value={
+                  data?.number_reviews > 0
+                    ? data?.rating / data?.number_reviews
+                    : 0
+                }
                 precision={0.5}
                 readOnly
               />
             </div>
           </div>
-          <span className="mt-1" style={{ fontSize: "14px", color: "#777" }}>
+          {/* <span className="mt-1" style={{ fontSize: "14px", color: "#777" }}>
             21 đánh giá
-          </span>
+          </span> */}
+          {data?.number_reviews === 0 && (
+            <span style={{ fontSize: "13px" }} className="text-secondary mt-1">
+              (Chưa có đánh giá)
+            </span>
+          )}
+          {data?.number_reviews !== 0 && (
+            <span style={{ fontSize: "13px" }} className="text-secondary mt-1">
+              {data?.number_reviews} đánh giá
+            </span>
+          )}
         </div>
       </div>
     </div>

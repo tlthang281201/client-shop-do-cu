@@ -75,12 +75,16 @@ const LeftColumn = () => {
           <div className="fw-bold">{user?.name}</div>
           <div className="d-flex flex-row align-items-center gap-2 flex-wrap">
             <span className="fw-bold" style={{ fontSize: "14px" }}>
-              {user?.rating}
+              {user?.number_reviews > 0
+                ? user?.rating / user?.number_reviews
+                : 0}
             </span>
             <Rating
               name="half-rating-read"
-              defaultValue={
-                user?.rating ? 0 : user?.rating / user?.number_reviews
+              value={
+                user?.number_reviews > 0
+                  ? user?.rating / user?.number_reviews
+                  : 0
               }
               precision={0.5}
               readOnly
@@ -93,7 +97,7 @@ const LeftColumn = () => {
             )}
             {user?.rating !== 0 && (
               <Link
-                href="#"
+                href={`/user/danh-gia/${user?.id}`}
                 className="text-decoration-none "
                 style={{ fontSize: "13px" }}
               >

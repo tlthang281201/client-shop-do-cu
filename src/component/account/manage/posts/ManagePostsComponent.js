@@ -111,9 +111,9 @@ const ManagePostsComponent = ({ user }) => {
         <Nav.Item onClick={() => handleSelect(3)} className="ms-2">
           <Nav.Link eventKey="3">Đã ẩn ({count.hide})</Nav.Link>
         </Nav.Item>
-        <Nav.Item onClick={() => handleSelect(5)} className="ms-2">
+        {/* <Nav.Item onClick={() => handleSelect(5)} className="ms-2">
           <Nav.Link eventKey="5">Đã bán ({count.sold})</Nav.Link>
-        </Nav.Item>
+        </Nav.Item> */}
         <Nav.Item onClick={() => handleSelect(4)} className="ms-2">
           <Nav.Link eventKey="4">Bị từ chối ({count.reject})</Nav.Link>
         </Nav.Item>

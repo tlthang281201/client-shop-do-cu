@@ -86,3 +86,23 @@ export async function updatePostIsSelling(id) {
     .eq("id", id);
   return { data };
 }
+
+export async function getPostOfSeller(id) {
+  const { data } = await supabase
+    .from("post")
+    .select(
+      `*,seller_id(id,name,avatar,rating,number_reviews,created_at),city_id(name)`
+    )
+    .eq("seller_id", id)
+    .match({ is_show: true, status: 1, is_selling: false })
+    .order("created_at", { ascending: false });
+  return { data };
+}
+
+export async function updatePostShowOrHide(id, status) {
+  const { data } = await supabase
+    .from("post")
+    .update({ is_show: status })
+    .eq("id", id);
+  return { data };
+}

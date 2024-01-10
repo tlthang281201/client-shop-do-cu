@@ -4,7 +4,7 @@ import { Nav } from "react-bootstrap";
 import styles from "./styles.css";
 import TabOne from "./tabs/TabOne";
 import TabTwo from "./tabs/TabTwo";
-const PostOfSeller = () => {
+const PostOfSeller = ({ id }) => {
   const [showTab1, setShowTab1] = useState(true);
   const handleSelect = (id) => {
     setShowTab1(id === 1 ? true : false);
@@ -25,9 +25,9 @@ const PostOfSeller = () => {
         </Nav.Item>
       </Nav>
 
-      {showTab1 && <TabOne />}
+      {showTab1 && <TabOne id={id} />}
 
-      {showTab1 === false && <TabTwo />}
+      {showTab1 === false && <TabTwo id={id} />}
     </div>
   );
 };
