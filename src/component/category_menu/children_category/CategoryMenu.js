@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "./styles.css";
 import Image from "next/image";
+import CreateSlug from "@/utils/create-slug";
 const CategoryMenu = ({ catechildren, title }) => {
   return (
     <div
@@ -21,7 +22,7 @@ const CategoryMenu = ({ catechildren, title }) => {
       <div className="menu-container ">
         <div className="mt-2 menu">
           {catechildren?.data?.map((val, i) => (
-            <Link key={i} href={`/danh-muc/${val.id}`}>
+            <Link key={i} href={`/danh-muc/${CreateSlug(val.name)}-${val.id}`}>
               <Image
                 alt="a"
                 src={val.image}

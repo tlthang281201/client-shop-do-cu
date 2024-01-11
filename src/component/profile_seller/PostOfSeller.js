@@ -11,7 +11,7 @@ const PostOfSeller = ({ id }) => {
   };
   return (
     <div style={{ backgroundColor: "white" }} className="rounded-3 border">
-      <Nav
+      {/* <Nav
         justify
         variant="underline"
         defaultActiveKey="1"
@@ -23,8 +23,12 @@ const PostOfSeller = ({ id }) => {
         <Nav.Item onClick={() => handleSelect(2)}>
           <Nav.Link eventKey="2">Đã bán</Nav.Link>
         </Nav.Item>
-      </Nav>
-
+      </Nav> */}
+      <div className="p-3 d-flex justify-content-center">
+        <span style={{ textAlign: "center" }} className="fw-bold">
+          Tin đăng đang hiển thị
+        </span>
+      </div>
       {showTab1 && <TabOne id={id} />}
 
       {showTab1 === false && <TabTwo id={id} />}

@@ -5,14 +5,48 @@ import { Col, Container, Row } from "react-bootstrap";
 import { getAllPost } from "@/services/PostServices";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { supabase } from "@/utils/supabase-config";
 const number = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 const NewPost = (props) => {
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
+
+  const getFromAndTo = () => {
+    const ITEM_PER_PAGE = 5;
+    let from = page * ITEM_PER_PAGE;
+    let to = from + ITEM_PER_PAGE;
+
+    if (page > 0) {
+      from += 1;
+    }
+
+    return { from, to };
+  };
+
+  const fetchMore = async () => {
+    const { from, to } = getFromAndTo();
+    const { data } = await supabase
+      .from("post")
+      .select(`*,city_id(name)`)
+      .match({ status: 1, is_show: true, is_sold: false, is_selling: false })
+      .order("created_at", { ascending: false })
+      .range(from, to);
+    setPage(page + 1);
+    setPosts((currentData) => [...currentData, ...data]);
+  };
+
   const fetchPosts = async () => {
     setLoading(true);
-    const { data } = await getAllPost();
-    setPosts(data.filter((onep) => onep.is_selling === false));
+
+    const { data } = await supabase
+      .from("post")
+      .select(`*,city_id(name)`)
+      .match({ status: 1, is_show: true, is_sold: false, is_selling: false })
+      .order("created_at", { ascending: false })
+      .range(0, 5);
+
+    setPosts(data);
     setLoading(false);
   };
   useEffect(() => {
@@ -49,10 +83,28 @@ const NewPost = (props) => {
           )}
           <Row>
             {posts?.map((val, i) => (
-              <Col key={i} lg={2} md={4} sm={6} xs={6}>
+              <Col className="one-post" key={i} lg={2} md={4} sm={6} xs={6}>
                 <PostComponent data={val} />
               </Col>
             ))}
+          </Row>
+          <Row>
+            <Col>
+              <div className="p-3 d-flex justify-content-center">
+                <button
+                  className="d-flex align-items-center gap-2"
+                  style={{
+                    border: "none",
+                    backgroundColor: "white",
+                    color: "#306bd9",
+                    fontWeight: "700",
+                  }}
+                  onClick={() => fetchMore()}
+                >
+                  Xem thêm <i className="bi bi-chevron-down"></i>
+                </button>
+              </div>
+            </Col>
           </Row>
         </Container>
       </div>

@@ -31,6 +31,7 @@ const PostComponent = ({ data }) => {
                 color: "black",
                 lineHeight: "20px",
                 maxHeight: "42px",
+                height: "42px",
                 overflow: "hidden",
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",

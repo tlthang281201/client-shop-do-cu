@@ -32,6 +32,26 @@ const TitlePost = ({ data }) => {
         <span style={{ fontWeight: "bold", color: "black" }}>Địa chỉ: </span>
         {data?.ward_id?.name}, {data?.district_id?.name}, {data?.city_id?.name}
       </div>
+      <div className="info-location mt-1">
+        <span style={{ fontWeight: "bold", color: "black" }}>
+          Tên người liên hệ:{" "}
+        </span>
+        <span className="text-black">{data?.fullname}</span>
+      </div>
+      <div className="info-location mt-1">
+        <span style={{ fontWeight: "bold", color: "black" }}>
+          Số điện thoại liên hệ:{" "}
+        </span>
+        <span className="text-black">{data?.phone}</span>
+      </div>
+      <div className="info-location mt-1">
+        <span style={{ fontWeight: "bold", color: "black" }}>
+          Tình trạng sản phẩm:{" "}
+        </span>
+        <span className="text-black">
+          {data?.is_new ? "Mới" : "Đã sử dụng"}
+        </span>
+      </div>
     </>
   );
 };

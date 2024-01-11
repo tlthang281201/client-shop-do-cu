@@ -2,12 +2,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import Slider from "react-slick";
-const image = [
-  "https://cdn.chotot.com/VMzX0LKcVh5pQq5shnMJK4HZk3waaEBBzX0qbloUDlE/preset:view/plain/862775dfb298cc947823cbfe3995fb57-2858878959461941414.jpg",
-  "https://cdn.chotot.com/EAq46j8z9iW8b7GxcnvchfsnesuufHyROATpJT2jwSE/preset:view/plain/2216de6eb0b3623cb8080aeea4be382a-2858878959234503436.jpg",
-  "https://cdn.chotot.com/UsyRC2wCMAueiKmTD7Xq8buURB7U7BL03miFr-iHMRI/preset:view/plain/f2e46f9c9f4d90f1c88da21ab436b4e5-2858878958721100657.jpg",
-  "https://cdn.chotot.com/TiPTY5Vt_eDZidvajklLJA_4lB4TDNF1UE2A_PbckHY/preset:view/plain/2e4d0ea8402b87322230efe0b74ea338-2858878959339716756.jpg",
-];
+
 const SlickSlide = ({ data }) => {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);

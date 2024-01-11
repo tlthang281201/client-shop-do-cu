@@ -202,7 +202,7 @@ const FormInput = () => {
       }
       if (res.error) {
         setLoading({ ...loading, pending: false });
-        toast.success(`Đăng tin thất bại lỗi ${res.error.message}`);
+        toast.error(`Đăng tin thất bại lỗi ${res.error.message}`);
       }
     }
   };
@@ -561,6 +561,12 @@ const FormInput = () => {
             >
               Lưu ý: Số lượng tối đa là 6 ảnh, định dạng ảnh hỗ trợ: JPG, JPEG,
               PNG
+            </p>
+            <p
+              className=" text-secondary"
+              style={{ fontSize: "13px", fontWeight: "normal" }}
+            >
+              Hãy chọn hình nền đầu tiền, sau đó mới chọn các hình còn lại
             </p>
           </div>
           <input

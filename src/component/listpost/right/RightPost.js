@@ -37,7 +37,7 @@ const RightPost = async ({ id }) => {
             fontWeight: "bold",
           }}
         >
-          Tin rao nổi bật
+          Tin đăng nổi bật
         </h2>
         <span style={{ fontSize: "13px", color: "gray" }}>Xem tất cả</span>
       </div>
