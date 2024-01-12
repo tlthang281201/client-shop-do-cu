@@ -1,16 +1,18 @@
 import React from "react";
 import Image from "next/image";
-const PostComponent = () => {
+import { formatter } from "@/utils/format-currency";
+import moment from "moment";
+import Link from "next/link";
+import CreateSlug from "@/utils/create-slug";
+const PostComponent = ({ data }) => {
   return (
     <div
       className="d-flex pt-3 pb-3"
       style={{ borderBottom: "1px solid #DFE3ED" }}
     >
-      <a href="#">
+      <Link href={`/${CreateSlug(data?.title)}-${data?.id}`}>
         <Image
-          src={
-            "https://i-raovat.vnecdn.net/2023/06/06/capture-1686046398.PNG?w=1280&h=768&q=100&dpr=1&rt=fit&g=no&wmi=&wmg=ce&wmo=50&wms=30&wmx=0&wmy=0&s=U5b2S7MnZjMc2J9D-0S1PA"
-          }
+          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.images[0]}`}
           alt="a"
           width={220}
           height={135}
@@ -21,7 +23,7 @@ const PostComponent = () => {
             maxWidth: "100%",
           }}
         />
-      </a>
+      </Link>
       <div className="ps-3 w-100">
         <h3
           style={{
@@ -36,18 +38,20 @@ const PostComponent = () => {
             display: "-webkit-box",
           }}
         >
-          Bán điện thoại Iphone ipad apple 023123123 apple apple apple
+          {data?.title}
         </h3>
         <div style={{ margin: "0 0 4px" }}>
           <p
             style={{
               lineHeight: "25px",
               fontWeight: "bold",
-              color: "#40A691",
+              color: "red",
               margin: 0,
             }}
           >
-            <span style={{ fontSize: "16px" }}>100000đ</span>
+            <span style={{ fontSize: "16px" }}>
+              {data?.price ? formatter.format(data?.price) : "Thoả thuận"}
+            </span>
           </p>
         </div>
         <p
@@ -61,7 +65,8 @@ const PostComponent = () => {
             whiteSpace: "normal",
           }}
         >
-          Phường Trung Hòa, Quận Cầu Giấy, Hà Nội
+          {data?.ward_id?.name}, {data?.district_id?.name},{" "}
+          {data?.city_id?.name}
         </p>
         <div className="d-flex justify-content-between mt-2 align-items-center">
           <div
@@ -71,9 +76,9 @@ const PostComponent = () => {
               color: "#757575",
             }}
           >
-            20/07/2023
+            {moment(data?.created_at).format("DD/MM/YYYY")}
           </div>
-          <span
+          {/* <span
             className="savepost me-3 d-none d-md-block d-lg-block"
             style={{
               fontSize: "12px",
@@ -93,7 +98,7 @@ const PostComponent = () => {
             >
               <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
             </svg>
-          </span>
+          </span> */}
         </div>
       </div>
     </div>

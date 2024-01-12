@@ -15,7 +15,7 @@ const PostInfo = ({ data }) => {
         <div className="d-flex flex-column">
           <span>{data.title}</span>
           <span style={{ color: "red", fontWeight: "bold" }}>
-            {formatter.format(data.price)}
+            {data?.price ? formatter.format(data.price) : "Thoả thuận"}
           </span>
         </div>
       </div>

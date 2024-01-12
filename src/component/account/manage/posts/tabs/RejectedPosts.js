@@ -86,6 +86,7 @@ const RejectedPosts = () => {
       {
         name: "Tiêu đề",
         wrap: true,
+        width: "200px",
         cell: (row) => <div className="d-flex">{row.title}</div>,
       },
       {
@@ -100,6 +101,14 @@ const RejectedPosts = () => {
         sortable: true,
         width: "180px",
         format: (row) => moment(row.created_at).format("DD/MM/YYYY, HH:mm:ss"),
+      },
+      {
+        name: "Lí do",
+        selector: (row) => (
+          <span className="text-danger">{row.reject_reason}</span>
+        ),
+        wrap: true,
+        width: "180px",
       },
     ],
     []

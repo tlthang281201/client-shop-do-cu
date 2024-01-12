@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Breadcumber = ({ data }) => {
   return (
-    <div className="pt-1 ps-2" style={{ fontSize: "13px" }}>
+    <div className="pt-1 ps-2 mt-2" style={{ fontSize: "13px" }}>
       <Link href={"/"} style={{ textDecoration: "none", color: "gray" }}>
         Trang chủ
       </Link>

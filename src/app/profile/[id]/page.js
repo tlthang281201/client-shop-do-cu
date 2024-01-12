@@ -3,6 +3,7 @@ import PostOfSeller from "@/component/profile_seller/PostOfSeller";
 import Profile from "@/component/profile_seller/Profile";
 import { currentUser } from "@/services/AuthService";
 import { getPostOfSeller } from "@/services/PostServices";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Col, Container, Row } from "react-bootstrap";
 export async function generateMetadata({ params }) {
@@ -12,10 +13,12 @@ export async function generateMetadata({ params }) {
   };
 }
 const SellerProfile = async ({ params }) => {
+  revalidatePath("/profile/[id]", "page");
   const { data: user } = await currentUser(params.id);
   if (!user) {
     return redirect("/error/404");
   }
+
   return (
     <>
       <Container>

@@ -22,7 +22,7 @@ const CategoryMenu = ({ catechildren, title }) => {
       <div className="menu-container ">
         <div className="mt-2 menu">
           {catechildren?.data?.map((val, i) => (
-            <Link key={i} href={`/danh-muc/${CreateSlug(val.name)}-${val.id}`}>
+            <Link key={i} href={`/nhom/${CreateSlug(val.name)}-${val.id}`}>
               <Image
                 alt="a"
                 src={val.image}

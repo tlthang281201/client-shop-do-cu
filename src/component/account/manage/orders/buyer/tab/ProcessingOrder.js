@@ -12,6 +12,7 @@ import {
 } from "@/services/OrderService";
 import { formatter } from "@/utils/format-currency";
 import { toast } from "sonner";
+import { supabase } from "@/utils/supabase-config";
 const customStyles = {
   header: {
     style: {
@@ -64,6 +65,7 @@ const paginationComponentOptions = {
 const ProcessingOrder = ({ refreshCount }) => {
   const [show, setShow] = useState(false);
   const [idOrder, setIdOrder] = useState("");
+  const [postid, setPostId] = useState(null);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const columns = useMemo(
@@ -147,6 +149,7 @@ const ProcessingOrder = ({ refreshCount }) => {
               style={{ fontSize: "13px" }}
               onClick={() => {
                 handleShow();
+                setPostId(row.post_id.id);
                 setIdOrder(row.id);
               }}
             >
@@ -170,6 +173,10 @@ const ProcessingOrder = ({ refreshCount }) => {
   };
   const handleDelete = async () => {
     const res = await deleteOrderById(idOrder);
+    const res2 = await supabase
+      .from("post")
+      .update({ is_selling: false })
+      .eq("id", postid);
     getAllOrder(user?.id);
     handleClose();
     refreshCount(user?.id);

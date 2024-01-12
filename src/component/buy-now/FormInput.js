@@ -17,6 +17,7 @@ import { createOrder } from "@/services/OrderService";
 import { toast } from "sonner";
 import { CircularProgress } from "@mui/material";
 import { redirect, useRouter } from "next/navigation";
+import { updatePostIsSelling } from "@/services/PostServices";
 
 const FormInputOrder = ({ data }) => {
   const router = useRouter();
@@ -78,7 +79,7 @@ const FormInputOrder = ({ data }) => {
     setPending(true);
     if (orderData.payment_type === "1") {
       const response = await fetch(
-        "http://localhost:3000/api/checkout/payment",
+        "https://shop-do-cu.vercel.app/api/checkout/payment",
         {
           method: "POST",
           headers: {
@@ -93,6 +94,7 @@ const FormInputOrder = ({ data }) => {
       router.replace(res.url);
     } else {
       const { res } = await createOrder(orderData);
+      const res2 = await updatePostIsSelling(res.data.post_id);
       setPending(false);
       if (!res.error) {
         router.replace("/user/orders/buyer");

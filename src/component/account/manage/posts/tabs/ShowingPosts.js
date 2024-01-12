@@ -5,9 +5,11 @@ import { useUserContext } from "@/context/context";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-import { Spinner } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import CreateSlug from "@/utils/create-slug";
 import { toast } from "sonner";
+import { supabase } from "@/utils/supabase-config";
+import { currentUser } from "@/services/AuthService";
 const customStyles = {
   header: {
     style: {
@@ -56,8 +58,11 @@ const paginationComponentOptions = {
 };
 
 const ShowingPosts = () => {
-  const { user } = useUserContext();
+  const { user, getUserInfo } = useUserContext();
   const [posts, setPosts] = useState();
+  const [id, setID] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
   const getAllPostByUserId = async (id) => {
     const { data: post } = await getPostByUserId(id);
     if (post) {
@@ -82,6 +87,46 @@ const ShowingPosts = () => {
     getAllPostByUserId(user?.id);
   };
 
+  const featuredPost = async (id) => {
+    setLoading(true);
+    const { data } = await currentUser(user?.id);
+    if (data.coin_wallet < 50000) {
+      toast.error(
+        "Bạn không đủ Đồng Cũ để thanh toán, vui lòng nạp thêm Đồng Cũ"
+      );
+      setShow(false);
+    } else {
+      const response = await supabase
+        .from("users")
+        .update({ coin_wallet: data.coin_wallet - 50000 })
+        .eq("id", user?.id);
+      const res = await supabase.from("transaction_history").insert({
+        content:
+          "Thanh toán thành công dịch vụ tin đăng nổi bật với 50.000 Đồng Cũ",
+        status: 0,
+        total: 50000,
+        title: "Thanh toán thành công",
+        type: 2,
+        user: user?.id,
+      });
+      const res1 = await supabase
+        .from("post")
+        .update({ is_featured: true })
+        .eq("id", id);
+      getUserInfo();
+      if (!res1.error) {
+        toast.success("Thanh toán thành công");
+        getAllPostByUserId(user?.id);
+      }
+      if (res1.error) {
+        toast.error(`Lỗi ${error.message}`);
+      }
+      setShow(false);
+    }
+
+    setLoading(false);
+  };
+
   const columns = useMemo(
     () => [
       {
@@ -104,13 +149,16 @@ const ShowingPosts = () => {
         wrap: true,
         width: "190px",
         cell: (row) => (
-          <div className="d-flex">
+          <div className="d-flex flex-column">
             <Link
               className="text-decoration-none fw-bold text-black"
               href={`/${CreateSlug(row.title)}-${row.id}`}
             >
               {row.title}
             </Link>
+            {row.is_featured === true && (
+              <span className="text-danger mt-1">Tin nổi bật</span>
+            )}
           </div>
         ),
       },
@@ -136,6 +184,23 @@ const ShowingPosts = () => {
             <i className="bi bi-eye-slash me-1"></i>Ẩn tin
           </button>
         ),
+      },
+      {
+        name: "",
+        button: true,
+        width: "120px",
+        cell: (row) =>
+          row.is_featured === false && (
+            <button
+              className="btn btn-success"
+              onClick={() => {
+                setID(row.id);
+                setShow(true);
+              }}
+            >
+              Tin nổi bật
+            </button>
+          ),
       },
     ],
     []
@@ -163,11 +228,37 @@ const ShowingPosts = () => {
         </div>
       )}
 
-      {/* {posts ? (
-        posts.map((item, i) => <PostComponent />)
-      ) : (
-        
-      )} */}
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Thông báo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            Để chuyển tin đăng này thành tin đăng nổi bật, bạn cần thanh toán{" "}
+            <span className="fw-bold text-danger">50.000 Đồng Cũ</span>
+          </p>
+          <p style={{ fontSize: "13px", fontStyle: "italic" }}>
+            Tin đăng nổi bật sẽ được hiển thị ở mục Tin nổi bật
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            disabled={loading}
+            onClick={() => setShow(false)}
+          >
+            Không
+          </Button>
+          <Button
+            variant="success"
+            disabled={loading}
+            onClick={() => featuredPost(id)}
+          >
+            {loading && <Spinner size="sm me-1" />}
+            Đồng ý
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

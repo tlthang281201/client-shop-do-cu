@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.css";
 import PostComponent from "./PostComponent";
-const LeftPost = (props) => {
+const LeftPost = ({ data, title }) => {
   return (
     <div style={{ backgroundColor: "white" }} className="p-3 mb-3">
       <div
@@ -14,16 +14,19 @@ const LeftPost = (props) => {
             fontWeight: "bold",
           }}
         >
-          {props.title}
+          {title}
         </h2>
-        <span style={{ fontSize: "13px", color: "gray" }}>Xem tất cả</span>
       </div>
 
       <div className="mb-2">
-        <PostComponent />
-        <PostComponent />
-        <PostComponent />
-        <PostComponent />
+        {data?.map((val, i) => (
+          <PostComponent key={i} data={val} />
+        ))}
+        {data?.length <= 0 && (
+          <div className="mt-3">
+            <span className="text-danger">Không tìm thấy tin đăng</span>
+          </div>
+        )}
       </div>
     </div>
   );

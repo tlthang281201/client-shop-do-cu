@@ -1,8 +1,8 @@
 import React from "react";
 import PostComponent from "./PostComponent";
 import { Col, Container, Row } from "react-bootstrap";
-const a = [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-const FeaturedPost = (props) => {
+import Link from "next/link";
+const FeaturedPost = ({ data, title }) => {
   return (
     <div style={{ backgroundColor: "white" }} className="p-3 mb-3">
       <div
@@ -15,17 +15,19 @@ const FeaturedPost = (props) => {
             fontWeight: "bold",
           }}
         >
-          {props.title}
+          {title}
         </h2>
-        <span style={{ fontSize: "13px", color: "gray" }}>Xem tất cả</span>
+        <Link href="/tin-noi-bat" className="text-decoration-none">
+          <span style={{ fontSize: "13px", color: "gray" }}>Xem tất cả</span>
+        </Link>
       </div>
 
       <div className="mb-2">
         <Container>
           <Row>
-            {a?.map((val, i) => (
+            {data?.map((val, i) => (
               <Col key={i} lg={2} md={4} sm={6} xs={6}>
-                <PostComponent />
+                <PostComponent data={val} key={i} />
               </Col>
             ))}
           </Row>

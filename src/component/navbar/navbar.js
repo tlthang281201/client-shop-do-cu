@@ -10,10 +10,23 @@ import LoginDropdown from "./login-dropdown";
 import Image from "next/image";
 
 import { useUserContext } from "@/context/context";
+import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const NavbarHeader = () => {
   const { user } = useUserContext();
-
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get("keyword");
+  const router = useRouter();
+  const [search, setSearch] = useState(keyword ? keyword : "");
+  const handleSubmit = () => {
+    router.push(`/tim-kiem?keyword=${search}`);
+  };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
   return (
     <>
       <Navbar
@@ -53,7 +66,7 @@ const NavbarHeader = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="py-3">
             <Nav className="me-auto"></Nav>
-            <Form
+            <div
               className="d-flex w-50 d-lg-block d-sm-none d-none me-lg-5"
               style={{ position: "relative" }}
             >
@@ -62,8 +75,11 @@ const NavbarHeader = () => {
                 placeholder="Nhập từ khoá để tìm kiếm"
                 className="rounded-3"
                 aria-label="Search"
+                onKeyDown={handleKeyPress}
+                onChange={(e) => setSearch(e.target.value)}
               />
               <button
+                onClick={() => handleSubmit()}
                 style={{
                   border: "none",
                   backgroundColor: "white",
@@ -74,7 +90,7 @@ const NavbarHeader = () => {
               >
                 <i className="bi bi-search" style={{ color: "#FF5757" }}></i>
               </button>
-            </Form>
+            </div>
             <Nav className="align-items-center">
               {user ? <AvatarDropdown user={user} /> : <LoginDropdown />}
 

@@ -245,26 +245,7 @@ const LeftColumn = () => {
           </div>
           <i className="bi bi-chevron-right"></i>
         </Link>
-        <Link
-          href="/user/favorite"
-          className="d-flex flex-row justify-content-between mb-2 pb-2 border-bottom text-decoration-none"
-          style={
-            path.includes("/user/favorite")
-              ? { color: "#FF5757", fontWeight: "bold" }
-              : { color: "black" }
-          }
-        >
-          <div className="d-flex flex-row align-items-center gap-2">
-            <Image
-              src="https://static.chotot.com/storage/chotot-icons/svg/menu-saved-ad.svg"
-              width={30}
-              height={30}
-              alt="a"
-            />
-            Tin đã lưu
-          </div>
-          <i className="bi bi-chevron-right"></i>
-        </Link>
+
         <Link
           href="/user/chi-tiet-tai-khoan"
           className="d-flex flex-row justify-content-between mb-2 pb-2 border-bottom text-decoration-none"

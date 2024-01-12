@@ -14,8 +14,8 @@ export async function POST(req) {
   var requestId = partnerCode + new Date().getTime();
   var orderId = `${data.user_id}-${data.coinid}-${new Date().getTime()}`;
   var orderInfo = `Thanh toán đơn hàng nạp đồng cũ`;
-  var redirectUrl = "http://localhost:3000/api/checkout/callback/topup";
-  var ipnUrl = "http://localhost:3000/api/checkout/callback/topup";
+  var redirectUrl = "https://shop-do-cu.vercel.app/api/checkout/callback/topup";
+  var ipnUrl = "https://shop-do-cu.vercel.app/api/checkout/callback/topup";
   var amount = `${data.price}`;
   var requestType = "payWithMethod";
   var extraData = "";

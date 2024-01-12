@@ -20,17 +20,20 @@ const CoinWallet = ({ coindata }) => {
     getBalance(user?.id);
   }, [user]);
   const handleClick = async (cash, coinid) => {
-    const response = await fetch("http://localhost:3000/api/checkout/topup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user_id: user?.id,
-        price: cash,
-        coinid: coinid,
-      }),
-    });
+    const response = await fetch(
+      "https://shop-do-cu.vercel.app/api/checkout/topup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user?.id,
+          price: cash,
+          coinid: coinid,
+        }),
+      }
+    );
 
     const res = await response.json();
     console.log(res);

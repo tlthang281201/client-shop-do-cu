@@ -13,6 +13,7 @@ import {
 } from "@/services/OrderService";
 import { formatter } from "@/utils/format-currency";
 import { toast } from "sonner";
+import { supabase } from "@/utils/supabase-config";
 
 const customStyles = {
   header: {
@@ -67,6 +68,7 @@ const ApprovalOrder = ({ refreshCount }) => {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [idOrder, setIdOrder] = useState("");
+  const [postId, setPostId] = useState(null);
   const handleClose = () => setShow(false);
   const handleClose1 = () => setShow1(false);
   const handleShow = () => setShow(true);
@@ -166,6 +168,7 @@ const ApprovalOrder = ({ refreshCount }) => {
               className="btn btn-danger"
               onClick={() => {
                 setShow1(true);
+                setPostId(row.post_id.id);
                 setIdOrder(row.id);
               }}
               style={{ fontSize: "13px" }}
@@ -191,6 +194,12 @@ const ApprovalOrder = ({ refreshCount }) => {
 
   const handleChange = async (status) => {
     const res = await updateStatusOrder(idOrder, status);
+    if (status === -1) {
+      const res2 = await supabase
+        .from("post")
+        .update({ is_selling: false })
+        .eq("id", postId);
+    }
     getAllOrder(user?.id);
     handleClose();
     handleClose1();

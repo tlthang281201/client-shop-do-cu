@@ -13,6 +13,7 @@ import {
 import { formatter } from "@/utils/format-currency";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { supabase } from "@/utils/supabase-config";
 
 const customStyles = {
   header: {
@@ -68,6 +69,7 @@ const ApprovalOrder = ({ refreshCount }) => {
   const [idOrder, setIdOrder] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [postid, setPostId] = useState(null);
   const columns = useMemo(
     () => [
       {
@@ -149,6 +151,7 @@ const ApprovalOrder = ({ refreshCount }) => {
               style={{ fontSize: "13px" }}
               onClick={() => {
                 handleShow();
+                setPostId(row.post_id.id);
                 setIdOrder(row.id);
               }}
             >
@@ -161,6 +164,7 @@ const ApprovalOrder = ({ refreshCount }) => {
   );
 
   const { user } = useUserContext();
+
   const [orders, setOrders] = useState();
   const getAllOrder = async (id) => {
     const { data: order } = await getAllBuyOrderByUserId(id);
@@ -172,7 +176,12 @@ const ApprovalOrder = ({ refreshCount }) => {
   };
 
   const handleDelete = async () => {
+    console.log(postid);
     const res = await deleteOrderById(idOrder);
+    const res2 = await supabase
+      .from("post")
+      .update({ is_selling: false })
+      .eq("id", postid);
     getAllOrder(user?.id);
     handleClose();
     refreshCount(user?.id);

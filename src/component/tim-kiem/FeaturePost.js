@@ -1,10 +1,9 @@
+"use client";
 import React from "react";
-import style from "./styles.css";
-import PostComponent from "./PostComponent";
 import { Col, Row } from "react-bootstrap";
-import Link from "next/link";
+import PostComponent from "../listpost/right/PostComponent";
 
-const RightPost = async ({ data }) => {
+const FeaturePost = ({ data }) => {
   return (
     <div style={{ backgroundColor: "white" }} className="p-3">
       <div
@@ -19,9 +18,7 @@ const RightPost = async ({ data }) => {
         >
           Tin đăng nổi bật
         </h2>
-        <Link href="/tin-noi-bat" className="text-decoration-none">
-          <span style={{ fontSize: "13px", color: "gray" }}>Xem tất cả</span>
-        </Link>
+        <span style={{ fontSize: "13px", color: "gray" }}>Xem tất cả</span>
       </div>
       <div className="mb-2">
         <Row>
@@ -36,4 +33,4 @@ const RightPost = async ({ data }) => {
   );
 };
 
-export default RightPost;
+export default FeaturePost;

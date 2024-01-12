@@ -8,6 +8,7 @@ import {
   getAllPostByCategory,
   getPostById,
 } from "@/services/PostServices";
+import { supabase } from "@/utils/supabase-config";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Col, Container, Row } from "react-bootstrap";
@@ -32,7 +33,17 @@ const Post = async ({ params }) => {
   const res = await getAllPostByCategory(data.cate_p_id);
 
   // Tin dang noi bat
-  // const featurePost = await getAllPost();
+  const { data: featureposts } = await supabase
+    .from("post")
+    .select(`*,city_id(name),district_id(name),ward_id(name)`)
+    .match({
+      is_show: true,
+      status: 1,
+      is_selling: false,
+      is_featured: true,
+    })
+    .order("created_at", { ascending: false })
+    .limit(2);
   return (
     <Container>
       <Breadcumber data={[`${data.title}`]} />
@@ -49,7 +60,7 @@ const Post = async ({ params }) => {
           </Col>
           <Col lg={4} md={12} sm={12} xs={12}>
             <BoxContact data={data} id={id} />
-            <RightPost id={1} />
+            <RightPost data={featureposts.filter((onep) => onep.id != id)} />
           </Col>
         </Row>
         <Row>

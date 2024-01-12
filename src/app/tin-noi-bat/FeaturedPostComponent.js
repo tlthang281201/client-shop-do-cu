@@ -1,13 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import PostComponent from "./PostComponent";
 import { Col, Container, Row } from "react-bootstrap";
-import { getAllPost } from "@/services/PostServices";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { supabase } from "@/utils/supabase-config";
+import PostComponent from "@/component/listpost/component/PostComponent";
 const number = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-const NewPost = (props) => {
+const FeaturedPostComponent = (props) => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -34,7 +33,7 @@ const NewPost = (props) => {
         is_show: true,
         is_sold: false,
         is_selling: false,
-        is_featured: false,
+        is_featured: true,
       })
       .order("created_at", { ascending: false })
       .range(from, to);
@@ -53,7 +52,7 @@ const NewPost = (props) => {
         is_show: true,
         is_sold: false,
         is_selling: false,
-        is_featured: false,
+        is_featured: true,
       })
       .order("created_at", { ascending: false })
       .range(0, 5);
@@ -65,7 +64,7 @@ const NewPost = (props) => {
     fetchPosts();
   }, []);
   return (
-    <div style={{ backgroundColor: "white" }} className="p-3 mb-3">
+    <div style={{ backgroundColor: "white" }} className="p-3 mb-3 mt-2">
       <div
         className="d-flex align-items-center justify-content-between mb-1"
         style={{ borderBottom: "3px solid #F2F5F8" }}
@@ -124,4 +123,4 @@ const NewPost = (props) => {
   );
 };
 
-export default NewPost;
+export default FeaturedPostComponent;

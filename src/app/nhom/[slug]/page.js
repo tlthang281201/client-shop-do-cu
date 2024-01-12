@@ -1,28 +1,31 @@
 import Breadcumber from "@/component/breadcumber/Breadcumber";
-import CategoryChildrenSection from "@/component/category_menu/children_category";
 import FilterComponent from "@/component/filter/FilterComponent";
 import LeftPost from "@/component/listpost/left/LeftPost";
 import RightPost from "@/component/listpost/right/RightPost";
 import Slide from "@/component/slides/slides";
-import { getCategoryParentById } from "@/services/CategoryServices";
 import { supabase } from "@/utils/supabase-config";
-import { redirect } from "next/navigation";
+import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 export async function generateMetadata({ params }) {
   const slug = params.slug.split("-");
   const id = slug[slug.length - 1];
-  const { data } = await getCategoryParentById(id);
+  const { data } = await supabase
+    .from("category_children")
+    .select()
+    .eq("id", id)
+    .single();
   return {
     title: `Mua Bán ${data?.name}`,
   };
 }
-const Page = async ({ params, searchParams }) => {
+const CategoryChildrenPosts = async ({ params, searchParams }) => {
   const slug = params.slug.split("-");
   const id = slug[slug.length - 1];
-  const { data } = await getCategoryParentById(id);
-  if (!data) {
-    return redirect("/error/403");
-  }
+  const { data } = await supabase
+    .from("category_children")
+    .select()
+    .eq("id", id)
+    .single();
   const { data: slides } = await supabase.from("slides").select();
   let posts = [];
   if (
@@ -39,7 +42,7 @@ const Page = async ({ params, searchParams }) => {
         status: 1,
         is_show: true,
         is_sold: false,
-        cate_p_id: id,
+        cate_c_id: id,
         is_selling: false,
         is_featured: false,
         city_id: searchParams?.city,
@@ -60,7 +63,7 @@ const Page = async ({ params, searchParams }) => {
         status: 1,
         is_show: true,
         is_sold: false,
-        cate_p_id: id,
+        cate_c_id: id,
         is_selling: false,
         is_featured: false,
         city_id: searchParams?.city,
@@ -82,7 +85,7 @@ const Page = async ({ params, searchParams }) => {
         status: 1,
         is_show: true,
         is_sold: false,
-        cate_p_id: id,
+        cate_c_id: id,
         is_selling: false,
         is_featured: false,
         city_id: searchParams?.city,
@@ -105,7 +108,7 @@ const Page = async ({ params, searchParams }) => {
         status: 1,
         is_show: true,
         is_sold: false,
-        cate_p_id: id,
+        cate_c_id: id,
         is_selling: false,
         is_featured: false,
         city_id: searchParams?.city,
@@ -128,7 +131,7 @@ const Page = async ({ params, searchParams }) => {
         status: 1,
         is_show: true,
         is_sold: false,
-        cate_p_id: id,
+        cate_c_id: id,
         is_selling: false,
         is_featured: false,
         city_id: searchParams?.city,
@@ -153,7 +156,7 @@ const Page = async ({ params, searchParams }) => {
         status: 1,
         is_show: true,
         is_sold: false,
-        cate_p_id: id,
+        cate_c_id: id,
         is_selling: false,
         is_featured: false,
       })
@@ -173,7 +176,7 @@ const Page = async ({ params, searchParams }) => {
         status: 1,
         is_show: true,
         is_sold: false,
-        cate_p_id: id,
+        cate_c_id: id,
         is_selling: false,
         is_featured: false,
       })
@@ -192,9 +195,13 @@ const Page = async ({ params, searchParams }) => {
       is_selling: false,
       is_featured: true,
     })
-
     .order("created_at", { ascending: false })
     .limit(6);
+
+  if (!data) {
+    return redirect("/error/403");
+  }
+
   return (
     <>
       <div className="d-none d-md-block">
@@ -203,15 +210,13 @@ const Page = async ({ params, searchParams }) => {
       <Container>
         <Breadcumber data={["Danh mục", `${data.name}`]} />
       </Container>
-      <div className="mt-2">
-        <CategoryChildrenSection slug={params.slug} />
-      </div>
+
       <Container>
         <FilterComponent />
         <div className="mt-2">
           <Row>
             <Col lg={8} md={12} sm={12} xs={12}>
-              <LeftPost data={posts} title={`Mua bán ${data.name}`} />
+              <LeftPost data={posts} title={"Tất cả tin đăng"} />
             </Col>
             <Col lg={4} md={12} sm={12} xs={12}>
               <RightPost data={featureposts} />
@@ -222,4 +227,5 @@ const Page = async ({ params, searchParams }) => {
     </>
   );
 };
-export default Page;
+
+export default CategoryChildrenPosts;

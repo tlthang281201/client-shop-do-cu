@@ -116,18 +116,7 @@ const AvatarDropdown = ({ user }) => {
           />
           Lịch sử giao dịch
         </Dropdown.Item>
-        <Dropdown.Item
-          className="d-flex flex-row align-items-center gap-2"
-          onClick={() => router.push("/user/favorite")}
-        >
-          <Image
-            src="https://static.chotot.com/storage/chotot-icons/svg/menu-saved-ad.svg"
-            width={30}
-            height={30}
-            alt="a"
-          />
-          Tin đã lưu
-        </Dropdown.Item>
+
         <Dropdown.Item
           className="d-flex flex-row align-items-center gap-2"
           onClick={() => router.push("/user/chi-tiet-tai-khoan")}

@@ -64,7 +64,9 @@ const ServicePayment = () => {
   const getAllTransaction = async (id) => {
     const { data: transaction } = await getTransactionByUserId(id);
     if (transaction) {
-      setTransaction(transaction.filter((one) => one.type === 1));
+      setTransaction(
+        transaction.filter((one) => one.type === 1 || one.type === 2)
+      );
     }
   };
 

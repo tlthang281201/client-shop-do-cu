@@ -14,6 +14,7 @@ import {
 } from "@/services/OrderService";
 import { formatter } from "@/utils/format-currency";
 import { toast } from "sonner";
+import { supabase } from "@/utils/supabase-config";
 const customStyles = {
   header: {
     style: {
@@ -67,6 +68,7 @@ const ProcessingOrder = ({ refreshCount }) => {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [idOrder, setIdOrder] = useState("");
+  const [postid, setPostId] = useState(null);
   const handleClose = () => setShow(false);
   const handleClose1 = () => setShow1(false);
   const handleShow = () => setShow(true);
@@ -154,6 +156,7 @@ const ProcessingOrder = ({ refreshCount }) => {
                 onClick={() => {
                   setShow1(true);
                   setIdOrder(row.id);
+                  setPostId(row.post_id.id);
                 }}
                 style={{ fontSize: "13px" }}
               >
@@ -180,6 +183,12 @@ const ProcessingOrder = ({ refreshCount }) => {
 
   const handleChange = async (status) => {
     const res = await updateStatusOrder(idOrder, status);
+    if (status === -1) {
+      const res2 = await supabase
+        .from("post")
+        .update({ is_selling: false })
+        .eq("id", postid);
+    }
     getAllOrder(user?.id);
     handleClose();
     handleClose1();
@@ -189,6 +198,7 @@ const ProcessingOrder = ({ refreshCount }) => {
 
   const handleChange2 = async (status) => {
     const res = await updateShippingOrder(idOrder);
+
     getAllOrder(user?.id);
     handleClose();
     handleClose1();
