@@ -21,7 +21,7 @@ const SearchComponent = ({ data }) => {
     const { data, error } = await supabase
       .from("post")
       .select(`*,district_id(name),ward_id(name),city_id(name)`)
-      .match({ status: 1, is_show: false, is_selling: false })
+      .match({ status: 1, is_show: true, is_selling: false })
       .ilike("title", `%${keyword}%`)
       .order("created_at", { ascending: false });
 
