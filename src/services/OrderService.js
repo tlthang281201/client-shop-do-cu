@@ -29,7 +29,7 @@ export async function updatePaidOrder(code) {
     .from("orders")
     .update({ paid: true, paid_time: new Date() })
     .eq("order_code", code)
-    .select(`total,buyer_id,post_id(title)`)
+    .select(`total,buyer_id,post_id(id,title)`)
     .single();
   return { data };
 }

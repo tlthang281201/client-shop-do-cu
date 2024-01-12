@@ -14,6 +14,7 @@ export async function GET(req) {
   if (result === "0") {
     const { data } = await updatePaidOrder(order_code);
     const res = await createTransaction(data, 0);
+    const res2 = await updatePostIsSelling(data.post_id.id);
     // Set post is_selling true
     return redirect(`/result/success/${res.data.id}`);
   } else {
