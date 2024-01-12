@@ -38,7 +38,6 @@ const CreatePostSuccessPage = async ({ params }) => {
         <SuccessPost />
         <PostInfo data={data} />
         <hr />
-        <ServiceInfo />
       </div>
     </Container>
   );
