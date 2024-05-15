@@ -134,7 +134,7 @@ const ShowingPosts = () => {
         wrap: true,
         width: "150px",
         cell: (row) => (
-          <Link href="/danh">
+          <Link href={`/${CreateSlug(row.title)}-${row.id}`}>
             <Image
               src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${row.images[0]}`}
               width={120}

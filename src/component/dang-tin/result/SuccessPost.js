@@ -29,7 +29,7 @@ const SuccessPost = () => {
               Đăng tin khác
             </Link>
             <Link
-              href="#"
+              href="/user/posts"
               className="text-white text-decoration-none ms-3 border p-2 rounded-2"
             >
               Quản lý tin đăng

@@ -33,7 +33,7 @@ const TransactionHistoryComponent = () => {
       </div>
       <Nav variant="underline" defaultActiveKey="1" className="pb-1 mt-3">
         <Nav.Item onClick={() => handleSelect(1)}>
-          <Nav.Link eventKey="1">Thanh toán tin đăng</Nav.Link>
+          <Nav.Link eventKey="1">Thanh toán đơn mua</Nav.Link>
         </Nav.Item>
         <Nav.Item onClick={() => handleSelect(2)}>
           <Nav.Link eventKey="2">Thanh toán dịch vụ</Nav.Link>

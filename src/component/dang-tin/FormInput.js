@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row, Spinner } from "react-bootstrap";
 import CurrencyInput from "react-currency-input-field";
 import { Editor } from "@tinymce/tinymce-react";
 import {
@@ -15,16 +15,28 @@ import {
 import { useUserContext } from "@/context/context";
 import Image from "next/image";
 import { upImagePublic } from "@/utils/utils";
-import { supabaseAdmin } from "@/utils/supabase-config";
+import { supabase, supabaseAdmin } from "@/utils/supabase-config";
 import { getCookie } from "cookies-next";
 import { addPost } from "@/services/PostServices";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { formatDongCu } from "@/utils/format-currency";
+import { currentUser } from "@/services/AuthService";
 
 const FormInput = () => {
   const router = useRouter();
   const [address, setAddress] = useState({ city: [], district: [], ward: [] });
   const { userSession } = useUserContext();
+  const [show, setShow] = useState(false);
+  const [coin, setCoin] = useState(0);
+  const getBalance = async (id) => {
+    const { data } = await currentUser(id);
+    setCoin(data?.coin_wallet);
+  };
+  useEffect(() => {
+    getBalance(userSession?.user?.id);
+  }, [userSession, show]);
+
   const maxFileSize = 5 * 1024 * 1024;
   const [errors, setErrors] = useState({ des: null, image: null });
   const [loading, setLoading] = useState({
@@ -33,8 +45,9 @@ const FormInput = () => {
     district: false,
     ward: false,
     image: false,
+    check: false,
   });
-  const [isPrice, setIsPrice] = useState(true);
+  const [isPrice, setIsPrice] = useState(false);
   const [data, setData] = useState({
     title: "",
     pcid: "",
@@ -185,26 +198,54 @@ const FormInput = () => {
     setLoading({ ...loading, ccate: false });
   };
 
-  const handleSubmit = async () => {
-    if (data.image.length < 3) {
-      setErrors((prev) => ({
-        ...prev,
-        image: "Vui lòng chọn ít nhất 3 file",
-      }));
-    } else {
-      setLoading({ ...loading, pending: true });
-      const res = await addPost(data);
-      if (!res.error) {
-        toast.success("Đăng tin thành công");
+  const handleCreatePost = async () => {
+    setLoading({ ...loading, check: true });
 
-        router.push(`/dang-tin/${res.data.id}`);
-        setLoading({ ...loading, pending: false });
-      }
-      if (res.error) {
-        setLoading({ ...loading, pending: false });
-        toast.error(`Đăng tin thất bại lỗi ${res.error.message}`);
-      }
+    const user = await currentUser(userSession?.user?.id);
+    const res1 = await supabase
+      .from("users")
+      .update({
+        coin_wallet:
+          user.data.coin_wallet - Math.round((data?.price * 5) / 100),
+      })
+      .eq("id", userSession?.user?.id);
+
+    const res2 = await supabase.from("transaction_history").insert({
+      content: `Thanh toán thành công phí đăng tin với ${formatDongCu(
+        Math.round((data?.price * 5) / 100)
+      )} Đồng Cũ`,
+      status: 0,
+      total: Math.round((data?.price * 5) / 100),
+      title: "Thanh toán thành công",
+      type: 2,
+      user: userSession?.user?.id,
+    });
+    setLoading({ ...loading, pending: true });
+    const res = await addPost(data);
+
+    setShow(false);
+    if (!res.error) {
+      toast.success("Đăng tin thành công");
+
+      router.push(`/dang-tin/${res.data.id}`);
     }
+    if (res.error) {
+      setLoading({ ...loading, pending: false });
+      toast.error(`Đăng tin thất bại lỗi ${res.error.message}`);
+    }
+
+    setLoading({ ...loading, check: false });
+  };
+  const handleSubmit = async () => {
+    setShow(true);
+    // if (data.image.length < 3) {
+    //   setErrors((prev) => ({
+    //     ...prev,
+    //     image: "Vui lòng chọn ít nhất 3 file",
+    //   }));
+    // } else {
+    //   setShow(true);
+    // }
   };
   useEffect(() => {
     getCategory();
@@ -583,12 +624,12 @@ const FormInput = () => {
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>
-          Mô tả chi tiết (<span className="text-danger">*</span>)::
+          Mô tả chi tiết (<span className="text-danger">*</span>):
         </Form.Label>
         <Editor
           apiKey="1q9rjamh7noaeyfgaccykoxra3rna2v9p4byz9yios24igux"
           onInit={(evt, editor) => (editorRef.current = editor)}
-          initialValue="Nhập mô tả sản phẩm, thông tin chi tiết"
+          initialValue="Nhập mô tả sản phẩm"
           init={{
             height: 300,
             menubar: false,
@@ -606,12 +647,20 @@ const FormInput = () => {
         />
         {errors.des && <span className="text-danger">{errors.des}</span>}
       </Form.Group>
-      <Form.Group className="pb-5 d-flex justify-content-center">
+      {isPrice && (
+        <Form.Group className="mb-3 d-flex gap-3">
+          <Form.Label>Phí tin đăng (5%):</Form.Label>
+          <Form.Label style={{ color: "#FF5757" }}>
+            {formatDongCu(Math.round((data?.price * 5) / 100))} Đồng Cũ
+          </Form.Label>
+        </Form.Group>
+      )}
+      <Form.Group className="pt-3 pb-5 d-flex justify-content-center">
         <div className="position-relative">
           <Button
             type="submit"
             className="d-flex align-items-center"
-            disabled={loading.pending}
+            disabled={loading.pending || !data.description}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -634,6 +683,50 @@ const FormInput = () => {
           )}
         </div>
       </Form.Group>
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Thông báo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            Xác nhận thanh toán phí tin đăng là{" "}
+            <span className="fw-bold text-danger">
+              {formatDongCu(Math.round((data?.price * 5) / 100))} Đồng cũ{" "}
+            </span>
+          </p>
+          {coin && (
+            <p style={{ fontSize: "13px", fontStyle: "italic" }}>
+              Số dư hiện tại:{" "}
+              <span className="fw-bold">{formatDongCu(coin)} Đồng cũ</span>
+            </p>
+          )}
+
+          {coin && coin < Math.round((data?.price * 5) / 100) && (
+            <p className="text-danger" style={{ fontSize: "13px" }}>
+              Số dư hiện tại không đủ để thanh toán
+            </p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            disabled={loading.check}
+            onClick={() => setShow(false)}
+          >
+            Không
+          </Button>
+          <Button
+            variant="success"
+            disabled={
+              loading.check || coin < Math.round((data?.price * 5) / 100)
+            }
+            onClick={() => handleCreatePost()}
+          >
+            {loading.check && <Spinner size="sm me-1" />}
+            Đồng ý
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Form>
   );
 };

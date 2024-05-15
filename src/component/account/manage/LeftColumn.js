@@ -8,7 +8,7 @@ import moment from "moment";
 import { upImage } from "@/utils/utils";
 import { useUserContext } from "@/context/context";
 import { updateAvatar } from "@/services/AuthService";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 const LeftColumn = () => {
   const path = usePathname();
@@ -29,6 +29,9 @@ const LeftColumn = () => {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    getUserInfo();
+  }, []);
   return (
     <div className="bg-white mt-2">
       <div className="d-flex flex-row pt-3 pe-3 ps-3 align-items-center gap-3">
