@@ -237,15 +237,14 @@ const FormInput = () => {
     setLoading({ ...loading, check: false });
   };
   const handleSubmit = async () => {
-    setShow(true);
-    // if (data.image.length < 3) {
-    //   setErrors((prev) => ({
-    //     ...prev,
-    //     image: "Vui lòng chọn ít nhất 3 file",
-    //   }));
-    // } else {
-    //   setShow(true);
-    // }
+    if (data.image.length < 3) {
+      setErrors((prev) => ({
+        ...prev,
+        image: "Vui lòng chọn ít nhất 3 file",
+      }));
+    } else {
+      setShow(true);
+    }
   };
   useEffect(() => {
     getCategory();
