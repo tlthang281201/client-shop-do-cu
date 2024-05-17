@@ -217,7 +217,7 @@ const FormInput = () => {
       status: 0,
       total: Math.round((data?.price * 5) / 100),
       title: "Thanh toán thành công",
-      type: 2,
+      type: 3,
       user: userSession?.user?.id,
     });
     setLoading({ ...loading, pending: true });
